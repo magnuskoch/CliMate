@@ -58,7 +58,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="source\attributes\CliMateExposed.cs" />
     <Compile Include="source\base\ContextObject.cs" />
-    <Compile Include="source\CliMateModule.cs" />
     <Compile Include="source\commands\CliMateCommandFeedback.cs" />
     <Compile Include="source\CliMateApp.cs" />
     <Compile Include="source\commands\CommandParser.cs" />

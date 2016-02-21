@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 
 namespace CliMate.interfaces {
 	public interface ICliMateModule : ICliMateObject {
-		string name {
-			get;
-		}
+		string name { get; }
 	}
 }

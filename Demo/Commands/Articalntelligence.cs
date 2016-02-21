@@ -3,9 +3,9 @@ using CliMate.interfaces;
 using System;
 
 namespace Demo.Commands {
-	public class Articalntelligence : CliMateModule {
+	public class Articalntelligence : ICliMateModule {
 
-		public override string name {
+		public string name {
 			get {
 				return "skynet";
 			}
@@ -22,7 +22,7 @@ namespace Demo.Commands {
 			return string.Format( "Let's find {0} !", archEnemy);
 		}
 
-		public override string GetManual() {
+		public string GetManual() {
 			return "available commands: bringToLife";
 		}
 	}
