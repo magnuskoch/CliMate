@@ -71,6 +71,25 @@ namespace Tests {
 		}
 
 		[TestMethod]
+		public void GetOrdererArgumentsInsertsBlankOnEmptyOptionals() {
+			// Arrange
+			var args = new List<KeyValuePair<string, string>>();
+			args.Add(new KeyValuePair<string, string>("name", "John"));
+            MethodInfo method = typeof(Child).GetMethod("Method");
+			var expected = new string[] { "John", null };
+			var child = new Child();
+
+			// Act
+			string[] actual = parser.GetOrderedArguments(method, args);
+			method.Invoke(child, actual);
+
+			// Assert
+			Assert.AreEqual(expected[0], actual[0]);	
+			Assert.AreEqual(expected[1], actual[1]);	
+		}
+		
+
+		[TestMethod]
 		public void ShowAppManualIfNoCommandObjectCanBeFound() {
 			// Arrange
 			string input = "nonsense";

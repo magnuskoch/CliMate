@@ -86,7 +86,20 @@ namespace CliMate.source {
 					throw new ArgumentException(msg);
 				}
 				Debug.Assert(exposedOnParameter.Count == 1);
-				exposed.Insert(i, exposedOnParameter[0]);
+				CliMateExposed exposedAttr = exposedOnParameter[0];
+				exposed.Insert(i, exposedAttr);
+				bool matchingArgumentExists =
+					arguments.Where(a => a.Key == exposedAttr.name).ToList().Count != 0;
+
+				if (!matchingArgumentExists) {
+					if(!parameter.IsOptional) {
+						throw new ArgumentException(string.Format(
+							"No value supplied for non optional argument {0}", exposedAttr.name));
+					} else {
+						arguments.Add(
+							new KeyValuePair<string, string>(exposedAttr.name, null));
+					}
+				}
 			}
 
 			foreach(KeyValuePair<string,string> argPair in arguments) {

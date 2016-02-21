@@ -24,7 +24,7 @@ namespace Tests.commandParser.classes {
 		[CliMateExposed("action")]
 		public string Method(
 			[CliMateExposed("name")] string arg1,
-			[CliMateExposed("email")] string arg2) {
+			[CliMateExposed("email")] string arg2 = null) {
 			return string.Empty;
 		}
 	}
