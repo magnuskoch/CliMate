@@ -11,8 +11,12 @@ namespace Demo {
 	class App : CliMateApp {
 
 		[CliMateExposed("skynet")]
-		public Articalntelligence skynet = new Articalntelligence();
+		public Articalntelligence skynet { get; set; }
 		
+		public App() {
+			skynet = new Articalntelligence();
+		}
+
 		public override string GetGoodbyeMessage() {
 			return "Goodbye !";
 		}
