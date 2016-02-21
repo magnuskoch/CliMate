@@ -9,7 +9,8 @@ namespace Demo {
 	class EntryPoint {
 		
 		public static void Main(string[] args) {
-			CliMateEntryPoint.Start(args);
+			App a = new App();
+			a.Main(args);
 		}
 	}
 }

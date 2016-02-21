@@ -3,7 +3,7 @@ using CliMate.interfaces;
 using System;
 
 namespace Demo.Commands {
-	public class Skynet : CliMateCommand {
+	public class Articalntelligence : CliMateModule {
 
 		public override string name {
 			get {

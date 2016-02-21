@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CliMate.interfaces {
-	public interface ICliMateApp : ICliMateObject {
+	public interface ICliMateApp : ICliMateModule {
 		ICommandParser commandParser { set; }
 		IUI ui { set; }
 		string GetWelcomeMessage();

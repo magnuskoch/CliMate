@@ -11,19 +11,19 @@ using System.Threading.Tasks;
 
 namespace CliMate.source {
 	public class CommandParser : ICommandParser {
+		
+		public CommandParser() {
+		}
 
-		public IReflectionFacade reflectionFacade { private get; set;  }
-		public ICliMateApp app { private get; set; }
-
-		public Func<CommandFeedback> GetCommand(string userInput) {
+		public Func<CommandFeedback> GetCommand(string userInput, ICliMateModule module) {
 			userInput = userInput.Trim();
 
 			ICliMateObject lastRecognized = null;
 			try {
-				Func<CommandFeedback> action = GetAction(userInput, ref lastRecognized);
+				Func<CommandFeedback> action = GetAction(userInput, module, ref lastRecognized);
 				return action;
 			} catch(ArgumentException) {
-				lastRecognized = lastRecognized ?? app;
+				lastRecognized = lastRecognized ?? module;
                 return () => GetInvalidUserInputFeedback(lastRecognized, userInput);
 			}
 		}
@@ -38,10 +38,9 @@ namespace CliMate.source {
 
 		}
 		
-		public Func<CommandFeedback> GetAction(string userInput, ref ICliMateObject lastRecognized) {
+		public Func<CommandFeedback> GetAction(string userInput, ICliMateModule module, ref ICliMateObject lastRecognized) {
 
 			Queue<string> commandStack = GetCommandStack(userInput);
-			ICliMateModule module = GetModule(commandStack, ref lastRecognized);
 			object commandOwner = UnwindCommandStack(module, commandStack, ref lastRecognized);
 			Debug.Assert(commandStack.Count == 1, string.Format(
 				"Expected only the command method to reamin in the command stack. But stack has [{0}] entries",
@@ -188,21 +187,7 @@ namespace CliMate.source {
 			}
 			return exposed[0];
 		}
-
-		public ICliMateModule GetModule(Queue<string> commandStack, ref ICliMateObject lastRecognized) {
-			Debug.Assert(commandStack.Count > 0, "Call tree should contain at least 1 element");
-			string rootName = commandStack.Dequeue();
-			ICliMateModule module;
-			if (!reflectionFacade.TryGetModule(rootName, out module)) {
-				throw new ArgumentException(string.Format(
-					"No root registered under [{0}]", rootName
-					));
-			}
-			lastRecognized = module as ICliMateObject;
-            return module;
-				
-		}
-		
+	
 		public List<KeyValuePair<string,string>> GetArguments(string userInput) {
 			int firstArg = userInput.IndexOf(" -");
 			string args = userInput.Substring(firstArg+1);

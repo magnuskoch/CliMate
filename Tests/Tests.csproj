@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SimpleInjector, Version=3.1.2.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.3.1.2\lib\net45\SimpleInjector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -51,7 +55,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CommandParserTest.cs" />
-    <Compile Include="ReflectionFacadeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestCliMateApp.cs" />
   </ItemGroup>
@@ -60,6 +63,9 @@
       <Project>{61f557c8-625f-41bf-841c-4f2f3264f1cc}</Project>
       <Name>CliMate</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

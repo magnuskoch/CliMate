@@ -10,6 +10,5 @@ namespace CliMate.interfaces {
 		string name {
 			get;
 		}
-		void Deregister();
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using CliMate.enums;
 using CliMate.interfaces;
+using CliMate.source;
 using CliMate.source.Extensions;
 using System;
 using System.Collections.Generic;
@@ -8,20 +9,32 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CliMate {
-	public abstract class CliMateApp : ICliMateApp {
-
-		public abstract string GetGoodbyeMessage();
-		public abstract string GetWelcomeMessage();
+	public abstract class CliMateApp : ContextObject, ICliMateApp {
 
 		public ICommandParser commandParser { private get; set; }
 		public IUI ui { get; set; }
 
+		public string name {
+			get {
+				throw new NotImplementedException();
+			}
+		}
+
+		public abstract string GetGoodbyeMessage();
+		public abstract string GetWelcomeMessage();
+		
 		private Dictionary<ConsoleKey, Action> keyDelegates;
 		private bool quit;
 		private StringBuilder userInput;
 		private string[] args;
+		
+		public CliMateApp() {
+			// The app is instantiated by the client, so we need to do
+			// injections manually.
+			commandParser = container.GetInstance<ICommandParser>();
+			ui = container.GetInstance<IUI>();
+		}
 
-	
 		private void BuildKeyDelegates() {
 			keyDelegates = new Dictionary<ConsoleKey, Action>();
 			keyDelegates[ConsoleKey.Tab] = AutoComplete;
@@ -59,7 +72,7 @@ namespace CliMate {
 			Func<CommandFeedback> command = null;
 			string input_s = userInput.ToString();
 			if(!TryGetSystemCommand(input_s, out command)) {
-				command = commandParser.GetCommand(userInput.ToString());
+				command = commandParser.GetCommand(userInput.ToString(), this);
 			}
 			CommandFeedback feedback = command();
 			ui.Write(feedback.type, feedback.message);
@@ -83,5 +96,9 @@ namespace CliMate {
 		}
 
 		public abstract string GetManual();
+
+		public void Deregister() {
+			throw new NotImplementedException();
+		}
 	}
 }

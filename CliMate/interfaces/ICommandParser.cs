@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace CliMate.interfaces {
 	public interface ICommandParser {
-		ICliMateApp app { set; }
-		IReflectionFacade reflectionFacade { set; }
-		Func<CommandFeedback> GetCommand(string userInput);	
+		Func<CommandFeedback> GetCommand(string userInput, ICliMateModule module);	
 	}
 }
