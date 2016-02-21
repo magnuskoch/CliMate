@@ -35,6 +35,29 @@ namespace Tests {
 		}
 
 		[TestMethod]
+		public void CanUnwindIfLastIsObject() {
+			// Arrange
+			string input = "root child child";
+			Queue<string> commandStack = parser.GetCommandStack(input);
+			var app = new TestCliMateApp();
+			app.root = new Root();
+			app.root.child = new Child(1);
+			app.root.child.child = new Child(2);
+			ICliMateModule module = app;
+			ICliMateObject actual = new DummyClimateObject();
+
+			// Act
+			try {
+				parser.UnwindCommandStack(module, commandStack, ref actual);
+			} catch(ArgumentException) {
+				// We expect an execption
+			}
+			// Assert
+			Assert.AreEqual(app.root.child.child, actual);
+
+		}	
+
+		[TestMethod]
 		public void CanBuildCallTree() {
 			// Arrange
 			string input = "obj1 obj2 -file omg";
@@ -87,7 +110,7 @@ namespace Tests {
 
 			// Act
 			object actual;
-			parser.GetExposedChild(commandStack.Dequeue(), module, out actual);
+			parser.TryGetExposedChild(commandStack.Dequeue(), module, out actual);
 			
 			// Assert
 			Assert.AreEqual(app.root, actual);

@@ -109,12 +109,15 @@ namespace CliMate.source {
 
 			object o = module;
 
-			// We always want to try to get the first object
-			do {
-				string name = commandStack.Dequeue();
-				GetExposedChild(name, o, out o);
-				lastRecognized = o as ICliMateObject;
-			} while (commandStack.Count > 1);
+			while (commandStack.Count > 0) {
+				string name = commandStack.Peek();
+				object child;
+				if (TryGetExposedChild(name, o, out child)) {
+					commandStack.Dequeue();				
+					lastRecognized = child as ICliMateObject;
+					o = child;
+				} else { break; }
+			} 
 
             if (commandStack.IsNullOrEmpty()) {
 				throw new ArgumentException("Command stack was empty after unwinding for objects, but we need at least one methed defined !");
@@ -163,7 +166,9 @@ namespace CliMate.source {
 			return exposed;
 		}
 
-		public CliMateExposed GetExposedChild(string name, object parent, out object child ) {
+		public bool TryGetExposedChild(string name, object parent, out object child ) {
+			Debug.Assert(!string.IsNullOrEmpty(name), "TryGetExposedChild recieved empty name");
+			Debug.Assert(parent != null, "TryGetExposedChild recieve null parent");
 			child = null;
 
 			List<PropertyInfo> properties =
@@ -185,9 +190,9 @@ namespace CliMate.source {
 					"No public fields exposed as [{0}] on object"
 					: "Multiple public fields exposed as [{0}] on object", name  
 				);
-				throw new ArgumentException(error);
+				return false;
 			}
-			return exposed[0];
+			return true;
 		}
 	
 		public List<KeyValuePair<string,string>> GetArguments(string userInput) {
