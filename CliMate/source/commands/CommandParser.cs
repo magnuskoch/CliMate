@@ -109,12 +109,14 @@ namespace CliMate.source {
 
 			object o = module;
 
-			while (commandStack.Count > 1) {
+			// We always want to try to get the first object
+			do {
 				string name = commandStack.Dequeue();
 				GetExposedChild(name, o, out o);
 				lastRecognized = o as ICliMateObject;
-			}
-			if(commandStack.IsNullOrEmpty()) {
+			} while (commandStack.Count > 1);
+
+            if (commandStack.IsNullOrEmpty()) {
 				throw new ArgumentException("Command stack was empty after unwinding for objects, but we need at least one methed defined !");
 			}
 			return o;
