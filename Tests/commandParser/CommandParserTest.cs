@@ -11,6 +11,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Tests.commandParser.classes;
 
 namespace Tests {
 	[TestClass]
@@ -27,37 +28,7 @@ namespace Tests {
 		}
 
 		private ICliMateObject dummy = new DummyClimateObject();
-		private static ICliMateApp app = new TestCliMateApp();
-
-		private class Decorated : CliMateModule {
-
-			[CliMateExposed("child")]
-			public Child child { get; set; }
-
-			public override string name {
-				get {
-					return "root";
-				}
-			}
-
-			public override string GetManual() {
-				throw new NotImplementedException();
-			}
-		}
-
-		private class Child {
-
-			[CliMateExposed("child")]
-			public Child child { get; set; }
-
-			[CliMateExposed("action")]
-			public string Method(
-				[CliMateExposed("name")] string arg1, 
-				[CliMateExposed("email")] string arg2) {
-				return string.Empty;
-			}
-		}
-
+		
 		[TestInitialize]
 		public void TestInitialize() {
 			parser = container.GetInstance<ICommandParser>() as CommandParser;
@@ -77,20 +48,18 @@ namespace Tests {
 		}
 
 		[TestMethod]
-		public void ThrowsIfNoCommandObjectCanBeFound() {
+		public void ShowAppManualIfNoCommandObjectCanBeFound() {
 			// Arrange
-			string input = "root child action -argument myArg";
-			
+			string input = "nonsense";
+			var app = new TestCliMateApp();
+			string expected = app.GetManual();
+
 			// Act
-			bool gotException = false;
-			try {
-				parser.GetCommand(input, new Decorated());
-			} catch {
-				gotException = true;
-			}
+			Func< CommandFeedback> feedback = parser.GetCommand(input, app);
+			string actual = feedback().message;
 
 			// Assert
-			Assert.IsTrue(gotException);
+			Assert.AreEqual(expected, actual);
 		}
 
 		[TestMethod]
@@ -100,7 +69,7 @@ namespace Tests {
 			Queue<string> callTree = parser.GetCommandStack(input);
 
 			// Act
-			var rootOwner = new Decorated();
+			var rootOwner = new Root();
 			ICliMateObject dummy = new DummyClimateObject();
 			ICliMateModule module = rootOwner;
 			
@@ -109,38 +78,19 @@ namespace Tests {
 		}
 
 		[TestMethod]
-		public void ThrowsIfConflictingRootsAreExposed() {
-			// Arrange
-			Factory.Touch();
-			var root = new Decorated();
-			
-			// Act
-			bool gotException = false;
-			try {
-				var conflict = new Decorated();
-			} catch {
-				gotException = true;
-			}
-			
-			// Assert
-			Assert.IsTrue(gotException);
-		}
-
-		[TestMethod]
 		public void CanFindExposedChild() {
 			// Arrange
 			string input = "root child action -argument myArg";
 			Queue<string> commandStack = parser.GetCommandStack(input);
-			var rootOwner = new Decorated();
-			rootOwner.child = new Child();
-			ICliMateModule module = rootOwner;
+			var app = new TestCliMateApp();
+            ICliMateModule module = app;
 
 			// Act
 			object actual;
-			parser.GetExposedChild(commandStack.Dequeue(), rootOwner, out actual);
+			parser.GetExposedChild(commandStack.Dequeue(), module, out actual);
 			
 			// Assert
-			Assert.AreEqual(rootOwner.child, actual);
+			Assert.AreEqual(app.root, actual);
 			
 		}
 
@@ -150,16 +100,17 @@ namespace Tests {
 			// Arrange
 			string input = "root child child action -argument myArg";
 			Queue<string> commandStack = parser.GetCommandStack(input);
-			var rootOwner = new Decorated();
-			rootOwner.child = new Child();
-			rootOwner.child.child = new Child();
-			ICliMateModule module = rootOwner;
+			var app = new TestCliMateApp();
+			app.root = new Root();
+			app.root.child = new Child();
+			app.root.child.child = new Child();
+			ICliMateModule module = app;
 
 			// Act
 			object actual = parser.UnwindCommandStack(module, commandStack, ref dummy);
 		
 			// Assert
-			Assert.AreEqual(rootOwner.child.child, actual);
+			Assert.AreEqual(app.root.child.child, actual);
 
 		}
 
