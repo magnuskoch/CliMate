@@ -180,9 +180,11 @@ namespace CliMate.source {
 		}
 
 		public bool TryGetExposedChild(string name, object parent, out object child ) {
-			Debug.Assert(!string.IsNullOrEmpty(name), "TryGetExposedChild recieved empty name");
 			Debug.Assert(parent != null, "TryGetExposedChild recieve null parent");
 			child = null;
+			if(string.IsNullOrEmpty(name.Trim())) {
+				return false;
+			}
 
 			List<PropertyInfo> properties =
 				parent.GetType()
@@ -210,6 +212,9 @@ namespace CliMate.source {
 	
 		public List<KeyValuePair<string,string>> GetArguments(string userInput) {
 			int firstArg = userInput.IndexOf(" -");
+			if(firstArg == -1) {
+				return new List<KeyValuePair<string, string>>();
+			}
 			string args = userInput.Substring(firstArg+1);
 			// for now we only allow the pattern -argName argvalue
 			string[] split = args.Split(' ');

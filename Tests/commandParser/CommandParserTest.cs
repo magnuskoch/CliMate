@@ -105,6 +105,48 @@ namespace Tests {
 		}
 
 		[TestMethod]
+		public void CanCallMethodWithNoArguments() {
+			// Arrange
+			string input = "root child noArgs";
+			Queue<string> callTree = parser.GetCommandStack(input);
+
+			var app = new TestCliMateApp();
+			app.root = new Root();
+			app.root.child = new Child();
+			ICliMateObject dummy = new DummyClimateObject();
+			string expected = Child.METHOD_FEEDBACK;
+
+			// Act
+			Func<CommandFeedback> feedback = parser.GetAction(input, app, ref dummy);
+			string actual = feedback().message;	
+			
+			// Assert
+			Assert.AreEqual(expected, actual);
+		}
+
+
+		[TestMethod]
+		public void CanRecieveEmptyInput() {
+			// Arrange
+			string input = string.Empty;
+			Queue<string> callTree = parser.GetCommandStack(input);
+
+			var app = new TestCliMateApp();
+			app.root = new Root();
+			app.root.child = new Child();
+			ICliMateObject dummy = new DummyClimateObject();
+			string expected = TestCliMateApp.MANUAL;
+
+			// Act
+			Func<CommandFeedback> feedback = parser.GetCommand(input, app);
+			string actual = feedback().message;
+			
+			// Assert
+			Assert.AreEqual(expected, actual);
+		}
+
+
+		[TestMethod]
 		public void CanFindExposedRoot() {
 			// Arrange
 			string input = "root child action -argument myArg";

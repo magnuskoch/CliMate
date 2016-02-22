@@ -10,12 +10,14 @@ namespace Tests.commandParser.classes {
 		[CliMateExposed("root")]
 		public Root root { get; set; }
 
+		public const string MANUAL = "Test app manual";
+
 		public override string GetGoodbyeMessage() {
 			throw new NotImplementedException();
 		}
 
 		public override string GetManual() {
-			return "Test app manual";
+			return MANUAL;
 		}
 
 		public override string GetWelcomeMessage() {
