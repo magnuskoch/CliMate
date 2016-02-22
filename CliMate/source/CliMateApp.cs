@@ -74,8 +74,12 @@ namespace CliMate {
 			if(!TryGetSystemCommand(input_s, out command)) {
 				command = commandParser.GetCommand(userInput.ToString(), this);
 			}
-			CommandFeedback feedback = command();
-			ui.Write(feedback.type, feedback.message);
+			try {
+				CommandFeedback feedback = command();
+				ui.Write(feedback.type, feedback.message);
+			} catch(Exception e) {
+				ui.Write(FeedbackType.Error, e.InnerException.Message);
+			} 
 			userInput.Clear();
 		}
 
