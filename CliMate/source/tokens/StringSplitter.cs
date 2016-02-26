@@ -16,7 +16,6 @@ namespace CliMate.source.tokens {
 			this.config = config;
 		}
 
-
 		public void Split(string input, out string[] methodStack, out string[] argValuePairs) {
 			int firstArgument = input.IndexOf(config.ARGUMENT_DELIMITER);
 

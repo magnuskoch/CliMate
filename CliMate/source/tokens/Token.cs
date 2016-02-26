@@ -9,23 +9,11 @@ using CliMate.enums;
 namespace CliMate.source.tokenizer {
 	public class Token : IToken {
 		public TokenType type {
-			get {
-				throw new NotImplementedException();
-			}
-
-			set {
-				throw new NotImplementedException();
-			}
+			get; set;
 		}
 
 		public string value {
-			get {
-				throw new NotImplementedException();
-			}
-
-			set {
-				throw new NotImplementedException();
-			}
+			get; set;
 		}
 	}
 }
