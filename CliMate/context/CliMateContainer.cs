@@ -1,4 +1,5 @@
-﻿using CliMate.Factories;
+using CliMate.config;
+using CliMate.Factories;
 using CliMate.interfaces;
 using CliMate.source;
 using CliMate.source.View;
@@ -16,6 +17,7 @@ namespace CliMate.context {
 
 			container.Register<IUI, CliMateUI>();
 			container.Register<ICommandParser, CommandParser>();
+			container.Register<Config>(() => new Config(), Lifestyle.Singleton);
 
 			container.Verify();
 

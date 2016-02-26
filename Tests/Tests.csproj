@@ -60,15 +60,17 @@
     <Compile Include="commandParser\CommandParserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="commandParser\classes\TestCliMateApp.cs" />
+    <Compile Include="tokens\StringSplitterTests.cs" />
+    <Compile Include="tokens\TokenizerTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CliMate\CliMate.csproj">
       <Project>{61f557c8-625f-41bf-841c-4f2f3264f1cc}</Project>
       <Name>CliMate</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
