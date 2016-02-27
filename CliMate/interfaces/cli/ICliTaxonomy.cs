@@ -1,4 +1,4 @@
-﻿using CliMate.interfaces.tokens;
+using CliMate.interfaces.tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,8 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CliMate.interfaces.cli {
-	interface ICliTaxonomy {
-		ICliObject root { set; }
+	public interface ICliTaxonomy {
+		void Create(ICliObject root);
 		ICliCommand GetCommand(IList<IToken> tokens);
 	}
 }

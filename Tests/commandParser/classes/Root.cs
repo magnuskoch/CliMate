@@ -1,4 +1,4 @@
-﻿using CliMate;
+using CliMate;
 using CliMate.interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Tests.commandParser.classes {
 	public class Root : ICliMateModule {
 
-		[CliMateExposed("child")]
+		[CliAvailable("child")]
 		public Child child { get; set; }
 
 		public string name {

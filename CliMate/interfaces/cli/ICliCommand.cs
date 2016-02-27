@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CliMate.interfaces.cli {
-	// a cli command is the result of matching a IToken list to a clie
+	// a cli command is the result of matching an IToken list to a cli
 	// taxonomy consisting of ICliObjects
-	interface ICliCommand {
+	public interface ICliCommand {
 		ICliObject theObject { get; set; }
 		ICliObject method { get; set; }
 		IList<ICliObject> args { get; set; }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Tests.commandParser.classes {
 	public class TestCliMateApp : CliMateApp {
 
-		[CliMateExposed("root")]
+		[CliAvailable("root")]
 		public Root root { get; set; }
 
 		public const string MANUAL = "Test app manual";

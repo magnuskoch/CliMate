@@ -10,7 +10,7 @@ namespace Demo {
 
 	class App : CliMateApp {
 
-		[CliMateExposed("skynet")]
+		[CliAvailable("skynet")]
 		public Articalntelligence skynet { get; set; }
 		
 		public App() {
