@@ -9,7 +9,7 @@ namespace CliMate.interfaces.cli {
 	// a cli command is the result of matching an IToken list to a cli
 	// taxonomy consisting of ICliObjects
 	public interface ICliCommand {
-		ICliObject theObject { get; set; }
+		ICliObject object_ { get; set; }
 		ICliObject method { get; set; }
 		IList<ICliObject> args { get; set; }
 		void GetAutoCompletion();

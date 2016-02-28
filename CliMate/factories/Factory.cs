@@ -1,4 +1,4 @@
-﻿using CliMate.context;
+using CliMate.context;
 using CliMate.interfaces;
 using CliMate.source;
 using CliMate.source.View;
@@ -14,21 +14,15 @@ namespace CliMate.Factories {
 	
 	public class Factory {
 
-		public static Container container {
-			get; private set;
-		}
-		
-		static Factory() {
-			container = CliMateContainer.Create();
+		private Container container;
+
+		public Factory(Container container) {
+			this.container = container;
 		}
 
-
-
-		// Forces static injections
-		public static void Touch() {
-			
-        }
-		
+		public T Create<T>() where T:class{
+			return container.GetInstance<T>();
+		}
 		
 	}
 }

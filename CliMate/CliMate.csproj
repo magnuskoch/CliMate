@@ -54,7 +54,7 @@
     <Compile Include="interfaces\client\ICliMateObject.cs" />
     <Compile Include="interfaces\cli\ICliCommand.cs" />
     <Compile Include="interfaces\cli\ICliObject.cs" />
-    <Compile Include="interfaces\cli\ICliTaxonomy.cs" />
+    <Compile Include="interfaces\cli\taxonomy\ICliTaxonomy.cs" />
     <Compile Include="interfaces\IUI.cs" />
     <Compile Include="interfaces\ICommandParser.cs" />
     <Compile Include="interfaces\IAutoCompletion.cs" />
@@ -65,8 +65,10 @@
     <Compile Include="interfaces\tokens\IToken.cs" />
     <Compile Include="interfaces\tokens\ITokenizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="source\attributes\CliMateExposed.cs" />
+    <Compile Include="source\attributes\CliAvailable.cs" />
     <Compile Include="source\base\ContextObject.cs" />
+    <Compile Include="source\cli\CliCommand.cs" />
+    <Compile Include="source\cli\CliTaxonomy.cs" />
     <Compile Include="source\commands\CliMateCommandFeedback.cs" />
     <Compile Include="source\CliMateApp.cs" />
     <Compile Include="source\commands\CommandParser.cs" />

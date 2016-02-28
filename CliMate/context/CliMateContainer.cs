@@ -22,6 +22,7 @@ namespace CliMate.context {
 			container.Register<Config>(() => new Config(), Lifestyle.Singleton);
 			container.Register<IStringSplitter, StringSplitter>();
 			container.Register<ITokenizer, Tokenizer>();
+			container.Register<Factory>(() => new Factory(container));
 
 			container.Verify();
 
