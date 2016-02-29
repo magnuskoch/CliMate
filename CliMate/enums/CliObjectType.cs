@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CliMate.interfaces.cli {
-	public interface ICliObjectProvider {
-		ICliObject GetCliObject(object application);
+namespace CliMate.enums {
+	public enum CliObjectType {
+		Object, Method, Value
 	}
 }

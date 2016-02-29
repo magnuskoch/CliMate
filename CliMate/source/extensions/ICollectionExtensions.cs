@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace CliMate.source.Extensions {
 	public static class ICollectionExtensions {
 		public static bool IsNullOrEmpty(this ICollection collection) {
-			return collection == null || collection.Count == 0;
+			return collection == null || collection.Count == 0; 
 		}
+
 	}
 }

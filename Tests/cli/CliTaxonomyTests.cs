@@ -21,6 +21,7 @@ namespace Tests.cli {
 
 		[TestMethod]
 		public void CanGenerateCommand() {
+
 			// Arrange
 			var source = new TestApp();
 			var _object = new TestObject();
@@ -50,6 +51,7 @@ namespace Tests.cli {
 			Assert.AreEqual("_arg2", command.args[1].name);
 			Assert.AreEqual("arg2", command.args[1].alias[0]);
 			Assert.AreEqual("val2", command.args[1].data);
+
 		}
 	}
 }

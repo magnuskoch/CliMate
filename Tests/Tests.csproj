@@ -59,6 +59,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="cli\CliObjectProviderTests.cs" />
     <Compile Include="cli\CliTaxonomyTests.cs" />
     <Compile Include="cli\data\TestObject.cs" />
     <Compile Include="cli\data\TestApp.cs" />

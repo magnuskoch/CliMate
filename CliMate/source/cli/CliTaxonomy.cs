@@ -10,9 +10,6 @@ using CliMate.Factories;
 namespace CliMate.source.cli {
 	public class CliTaxonomy : ICliTaxonomy {
 
-		//private static Dictionary<TokenType, >
-
-
 		static CliTaxonomy() {
 
 		}
@@ -28,7 +25,7 @@ namespace CliMate.source.cli {
 		public ICliCommand GetCommand(IList<IToken> tokens) {
 			ICliCommand command = factory.Create<ICliCommand>();
 			int l = tokens.Count;
-			ICliObject level = objectProvider.GetRoot();
+			ICliObject level = objectProvider.GetCliObject(null);
 			for(int i=0; i<l; i++) {
 				IToken token = tokens[i];
 			}

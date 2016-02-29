@@ -1,8 +1,10 @@
 using CliMate.config;
 using CliMate.Factories;
 using CliMate.interfaces;
+using CliMate.interfaces.cli;
 using CliMate.interfaces.tokens;
 using CliMate.source;
+using CliMate.source.cli;
 using CliMate.source.tokens;
 using CliMate.source.View;
 using SimpleInjector;
@@ -23,6 +25,7 @@ namespace CliMate.context {
 			container.Register<IStringSplitter, StringSplitter>();
 			container.Register<ITokenizer, Tokenizer>();
 			container.Register<Factory>(() => new Factory(container));
+			container.Register<ICliObject, CliObject>();
 
 			container.Verify();
 
