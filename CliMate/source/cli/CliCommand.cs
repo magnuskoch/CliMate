@@ -10,34 +10,23 @@ namespace CliMate.source.cli {
 	public class CliCommand : ICliCommand {
 
 
-		IList<ICliObject> ICliCommand.args {
+		private IList<ICliObject> _args;
+		public IList<ICliObject> args {
 			get {
-				throw new NotImplementedException();
+				_args = _args ?? new List<ICliObject>();
+				return _args;
 			}
-
 			set {
-				throw new NotImplementedException();
+				_args = value;
 			}
 		}
 
-		ICliObject ICliCommand.method {
-			get {
-				throw new NotImplementedException();
-			}
-
-			set {
-				throw new NotImplementedException();
-			}
+		public ICliObject method {
+			get; set;
 		}
 
-		ICliObject ICliCommand.object_ {
-			get {
-				throw new NotImplementedException();
-			}
-
-			set {
-				throw new NotImplementedException();
-			}
+		public ICliObject object_ {
+			get; set;
 		}
 
 		public void GetAutoCompletion() {

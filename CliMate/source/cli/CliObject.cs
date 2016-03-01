@@ -12,8 +12,15 @@ namespace CliMate.source.cli {
 			get; set;
 		}
 
+		private List<ICliObject> _children;
 		public List<ICliObject> children {
-			get; set;
+			get {
+				_children = _children ?? new List<ICliObject>();
+				return _children;
+			}
+			set {
+				_children = value;
+			}
 		}
 
 		public object data {

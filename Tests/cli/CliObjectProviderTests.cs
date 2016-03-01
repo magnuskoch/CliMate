@@ -26,7 +26,8 @@ namespace Tests.cli {
 			int intExpectedArgs = 2;
 
 			// Act
-			ICliObject rootObject = objectProvider.GetCliObject(app);
+			objectProvider.Analyze(app);
+			ICliObject rootObject = objectProvider.GetCliObject();
 
 			// Assert
 			Assert.AreEqual(expectedAppChildren, rootObject.children.Count);

@@ -26,6 +26,7 @@ namespace CliMate.context {
 			container.Register<ITokenizer, Tokenizer>();
 			container.Register<Factory>(() => new Factory(container));
 			container.Register<ICliObject, CliObject>();
+			container.Register<ICliCommand, CliCommand>();
 
 			container.Verify();
 

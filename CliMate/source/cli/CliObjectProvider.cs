@@ -13,18 +13,24 @@ namespace CliMate.source.cli {
 	public class CliObjectProvider : ICliObjectProvider {
 
 		private Factory factory;
+		private ICliObject cliObject;
 
 		public CliObjectProvider(Factory factory) {
 			this.factory = factory;	
 		}
 
-		public ICliObject GetCliObject(object application) {
+		public void Analyze(object application) {
+
 			ICliObject root = factory.Create<ICliObject>();
 			root.data = application;
 			root.type = CliObjectType.Object;
 			root.name = "root";
 			root.children = GetChildren(root);
-			return root; 	
+			this.cliObject = root;
+		}
+
+		public ICliObject GetCliObject() {
+			return cliObject; 	
 		}
 
 		private List<ICliObject> GetChildren(ICliObject cliObject) {
@@ -127,6 +133,5 @@ namespace CliMate.source.cli {
 
 			return cliObject;
 		}
-		
 	}
 }
