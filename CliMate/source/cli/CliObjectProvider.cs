@@ -30,6 +30,7 @@ namespace CliMate.source.cli {
 		}
 
 		public ICliObject GetCliObject() {
+			Debug.Assert(cliObject != null, "Tried to get cliObject, but no analysis has been done yet !");
 			return cliObject; 	
 		}
 

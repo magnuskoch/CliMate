@@ -59,6 +59,7 @@ namespace CliMate.source.cli {
 		}
 
 		private bool TryGetCliObject(IToken token, ICliObject _object, out ICliObject result) {
+			Debug.Assert(_object != null, "Tried to get cli objects on NULL object !");
 			List<ICliObject> match = _object.children.
 				Where(child => child.alias.Count( alias => alias == token.value) > 0).
 				ToList();

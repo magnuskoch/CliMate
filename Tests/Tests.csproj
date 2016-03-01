@@ -66,6 +66,9 @@
     <Compile Include="commandParser\classes\Child.cs" />
     <Compile Include="commandParser\classes\Root.cs" />
     <Compile Include="commandParser\CommandParserTest.cs" />
+    <Compile Include="integration\data\TestApp.cs" />
+    <Compile Include="integration\data\TestObject.cs" />
+    <Compile Include="integration\SystemTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="commandParser\classes\TestCliMateApp.cs" />
     <Compile Include="tokens\StringSplitterTests.cs" />
