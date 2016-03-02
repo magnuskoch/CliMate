@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace CliMate.interfaces.view {
 	public interface IInputReader {
-		void Append(char c);
-		string GetInput();
+		void Insert(char c);
+		int GetPosition();
+		string GetLine();
 	}
 }
