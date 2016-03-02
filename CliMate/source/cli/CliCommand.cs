@@ -29,6 +29,14 @@ namespace CliMate.source.cli {
 			get; set;
 		}
 
+		public object Execute() {
+			object obj = object_.data;
+			MethodInfo methodInfo = method.data as MethodInfo;
+			object[] arguments = args.Select(arg => arg.data).ToArray();
+			return methodInfo.Invoke(obj, arguments);
+
+		}
+
 		public void GetAutoCompletion() {
 			throw new NotImplementedException();
 		}

@@ -34,6 +34,7 @@ namespace Tests.integration {
 
 			// Assert
 			Assert.AreEqual(app._obj, command.object_.data);
+			Assert.AreEqual(expectedReturn, command.Execute());
 		}
 	}
 }

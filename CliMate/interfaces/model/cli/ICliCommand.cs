@@ -12,6 +12,7 @@ namespace CliMate.interfaces.cli {
 		ICliObject object_ { get; set; }
 		ICliObject method { get; set; }
 		IList<ICliObject> args { get; set; }
+		object Execute();
 		void GetAutoCompletion();
 	}
 }
