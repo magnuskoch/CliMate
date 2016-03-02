@@ -37,7 +37,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,6 +47,7 @@
   <ItemGroup>
     <Compile Include="assets\Text.cs" />
     <Compile Include="config\Config.cs" />
+    <Compile Include="consts\KeyCodes.cs" />
     <Compile Include="context\CliMateContainer.cs" />
     <Compile Include="enums\CliObjectType.cs" />
     <Compile Include="enums\FeedbackType.cs" />

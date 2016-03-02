@@ -1,11 +1,12 @@
+using CliMate.consts;
 using CliMate.interfaces.view;
 using CliMate.source.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace CliMate.source.view {
 	public class InputReader : IInputReader {
@@ -22,7 +23,7 @@ namespace CliMate.source.view {
 
 		private void CreateActionMap() {
 			actionMap = new Dictionary<char, Action<char>>();
-			actionMap[(char)8] = DeleteChar;
+			actionMap[KeyCodes.Backspace] = DeleteChar;
 		}
 
 		private void InsertChar(char c) {
@@ -31,7 +32,13 @@ namespace CliMate.source.view {
 		}
 
 		private void DeleteChar(char c) {
-
+			if(buffer.Count == 1) {
+				return;
+			}
+			LinkedListNode<char> prev = position.Previous;
+			buffer.Remove(position);
+			position = prev;
+			Debug.Assert(position != null, "Position was null after deleting char !");
 		}
 
 		private void ChangePosition(int shift) {
