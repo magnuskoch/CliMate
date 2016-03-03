@@ -13,6 +13,46 @@ namespace Tests.view {
 	public class InputReaderTests {
 
 		[TestMethod]
+		public void CanReadInputWithArrowKeys() {
+			
+			// arrange
+			char[] chars = {
+				'e',
+				's',
+				KeyCodes.ArrowLeft,
+				KeyCodes.ArrowLeft,
+				KeyCodes.ArrowLeft,
+				KeyCodes.ArrowLeft,
+				KeyCodes.ArrowLeft,
+				KeyCodes.ArrowLeft,
+				't',
+				KeyCodes.ArrowRight,
+				KeyCodes.ArrowRight,
+				KeyCodes.ArrowLeft,
+				KeyCodes.ArrowLeft,
+				KeyCodes.ArrowRight,
+				KeyCodes.ArrowRight,
+				KeyCodes.ArrowRight,
+				KeyCodes.ArrowRight,
+				KeyCodes.ArrowRight,
+				't'
+			};
+
+			var reader = new InputReader();
+			string expected = "test";
+				
+			// act
+			for(int i=0; i < chars.Length; i++) {
+				reader.Insert(chars[i]);
+			}
+
+			string actual = reader.GetLine();
+
+			// assert
+			Assert.AreEqual(expected, actual);
+		}
+
+		[TestMethod]
 		public void CanReadInputWithBackSpace() {
 			
 			// arrange

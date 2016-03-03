@@ -24,15 +24,16 @@ namespace CliMate.source.view {
 		private void CreateActionMap() {
 			actionMap = new Dictionary<char, Action<char>>();
 			actionMap[KeyCodes.Backspace] = DeleteChar;
+			actionMap[KeyCodes.ArrowLeft] = c => ChangePosition(-1);
+			actionMap[KeyCodes.ArrowRight] = c => ChangePosition(1);
 		}
 
 		private void InsertChar(char c) {
-			position.Value = c;
-			position = buffer.AddAfter(position, ' ');
+			position = buffer.IsNullOrEmpty() ? buffer.AddFirst(c) : buffer.AddAfter(position, c);
 		}
 
 		private void DeleteChar(char c) {
-			if(buffer.Count == 1) {
+			if (buffer.Count == 1) {
 				return;
 			}
 			LinkedListNode<char> prev = position.Previous;
@@ -42,7 +43,25 @@ namespace CliMate.source.view {
 		}
 
 		private void ChangePosition(int shift) {
+			int target = GetPosition() + shift;
 
+			if(shift == 0) {
+				return;
+			} else if(target < 0) {
+				position = null;
+				return;
+			} else if(target > buffer.Count - 1) {
+				position = buffer.Last;
+				return;
+			}
+
+			int shift_abs = Math.Abs(shift);
+			bool goingForward = (shift / shift_abs) > 0;
+
+			for(int i=0; i < shift_abs; i++) {
+				position = goingForward ? position.Next : position.Previous; 
+			}
+			
 		}
 
 		public void Insert(char c) {
@@ -52,25 +71,25 @@ namespace CliMate.source.view {
 
 		private void Purge() {
 			buffer.Clear();
-			position = buffer.AddFirst(' ');
 		}
 
 		public int GetPosition() {
-			return 0;
+			LinkedListNode<char> node = buffer.First;
+			int position_index = 0;
+			while(node != position) {
+				position_index++;
+				node = node.Next;
+			}
+			return position_index;
+
 		}
 
 		public string GetLine() {
-			var sb = new StringBuilder();
 
-			LinkedListNode<char> node = buffer.First;
-			// The last node is always the empty char ' '
-			while(node.Next != null) {
-				sb.Append(node.Value);
-				node = node.Next;
-			}
-
+			string line = string.Join(string.Empty, buffer);
 			Purge();
-			return sb.ToString();
+
+			return line;
 		}
 
 	}
