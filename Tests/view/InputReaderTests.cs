@@ -112,5 +112,6 @@ namespace Tests.view {
 			// assert
 			Assert.AreEqual(expected, actual);
 		}
+
 	}
 }

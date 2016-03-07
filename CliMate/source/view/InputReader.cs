@@ -1,6 +1,6 @@
 using CliMate.consts;
 using CliMate.interfaces.view;
-using CliMate.source.Extensions;
+using CliMate.source.extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 namespace CliMate.source.view {
 	public class InputReader : IInputReader {
 
-		// Implementation made to be easy to maintain rather than fast.
 		private LinkedList<char> buffer = new LinkedList<char>();
 		private LinkedListNode<char> position;
 		private Dictionary<char, Action<char>> actionMap;
@@ -19,6 +18,21 @@ namespace CliMate.source.view {
 		public InputReader() {
 			Purge();
 			CreateActionMap();
+		}
+
+		public void Insert(char c) {
+			var action = actionMap.Get(c, InsertChar);
+			action(c);
+		}
+
+		public int GetPosition() {
+			return buffer.GetIndex<char>(position);
+		}
+
+		public string GetLine() {
+			string line = string.Join(string.Empty, buffer);
+			Purge();
+			return line;
 		}
 
 		private void CreateActionMap() {
@@ -29,7 +43,9 @@ namespace CliMate.source.view {
 		}
 
 		private void InsertChar(char c) {
-			position = buffer.IsNullOrEmpty() ? buffer.AddFirst(c) : buffer.AddAfter(position, c);
+			position = buffer.IsNullOrEmpty() || position == null  
+				? buffer.AddFirst(c) 
+				: buffer.AddAfter(position, c);
 		}
 
 		private void DeleteChar(char c) {
@@ -48,9 +64,10 @@ namespace CliMate.source.view {
 			if(shift == 0) {
 				return;
 			} else if(target < 0) {
+				// Setting the position to null implies that is is before the first entry.
 				position = null;
 				return;
-			} else if(target > buffer.Count - 1) {
+			} else if(target >= buffer.Count - 1) {
 				position = buffer.Last;
 				return;
 			}
@@ -61,35 +78,10 @@ namespace CliMate.source.view {
 			for(int i=0; i < shift_abs; i++) {
 				position = goingForward ? position.Next : position.Previous; 
 			}
-			
-		}
-
-		public void Insert(char c) {
-			var action = actionMap.Get(c, InsertChar);
-			action(c);
 		}
 
 		private void Purge() {
 			buffer.Clear();
-		}
-
-		public int GetPosition() {
-			LinkedListNode<char> node = buffer.First;
-			int position_index = 0;
-			while(node != position) {
-				position_index++;
-				node = node.Next;
-			}
-			return position_index;
-
-		}
-
-		public string GetLine() {
-
-			string line = string.Join(string.Empty, buffer);
-			Purge();
-
-			return line;
 		}
 
 	}

@@ -83,6 +83,7 @@
     <Compile Include="source\commands\CommandParser.cs" />
     <Compile Include="source\extensions\DictionaryExtensions.cs" />
     <Compile Include="source\extensions\ICollectionExtensions.cs" />
+    <Compile Include="source\extensions\LinkedListExtensions.cs" />
     <Compile Include="source\extensions\ListExtensions.cs" />
     <Compile Include="source\tokens\StringSplitter.cs" />
     <Compile Include="source\tokens\Token.cs" />

@@ -1,6 +1,6 @@
 using CliMate.enums;
 using CliMate.interfaces;
-using CliMate.source.Extensions;
+using CliMate.source.extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

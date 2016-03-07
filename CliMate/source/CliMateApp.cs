@@ -1,7 +1,7 @@
-﻿using CliMate.enums;
+using CliMate.enums;
 using CliMate.interfaces;
 using CliMate.source;
-using CliMate.source.Extensions;
+using CliMate.source.extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
