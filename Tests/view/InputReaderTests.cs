@@ -96,12 +96,11 @@ namespace Tests.view {
 		[TestMethod]
 		public void CarReadSpecialCharacterInput() {
 			// arrange
-			char backspace = (char) Keys.Back;
 			char[] chars = {
-				't','e','s','t',
+				't','e','s','t', KeyCodes.Backspace
 			};
 			var reader = new InputReader();
-			string expected = "test";
+			string expected = "tes";
 				
 			// act
 			for(int i=0; i < chars.Length; i++) {
