@@ -9,5 +9,6 @@ namespace CliMate.consts {
 		public const char Backspace = (char)8;		
 		public const char ArrowLeft = (char)37;		
 		public const char ArrowRight = (char)39;		
+		public const char Return = (char)13;		
 	}
 }

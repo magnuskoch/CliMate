@@ -31,6 +31,11 @@ namespace CliMate.source.view {
 
 		public string GetLine() {
 			string line = string.Join(string.Empty, buffer);
+			return line;
+		}
+
+		public string ClearLine() {
+			string line = GetLine();
 			Purge();
 			return line;
 		}

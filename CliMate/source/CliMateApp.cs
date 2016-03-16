@@ -1,5 +1,7 @@
+using CliMate.context;
 using CliMate.enums;
 using CliMate.interfaces;
+using CliMate.interfaces.view;
 using CliMate.source;
 using CliMate.source.extensions;
 using System;
@@ -31,8 +33,8 @@ namespace CliMate {
 		public CliMateApp() {
 			// The app is instantiated by the client, so we need to do
 			// injections manually.
-			commandParser = container.GetInstance<ICommandParser>();
-			ui = container.GetInstance<IUI>();
+			//commandParser = container.GetInstance<ICommandParser>();
+			//ui = container.GetInstance<IUI>();
 		}
 
 		private void BuildKeyDelegates() {
@@ -42,6 +44,11 @@ namespace CliMate {
         }
 
 		public void Main(string[] args) {
+			var localContainer = CliMateContainer.Create();
+			IInputView view = localContainer.GetInstance<IInputView>();
+			view.Enter();
+
+			return;
 			BuildKeyDelegates();
 			quit = false;
 			userInput = new StringBuilder();

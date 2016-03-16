@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CliMate.enums;
+using CliMate.consts;
 
 namespace CliMate.source.view {
 	public class TerminalView :  IInputView {
@@ -19,7 +20,22 @@ namespace CliMate.source.view {
 		public event EventHandler executionRequested;
 
 		public void Enter() {
-
+			Console.WriteLine("hi");
+			bool quit = false;
+			while(!quit) {
+				char input = Console.ReadKey().KeyChar;
+				if(input == KeyCodes.Return) {
+					string line = inputReader.ClearLine();
+					Console.WriteLine("Executing :" + line);
+				} else {
+					inputReader.Insert(input);
+					int position = inputReader.GetPosition();
+					Console.CursorLeft = 0;
+					string hack = "               ";
+					Console.Write(inputReader.GetLine() + hack);
+					Console.CursorLeft = position;
+				}
+			}
 		}
 
 		public string GetInput() {

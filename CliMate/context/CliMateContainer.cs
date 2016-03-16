@@ -3,9 +3,11 @@ using CliMate.Factories;
 using CliMate.interfaces;
 using CliMate.interfaces.cli;
 using CliMate.interfaces.tokens;
+using CliMate.interfaces.view;
 using CliMate.source;
 using CliMate.source.cli;
 using CliMate.source.tokens;
+using CliMate.source.view;
 using CliMate.source.View;
 using SimpleInjector;
 using System;
@@ -29,7 +31,8 @@ namespace CliMate.context {
 			container.Register<ICliCommand, CliCommand>();
 			container.Register<ICliTaxonomy, CliTaxonomy>(Lifestyle.Singleton);
 			container.Register<ICliObjectProvider, CliObjectProvider>(Lifestyle.Singleton);
-
+			container.Register<IInputView, TerminalView>();
+			container.Register<IInputReader, InputReader>();
 
 			container.Verify();
 
