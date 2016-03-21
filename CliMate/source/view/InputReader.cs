@@ -43,6 +43,7 @@ namespace CliMate.source.view {
 		private void CreateActionMap() {
 			actionMap = new Dictionary<char, Action<char>>();
 			actionMap[KeyCodes.Backspace] = DeleteChar;
+			actionMap[KeyCodes.BackspaceOSX] = DeleteChar;
 			actionMap[KeyCodes.ArrowLeft] = c => ChangePosition(-1);
 			actionMap[KeyCodes.ArrowRight] = c => ChangePosition(1);
 		}
