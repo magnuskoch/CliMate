@@ -2,21 +2,21 @@ using CliMate.context;
 using CliMate.enums;
 using CliMate.interfaces.tokens;
 using CliMate.source.tokens;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SimpleInjector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace Tests.tokens {
-	[TestClass]
+	[TestFixture]
 	public class TokenizerTests {
 
 		private static Container container = CliMateContainer.Create();
 
-		[TestMethod]
+		[Test ()]
 		public void CanParseAllTypes() {
 			// Arrange
 			string _object = "object";

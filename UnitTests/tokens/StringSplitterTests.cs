@@ -1,21 +1,21 @@
 using CliMate.config;
 using CliMate.context;
 using CliMate.source.tokens;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SimpleInjector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace Tests.tokens {
-	[TestClass]
+	[TestFixture]
 	public class StringSplitterTests {
 		
 		private static Container container = CliMateContainer.Create();
 
-		[TestMethod]
+		[Test ()]
 		public void CanSplitComplexInput() {
 			// Arrange
 			string objectStandard = "object";

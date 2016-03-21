@@ -2,18 +2,18 @@ using CliMate.context;
 using CliMate.Factories;
 using CliMate.interfaces.cli;
 using CliMate.source.cli;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tests.cli.data;
+using NUnit.Framework;
 
 namespace Tests.cli {
-	[TestClass]
+	[TestFixture]
 	public class CliObjectProviderTests {
-		[TestMethod]
+		[Test ()]
 		public void CanGenerateRootObject() {
 
 			// Arrange

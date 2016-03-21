@@ -5,7 +5,6 @@ using CliMate.interfaces.cli;
 using CliMate.interfaces.tokens;
 using CliMate.source.cli;
 using CliMate.source.tokenizer;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SimpleInjector;
 using System;
@@ -15,12 +14,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tests.cli.data;
+using NUnit.Framework;
 
 namespace Tests.cli {
-	[TestClass]
+	[TestFixture]
 	public class CliTaxonomyTests {
 
-		[TestMethod]
+		[Test ()]
 		public void CanGenerateCommand() {
 
 			// Arrange

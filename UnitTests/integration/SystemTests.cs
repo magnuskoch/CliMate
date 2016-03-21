@@ -1,7 +1,6 @@
 using CliMate.context;
 using CliMate.interfaces.cli;
 using CliMate.interfaces.tokens;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SimpleInjector;
 using System;
 using System.Collections.Generic;
@@ -9,11 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tests.integration.data;
+using NUnit.Framework;
 
 namespace Tests.integration {
-	[TestClass]
+	[TestFixture]
 	public class SystemTests {
-		[TestMethod]
+		[Test ()]
 		public void CanMatchCommandToObject() {
 			// Arrange
 			var app = new TestApp();

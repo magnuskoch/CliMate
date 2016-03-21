@@ -1,18 +1,17 @@
 using CliMate.consts;
 using CliMate.source.view;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using NUnit.Framework;
 
 namespace Tests.view {
-	[TestClass]
+	[TestFixture]
 	public class InputReaderTests {
 
-		[TestMethod]
+		[Test ()]
 		public void CanReadInputWithArrowKeys() {
 			
 			// arrange
@@ -52,7 +51,7 @@ namespace Tests.view {
 			Assert.AreEqual(expected, actual);
 		}
 
-		[TestMethod]
+		[Test ()]
 		public void CanReadInputWithBackSpace() {
 			
 			// arrange
@@ -73,7 +72,7 @@ namespace Tests.view {
 			Assert.AreEqual(expected, actual);
 		}
 
-		[TestMethod]
+		[Test ()]
 		public void CanReadSimpleInput() {
 			// arrange
 			char[] chars = {
@@ -93,7 +92,7 @@ namespace Tests.view {
 			Assert.AreEqual(expected, actual);
 		}
 
-		[TestMethod]
+		[Test ()]
 		public void CarReadSpecialCharacterInput() {
 			// arrange
 			char[] chars = {
