@@ -24,7 +24,7 @@ namespace CliMate.source.view {
 			bool quit = false;
 			while(!quit) {
 				char input = Console.ReadKey().KeyChar;
-				if(input == KeyCodes.Return) {
+				if(input == KeyCodes.Return || input == KeyCodes.ReturnOSX) {
 					string line = inputReader.ClearLine();
 					Console.WriteLine("Executing :" + line);
 				} else {

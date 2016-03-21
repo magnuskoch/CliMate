@@ -28,7 +28,7 @@ namespace Tests.view {
 			for(int i=0; i<chars.Length; i++) {
 				reader.Insert(chars[i]);
 			}
-			string actual = reader.ClearLine();
+			string actual = reader.GetLine();
 
 			// Assert
 			Assert.AreEqual(expected, actual);	
