@@ -11,6 +11,30 @@ namespace Tests.view {
 	[TestFixture]
 	public class InputReaderTests {
 
+		[Test]
+		public void CanReadMultipleLine() {
+			// Arrange
+			var reader = new InputReader();
+			char[] chars = { 't', 'e', 's', 't' };
+			string expected = string.Join(string.Empty, chars);
+
+
+			// Act
+			for(int i=0; i<chars.Length; i++) {
+				reader.Insert(chars[i]);
+			}
+			reader.ClearLine();
+
+			for(int i=0; i<chars.Length; i++) {
+				reader.Insert(chars[i]);
+			}
+			string actual = reader.ClearLine();
+
+			// Assert
+			Assert.AreEqual(expected, actual);	
+		}
+
+
 		[Test ()]
 		public void CanReadInputWithArrowKeys() {
 			
