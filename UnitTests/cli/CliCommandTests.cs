@@ -25,7 +25,7 @@ namespace Tests.cli {
 		}
 
 		[Test]
-		public void CanGenerateAutoCompletionOnMethod() {
+		public void CanGenerateAutoCompletionOnObject() {
 
 			// Arrange
 			var command = new CliCommand();
@@ -52,6 +52,40 @@ namespace Tests.cli {
 			// Assert
 			Assert.AreEqual(method1Name,autoCompletion[0]);	
 			Assert.AreEqual(method2Name,autoCompletion[1]);	
+		}
+		[Test]
+		public void CanGenerateAutoCompletionOnMethod() {
+
+			// Arrange
+			var command = new CliCommand();
+
+			command.method = new CliObject();
+			command.method.children = new List<ICliObject>();
+
+			command.object_ = new CliObject();
+			command.object_.children = new List<ICliObject>();
+			command.object_.children.Add(command.method);
+
+			string argument1Name = "method1";
+			string argument2Name = "method2";
+
+			var argument1 = new CliObject();
+			argument1.name = argument1Name; 
+
+			var argument2 = new CliObject();
+			argument2.name = argument2Name; 
+
+			command.method.children.Add(argument1);
+			command.method.children.Add(argument2);
+
+			int expected = 0;
+
+			// Act
+			List<string> autoCompletion = command.GetAutoCompletion();
+
+			// Assert
+			Assert.AreEqual(argument1Name,autoCompletion[0]);	
+			Assert.AreEqual(argument2Name,autoCompletion[1]);	
 		}
 	}
 }
