@@ -27,6 +27,8 @@ namespace CliMate.source.view {
 				if(input == KeyCodes.Return || input == KeyCodes.ReturnOSX) {
 					string line = inputReader.ClearLine();
 					Console.WriteLine("Executing :" + line);
+				} else if(input == KeyCodes.TabOSX) {
+
 				} else {
 					inputReader.Insert(input);
 					int position = inputReader.GetPosition();

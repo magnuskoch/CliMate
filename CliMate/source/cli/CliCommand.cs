@@ -1,24 +1,13 @@
-using CliMate.interfaces.cli;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Reflection;
+using CliMate.interfaces.cli;
 
 namespace CliMate.source.cli {
 	public class CliCommand : ICliCommand {
 
-
-		private IList<ICliObject> _args;
 		public IList<ICliObject> args {
-			get {
-				_args = _args ?? new List<ICliObject>();
-				return _args;
-			}
-			set {
-				_args = value;
-			}
+			get; set;
 		}
 
 		public ICliObject method {
@@ -38,6 +27,7 @@ namespace CliMate.source.cli {
 		}
 
 		public List<string> GetAutoCompletion() {
+			if(args != null) return ICliObject2AutoCompletionStrings(method.children.Except( args ).ToList() );
 			if(method != null) return ICliObject2AutoCompletionStrings(method.children);
 			if(object_ != null) return ICliObject2AutoCompletionStrings(object_.children);
 			else return new List<string>();

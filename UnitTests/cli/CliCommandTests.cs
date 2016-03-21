@@ -53,6 +53,7 @@ namespace Tests.cli {
 			Assert.AreEqual(method1Name,autoCompletion[0]);	
 			Assert.AreEqual(method2Name,autoCompletion[1]);	
 		}
+
 		[Test]
 		public void CanGenerateAutoCompletionOnMethod() {
 
@@ -86,6 +87,42 @@ namespace Tests.cli {
 			// Assert
 			Assert.AreEqual(argument1Name,autoCompletion[0]);	
 			Assert.AreEqual(argument2Name,autoCompletion[1]);	
+		}
+
+		[Test]
+		public void CanGenerateAutoCompletionOnArgs() {
+
+			// Arrange
+			var command = new CliCommand();
+
+			command.method = new CliObject();
+			command.method.children = new List<ICliObject>();
+
+			string argument1Name = "method1";
+			string argument2Name = "method2";
+
+			var argument1 = new CliObject();
+			argument1.name = argument1Name; 
+
+			var argument2 = new CliObject();
+			argument2.name = argument2Name; 
+
+			command.method.children.Add(argument1);
+			command.method.children.Add(argument2);
+
+			command.args = new List<ICliObject>();
+			command.args.Add(argument1);
+			
+			// The method has two arguments (argument1 and argument2), but
+			// only argument 1 has been registered with the command. So we expect
+			// auto completion to suggest a single argument
+			int expected = 1;
+
+			// Act
+			List<string> autoCompletion = command.GetAutoCompletion();
+
+			// Assert
+			Assert.AreEqual(argument2Name,autoCompletion[0]);	
 		}
 	}
 }
