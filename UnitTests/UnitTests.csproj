@@ -40,7 +40,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Test.cs" />
     <Compile Include="cli\CliObjectProviderTests.cs" />
     <Compile Include="cli\CliTaxonomyTests.cs" />
     <Compile Include="cli\data\TestApp.cs" />

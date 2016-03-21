@@ -11,11 +11,7 @@ using CliMate.enums;
 
 namespace CliMate.source.cli {
 	public class CliTaxonomy : ICliTaxonomy {
-
-		static CliTaxonomy() {
-
-		}
-
+		
 		private ICliObjectProvider objectProvider;
 		private Factory factory;
 
@@ -29,19 +25,38 @@ namespace CliMate.source.cli {
 			ICliObject level = objectProvider.GetCliObject();
 
 			int l = tokens.Count;
-			
-			for(int i=0; i<l; i++) {
+			int i = 0;
+
+			// Building object tree
+			for(; i<l; i++) {
+				IToken token = tokens[i];
+				ICliObject child;
+				if(TryGetCliObject(token, level, out child) ) {
+					if(child.type == CliObjectType.Value) {
+						break;
+					}
+					AssignObjectToCommand(command, child);
+					level = child;
+				}
+			}
+
+			// Building arguments	
+			command.args = new List<ICliObject>();
+			for(; i<l; i++) {
 				IToken token = tokens[i];
 				ICliObject child;
 				if(TryGetCliObject(token, level, out child)) {
-					AssignObjectToCommand(command, child);
-					level = child;
+					command.args.Add(child);
 				} else {
-					break;
+					command.args[command.args.Count - 1].data = token.value;
 				}
 			}
+
+			// TODO : Generate a list of autocompletion suggestions
+
 			return command;
 		}
+
 
 		private void AssignObjectToCommand(ICliCommand command, ICliObject _object) {
 
@@ -50,8 +65,6 @@ namespace CliMate.source.cli {
 			} else if(_object.type == CliObjectType.Method) {
 				Debug.Assert(command.method == null, "Command method already assigned !");
 				command.method = _object;
-			} else if(_object.type == CliObjectType.Value) {
-				command.args.Add(_object);
 			} else {
 				throw new ArgumentException(string.Format(
 					"{0} is not supported", _object.type));

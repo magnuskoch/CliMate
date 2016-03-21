@@ -29,18 +29,22 @@ namespace Tests.cli {
 			var root = new CliObject();
 			var _object = new CliObject();
 			var method = new CliObject();
-			var arg = new CliObject();
+			var arg1 = new CliObject();
+			var arg2 = new CliObject();
 
 			_object.alias = new List<string> { "obj" };
 			method.alias = new List<string> { "method" };
-			arg.alias = new List<string> { "arg" };
+			arg1.alias = new List<string> { "arg1" };
+			arg2.alias = new List<string> { "arg2" };
 
 			root.children.Add(_object);
 			_object.children.Add(method);
 			_object.type = CliObjectType.Object;
-			method.children.Add(arg);
+			method.children.Add(arg1);
+			method.children.Add(arg2);
 			method.type = CliObjectType.Method;
-			arg.type = CliObjectType.Value;
+			arg1.type = CliObjectType.Value;
+			arg2.type = CliObjectType.Value;
 
 			objectProvider.Setup(op => op.GetCliObject()).Returns(root);
 				
@@ -50,8 +54,10 @@ namespace Tests.cli {
 			var tokens = new List<IToken> {
 				(new Token { type = TokenType.Object, value = "obj" }) as IToken,
 				(new Token { type = TokenType.Method, value = "method" }) as IToken,
-				(new Token { type = TokenType.Argument, value = "arg" }) as IToken,
-				(new Token { type = TokenType.Value, value = "val" }) as IToken,
+				(new Token { type = TokenType.Argument, value = "arg1" }) as IToken,
+				(new Token { type = TokenType.Value, value = "val1" }) as IToken,
+				(new Token { type = TokenType.Argument, value = "arg2" }) as IToken,
+				(new Token { type = TokenType.Value, value = "val2" }) as IToken,
 			};
 
 			// Act
@@ -60,7 +66,8 @@ namespace Tests.cli {
 			// Assert	
 			Assert.AreSame(_object, command.object_);
 			Assert.AreEqual(method, command.method);
-			Assert.AreEqual(arg, command.args[0]);
+			Assert.AreEqual(arg1, command.args[0]);
+			Assert.AreEqual(arg2, command.args[1]);
 		}
 	}
 }
