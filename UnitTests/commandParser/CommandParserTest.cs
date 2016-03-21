@@ -3,7 +3,6 @@ using CliMate.context;
 using CliMate.Factories;
 using CliMate.interfaces;
 using CliMate.source;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SimpleInjector;
 using System;
 using System.Collections.Generic;
@@ -12,9 +11,10 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Tests.commandParser.classes;
+using NUnit.Framework;
 
 namespace Tests {
-	[TestClass]
+	[TestFixture]
 	public class CommandParserTest {
 
 		private static Container container = CliMateContainer.Create();
@@ -29,12 +29,12 @@ namespace Tests {
 
 		private ICliMateObject dummy = new DummyClimateObject();
 		
-		[TestInitialize]
+		[TestFixtureSetUp]
 		public void TestInitialize() {
 			parser = container.GetInstance<ICommandParser>() as CommandParser;
 		}
 
-		[TestMethod]
+		[Test ()]
 		public void CanUnwindIfLastIsObject() {
 			// Arrange
 			string input = "root child child";
@@ -57,7 +57,7 @@ namespace Tests {
 
 		}	
 
-		[TestMethod]
+		[Test ()]
 		public void CanBuildCallTree() {
 			// Arrange
 			string input = "obj1 obj2 -file omg";
@@ -70,7 +70,7 @@ namespace Tests {
 			Assert.AreEqual(expectedLength, callTree.Count);
 		}
 
-		[TestMethod]
+		[Test ()]
 		public void GetOrdererArgumentsInsertsBlankOnEmptyOptionals() {
 			// Arrange
 			var args = new List<KeyValuePair<string, string>>();
@@ -89,7 +89,7 @@ namespace Tests {
 		}
 		
 
-		[TestMethod]
+		[Test ()]
 		public void ShowAppManualIfNoCommandObjectCanBeFound() {
 			// Arrange
 			string input = "nonsense";
@@ -104,7 +104,7 @@ namespace Tests {
 			Assert.AreEqual(expected, actual);
 		}
 
-		[TestMethod]
+		[Test ()]
 		public void CanCallMethodWithNoArguments() {
 			// Arrange
 			string input = "root child noArgs";
@@ -125,7 +125,7 @@ namespace Tests {
 		}
 
 
-		[TestMethod]
+		[Test ()]
 		public void CanRecieveEmptyInput() {
 			// Arrange
 			string input = string.Empty;
@@ -146,7 +146,7 @@ namespace Tests {
 		}
 
 
-		[TestMethod]
+		[Test ()]
 		public void CanFindExposedRoot() {
 			// Arrange
 			string input = "root child action -argument myArg";
@@ -161,7 +161,7 @@ namespace Tests {
 			Assert.IsNotNull(module);
 		}
 
-		[TestMethod]
+		[Test ()]
 		public void CanFindExposedChild() {
 			// Arrange
 			string input = "root child action -argument myArg";
@@ -179,7 +179,7 @@ namespace Tests {
 		}
 
 
-		[TestMethod]
+		[Test ()]
 		public void CanUnwindCommandStack() {
 			// Arrange
 			string input = "root child child action -argument myArg";
@@ -198,7 +198,7 @@ namespace Tests {
 
 		}
 
-		[TestMethod]
+		[Test ()]
 		public void CanGetArguments() {
 			// Arrange
 			var arg1 = new KeyValuePair<string, string>("arg1", "val1");
@@ -217,7 +217,7 @@ namespace Tests {
 
 		}
 
-		[TestMethod]
+		[Test ()]
 		public void CanGetOrdererArguments() {
 			// Arrange
 			var arg1 = new KeyValuePair<string, string>("email", "dv@darkside.com");
@@ -235,7 +235,7 @@ namespace Tests {
 			Assert.AreEqual(arg1.Value, actual[1]);
 		}
 
-		[TestMethod]
+		[Test ()]
 		public void CanGetExposedCommand(){
 			// Arrange
 			var child = new Child();

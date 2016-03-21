@@ -1,6 +1,6 @@
-﻿using CliMate.enums;
+using CliMate.enums;
 using CliMate.interfaces;
-using CliMate.source.Extensions;
+using CliMate.source.extensions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -66,7 +66,7 @@ namespace CliMate.source {
 
 		public string[] GetOrderedArguments(MethodInfo method, List<KeyValuePair<string, string>> arguments) {
 			ParameterInfo[] parameters = method.GetParameters();
-			List<CliMateExposed> exposed = new List<CliMateExposed>(parameters.Length);
+			List<CliAvailable> exposed = new List<CliAvailable>(parameters.Length);
 
 			for (int i=0; i<parameters.Length; i++) {
 				ParameterInfo parameter = parameters[i];
@@ -75,7 +75,7 @@ namespace CliMate.source {
 						"Only string arguments are support, {0} is {1}", parameter.Name, parameter.GetType()
 					));
 				}
-				List<CliMateExposed> exposedOnParameter  = parameter.GetCustomAttributes<CliMateExposed>().ToList();
+				List<CliAvailable> exposedOnParameter  = parameter.GetCustomAttributes<CliAvailable>().ToList();
 				if(exposedOnParameter.Count != 1 ) {
 					string msg = string.Format(
 						exposedOnParameter.Count == 0 ?
@@ -86,7 +86,7 @@ namespace CliMate.source {
 					throw new ArgumentException(msg);
 				}
 				Debug.Assert(exposedOnParameter.Count == 1);
-				CliMateExposed exposedAttr = exposedOnParameter[0];
+				CliAvailable exposedAttr = exposedOnParameter[0];
 				exposed.Insert(i, exposedAttr);
 				bool matchingArgumentExists =
 					arguments.Where(a => a.Key == exposedAttr.name).ToList().Count != 0;
@@ -138,14 +138,14 @@ namespace CliMate.source {
 			return o;
 		}
 
-		public CliMateExposed GetExposedCommand(object owner, string name, out MethodInfo method, ref ICliMateObject lastRecognized) {
+		public CliAvailable GetExposedCommand(object owner, string name, out MethodInfo method, ref ICliMateObject lastRecognized) {
 			MethodInfo[] methodInfos = owner.GetType().GetMethods();
 			method = null;
 
-			var exposed = new List<CliMateExposed>();
+			var exposed = new List<CliAvailable>();
 			foreach (MethodInfo methodInfo in methodInfos) {
 				var exposedOnMethod = GetExposed(methodInfo.GetCustomAttributes(), name);
-				foreach (CliMateExposed e in exposedOnMethod) {
+				foreach (CliAvailable e in exposedOnMethod) {
 					method = methodInfo;
 					if(method.ReturnType != typeof(string)) {
 						throw new ArgumentException(string.Format(
@@ -167,10 +167,10 @@ namespace CliMate.source {
 			return exposed[0];
 		}
 
-		private List<CliMateExposed> GetExposed(IEnumerable<Attribute> attributes, string name = null) {
-			var exposed = new List<CliMateExposed>();
+		private List<CliAvailable> GetExposed(IEnumerable<Attribute> attributes, string name = null) {
+			var exposed = new List<CliAvailable>();
 			foreach (Attribute attribute in attributes) {
-				CliMateExposed _exposed = attribute as CliMateExposed;
+				CliAvailable _exposed = attribute as CliAvailable;
 				if (_exposed == null) continue;
 				if (name == null || _exposed.name == name) {
 					exposed.Add(_exposed);
@@ -191,10 +191,10 @@ namespace CliMate.source {
 				.GetProperties(BindingFlags.Public | BindingFlags.Instance)
 				.ToList();
 
-			var exposed = new List<CliMateExposed>();
+			var exposed = new List<CliAvailable>();
 			foreach(PropertyInfo propertyInfo in properties) {
 				var exposedOnProperty = GetExposed(propertyInfo.GetCustomAttributes(), name);
-				foreach(CliMateExposed e in exposedOnProperty) {
+				foreach(CliAvailable e in exposedOnProperty) {
 					child = propertyInfo.GetValue(parent);
 				}
 				exposed.AddRange(exposedOnProperty);

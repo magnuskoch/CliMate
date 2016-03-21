@@ -10,11 +10,10 @@ namespace CliMate.source{
     public class ContextObject {
 
 		protected Container container {
-			get { return Factory.container; }
+			get { return null; }
 		}
 
 		public ContextObject() {
-			Factory.Touch();
 		}
 	}
 }

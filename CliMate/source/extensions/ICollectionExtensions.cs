@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CliMate.source.Extensions {
+namespace CliMate.source.extensions {
 	public static class ICollectionExtensions {
 		public static bool IsNullOrEmpty(this ICollection collection) {
-			return collection == null || collection.Count == 0;
+			return collection == null || collection.Count == 0; 
 		}
+
 	}
 }

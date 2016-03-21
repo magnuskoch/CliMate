@@ -46,25 +46,51 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="assets\Text.cs" />
+    <Compile Include="config\Config.cs" />
+    <Compile Include="consts\KeyCodes.cs" />
     <Compile Include="context\CliMateContainer.cs" />
+    <Compile Include="enums\CliObjectType.cs" />
     <Compile Include="enums\FeedbackType.cs" />
+    <Compile Include="enums\TokenType.cs" />
+    <Compile Include="enums\ViewContentFormat.cs" />
     <Compile Include="factories\Factory.cs" />
     <Compile Include="interfaces\client\ICliMateObject.cs" />
+    <Compile Include="interfaces\controller\IMainController.cs" />
+    <Compile Include="interfaces\model\cli\ICliCommand.cs" />
+    <Compile Include="interfaces\model\cli\ICliObject.cs" />
+    <Compile Include="interfaces\model\cli\ICliTaxonomy.cs" />
+    <Compile Include="interfaces\model\cli\ICliObjectProvider.cs" />
     <Compile Include="interfaces\IUI.cs" />
     <Compile Include="interfaces\ICommandParser.cs" />
     <Compile Include="interfaces\IAutoCompletion.cs" />
     <Compile Include="interfaces\client\ICliMateApp.cs" />
     <Compile Include="interfaces\client\ICliMateModule.cs" />
     <Compile Include="interfaces\ICommandDelegator.cs" />
+    <Compile Include="interfaces\model\tokens\IStringSplitter.cs" />
+    <Compile Include="interfaces\model\tokens\IToken.cs" />
+    <Compile Include="interfaces\model\tokens\ITokenizer.cs" />
+    <Compile Include="interfaces\view\IInputReader.cs" />
+    <Compile Include="interfaces\view\IInputView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="source\attributes\CliMateExposed.cs" />
+    <Compile Include="source\attributes\CliAvailable.cs" />
     <Compile Include="source\base\ContextObject.cs" />
+    <Compile Include="source\cli\CliCommand.cs" />
+    <Compile Include="source\cli\CliObject.cs" />
+    <Compile Include="source\cli\CliObjectProvider.cs" />
+    <Compile Include="source\cli\CliTaxonomy.cs" />
     <Compile Include="source\commands\CliMateCommandFeedback.cs" />
     <Compile Include="source\CliMateApp.cs" />
     <Compile Include="source\commands\CommandParser.cs" />
     <Compile Include="source\extensions\DictionaryExtensions.cs" />
     <Compile Include="source\extensions\ICollectionExtensions.cs" />
+    <Compile Include="source\extensions\LinkedListExtensions.cs" />
+    <Compile Include="source\extensions\ListExtensions.cs" />
+    <Compile Include="source\tokens\StringSplitter.cs" />
+    <Compile Include="source\tokens\Token.cs" />
+    <Compile Include="source\tokens\Tokenizer.cs" />
     <Compile Include="source\view\CliMateUI.cs" />
+    <Compile Include="source\view\InputReader.cs" />
+    <Compile Include="source\view\TerminalView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lib\" />
