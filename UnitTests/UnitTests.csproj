@@ -45,10 +45,6 @@
     <Compile Include="cli\CliTaxonomyTests.cs" />
     <Compile Include="cli\data\TestApp.cs" />
     <Compile Include="cli\data\TestObject.cs" />
-    <Compile Include="commandParser\classes\Child.cs" />
-    <Compile Include="commandParser\classes\Root.cs" />
-    <Compile Include="commandParser\classes\TestCliMateApp.cs" />
-    <Compile Include="commandParser\CommandParserTest.cs" />
     <Compile Include="integration\data\TestApp.cs" />
     <Compile Include="integration\data\TestObject.cs" />
     <Compile Include="integration\SystemTests.cs" />
@@ -63,7 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="cli\" />
-    <Folder Include="commandParser\" />
     <Folder Include="integration\" />
     <Folder Include="Properties\" />
     <Folder Include="tokens\" />

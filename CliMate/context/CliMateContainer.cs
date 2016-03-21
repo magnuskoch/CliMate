@@ -8,7 +8,6 @@ using CliMate.source;
 using CliMate.source.cli;
 using CliMate.source.tokens;
 using CliMate.source.view;
-using CliMate.source.View;
 using SimpleInjector;
 using System;
 using System.Collections.Generic;
@@ -21,8 +20,6 @@ namespace CliMate.context {
 		public static Container Create() {
 			var container = new Container();
 
-			container.Register<IUI, CliMateUI>();
-			container.Register<ICommandParser, CommandParser>();
 			container.Register<Config>(() => new Config(), Lifestyle.Singleton);
 			container.Register<IStringSplitter, StringSplitter>();
 			container.Register<ITokenizer, Tokenizer>();

@@ -1,7 +1,6 @@
 using CliMate.context;
 using CliMate.interfaces;
 using CliMate.source;
-using CliMate.source.View;
 using SimpleInjector;
 using System;
 using System.Collections.Generic;
