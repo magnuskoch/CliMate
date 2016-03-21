@@ -31,9 +31,8 @@ namespace CliMate.source.view {
 					inputReader.Insert(input);
 					int position = inputReader.GetPosition();
 					Console.CursorLeft = 0;
-					string hack = "               ";
-					Console.Write(inputReader.GetLine() + hack);
-					Console.CursorLeft = position;
+					Console.Write(inputReader.GetLine());
+					Console.CursorLeft = position + 1;
 				}
 			}
 		}
