@@ -37,8 +37,16 @@ namespace CliMate.source.cli {
 
 		}
 
-		public void GetAutoCompletion() {
-			throw new NotImplementedException();
+		public List<string> GetAutoCompletion() {
+
+			if(false) {
+			} else {
+				return new List<string>();
+			}
+		}
+
+		private List<string> ICliObject2AutoCompletionStrings(IList<ICliObject> cliObjects) {
+			return null;
 		}
 	}
 }

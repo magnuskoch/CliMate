@@ -13,6 +13,6 @@ namespace CliMate.interfaces.cli {
 		ICliObject method { get; set; }
 		IList<ICliObject> args { get; set; }
 		object Execute();
-		void GetAutoCompletion();
+		List<string> GetAutoCompletion();
 	}
 }
