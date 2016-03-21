@@ -50,6 +50,9 @@ namespace Tests.cli {
 				
 			var factory = CliMateContainer.Create().GetInstance<Factory>();
 
+			string trailing1 = "trailing1";
+			string trailing2 = "trailing2";
+
 			var taxonomy = new CliTaxonomy(objectProvider.Object, factory);
 			var tokens = new List<IToken> {
 				(new Token { type = TokenType.Object, value = "obj" }) as IToken,
@@ -58,6 +61,8 @@ namespace Tests.cli {
 				(new Token { type = TokenType.Value, value = "val1" }) as IToken,
 				(new Token { type = TokenType.Argument, value = "arg2" }) as IToken,
 				(new Token { type = TokenType.Value, value = "val2" }) as IToken,
+				(new Token { type = TokenType.Object, value = trailing1 }) as IToken,
+				(new Token { type = TokenType.Argument, value = trailing2 }) as IToken,
 			};
 
 			// Act
@@ -68,6 +73,8 @@ namespace Tests.cli {
 			Assert.AreEqual(method, command.method);
 			Assert.AreEqual(arg1, command.args[0]);
 			Assert.AreEqual(arg2, command.args[1]);
+			Assert.AreEqual(trailing1, command.trailing[0].value);
+			Assert.AreEqual(trailing2, command.trailing[1].value);
 		}
 	}
 }

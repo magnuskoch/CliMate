@@ -42,15 +42,21 @@ namespace CliMate.source.cli {
 
 			// Building arguments	
 			command.args = new List<ICliObject>();
+			ICliObject argument = null;
 			for(; i<l; i++) {
 				IToken token = tokens[i];
 				ICliObject child;
 				if(TryGetCliObject(token, level, out child)) {
 					command.args.Add(child);
+					argument = child;
+				} else if (argument != null && argument.data == null) {
+					argument.data = token.value;
 				} else {
-					command.args[command.args.Count - 1].data = token.value;
+					break;
 				}
 			}
+
+			command.trailing = tokens.Skip(i).ToList();
 
 			// TODO : Generate a list of autocompletion suggestions
 

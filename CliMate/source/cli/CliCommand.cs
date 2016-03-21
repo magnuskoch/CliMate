@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using CliMate.interfaces.cli;
+using CliMate.interfaces.tokens;
 
 namespace CliMate.source.cli {
 	public class CliCommand : ICliCommand {
@@ -18,6 +19,10 @@ namespace CliMate.source.cli {
 			get; set;
 		}
 
+		public IList<IToken> trailing {
+			get; set;
+		}
+
 		public object Execute() {
 			object obj = object_.data;
 			MethodInfo methodInfo = method.data as MethodInfo;
@@ -26,7 +31,7 @@ namespace CliMate.source.cli {
 
 		}
 
-		public List<string> GetAutoCompletion() {
+		public IList<string> GetAutoCompletion() {
 			if(args != null) return ICliObject2AutoCompletionStrings(method.children.Except( args ).ToList() );
 			if(method != null) return ICliObject2AutoCompletionStrings(method.children);
 			if(object_ != null) return ICliObject2AutoCompletionStrings(object_.children);

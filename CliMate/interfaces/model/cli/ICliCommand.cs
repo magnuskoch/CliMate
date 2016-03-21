@@ -1,9 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using CliMate.interfaces.tokens;
 
 namespace CliMate.interfaces.cli {
 	// a cli command is the result of matching an IToken list to a cli
@@ -12,7 +8,8 @@ namespace CliMate.interfaces.cli {
 		ICliObject object_ { get; set; }
 		ICliObject method { get; set; }
 		IList<ICliObject> args { get; set; }
+		IList<IToken> trailing { get; set; }
 		object Execute();
-		List<string> GetAutoCompletion();
+		IList<string> GetAutoCompletion();
 	}
 }

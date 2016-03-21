@@ -16,7 +16,7 @@ namespace Tests.cli {
 			int expected = 0;
 
 			// Act
-			List<string> autoCompletion = command.GetAutoCompletion();
+			IList<string> autoCompletion = command.GetAutoCompletion();
 			int actual = autoCompletion.Count;
 
 
@@ -47,7 +47,7 @@ namespace Tests.cli {
 			int expected = 0;
 
 			// Act
-			List<string> autoCompletion = command.GetAutoCompletion();
+			IList<string> autoCompletion = command.GetAutoCompletion();
 
 			// Assert
 			Assert.AreEqual(method1Name,autoCompletion[0]);	
@@ -82,7 +82,7 @@ namespace Tests.cli {
 			int expected = 0;
 
 			// Act
-			List<string> autoCompletion = command.GetAutoCompletion();
+			IList<string> autoCompletion = command.GetAutoCompletion();
 
 			// Assert
 			Assert.AreEqual(argument1Name,autoCompletion[0]);	
@@ -119,7 +119,7 @@ namespace Tests.cli {
 			int expected = 1;
 
 			// Act
-			List<string> autoCompletion = command.GetAutoCompletion();
+			IList<string> autoCompletion = command.GetAutoCompletion();
 
 			// Assert
 			Assert.AreEqual(argument2Name,autoCompletion[0]);	
