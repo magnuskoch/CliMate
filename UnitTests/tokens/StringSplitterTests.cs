@@ -13,7 +13,7 @@ namespace Tests.tokens {
 	[TestFixture]
 	public class StringSplitterTests {
 		
-		private static Container container = CliMateContainer.Create();
+		private static Container container = CliMateTestContainer.Create();
 
 		[Test ()]
 		public void CanSplitComplexInput() {

@@ -22,7 +22,8 @@ namespace CliMate {
 
 		public abstract string GetGoodbyeMessage();
 		public abstract string GetWelcomeMessage();
-		
+		protected object applicationRoot { get; } 
+
 
 		public CliMateApp() {
 			// The app is instantiated by the client, so we need to do
@@ -33,7 +34,7 @@ namespace CliMate {
 
 
 		public void Main(string[] args) {
-			var localContainer = CliMateContainer.Create();
+			var localContainer = CliMateContainer.Create(applicationRoot);
 			IInputView view = localContainer.GetInstance<IInputView>();
 			view.Enter();
 		}

@@ -22,7 +22,7 @@ namespace Tests.integration {
 			string expectedReturn = app._obj._method("hey","you");
 			string input = "obj method -arg1 hey -arg2 you";
 
-			Container container = CliMateContainer.Create();
+			Container container = CliMateTestContainer.Create();
 			var tokenizer = container.GetInstance<ITokenizer>();
 			var taxonomy = container.GetInstance<ICliTaxonomy>();
 			var cliObjectProvider = container.GetInstance<ICliObjectProvider>();

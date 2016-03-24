@@ -48,7 +48,7 @@ namespace Tests.cli {
 
 			objectProvider.Setup(op => op.GetCliObject()).Returns(root);
 				
-			var factory = CliMateContainer.Create().GetInstance<Factory>();
+			var factory = CliMateTestContainer.Create().GetInstance<Factory>();
 
 			string trailing1 = "trailing1";
 			string trailing2 = "trailing2";

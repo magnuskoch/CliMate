@@ -14,7 +14,7 @@ namespace Tests.tokens {
 	[TestFixture]
 	public class TokenizerTests {
 
-		private static Container container = CliMateContainer.Create();
+		private static Container container = CliMateTestContainer.Create();
 
 		[Test ()]
 		public void CanParseAllTypes() {
@@ -28,7 +28,7 @@ namespace Tests.tokens {
 				_object, _object, method, argument, value, argument, value);
 
 			var tokenizer = new Tokenizer(container.GetInstance<IStringSplitter>());
-			int expectedTokens = 7;
+			const int expectedTokens = 7;
 
 			// Act
 			List<IToken> tokens = tokenizer.GetTokens(input);

@@ -51,6 +51,7 @@
     <Compile Include="tokens\TokenizerTests.cs" />
     <Compile Include="view\InputReaderTests.cs" />
     <Compile Include="cli\CliCommandTests.cs" />
+    <Compile Include="context\CliMateTestContainer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

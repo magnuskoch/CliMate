@@ -17,7 +17,7 @@ namespace Tests.cli {
 		public void CanGenerateRootObject() {
 
 			// Arrange
-			var factory = CliMateContainer.Create().GetInstance<Factory>();
+			var factory = CliMateTestContainer.Create().GetInstance<Factory>();
 			var objectProvider = new CliObjectProvider(factory);
 			var app = new TestApp();
 			app._obj = new TestObject();

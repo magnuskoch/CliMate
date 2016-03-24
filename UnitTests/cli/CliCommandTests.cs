@@ -44,8 +44,6 @@ namespace Tests.cli {
 			command.object_.children.Add(method1);
 			command.object_.children.Add(method2);
 
-			int expected = 0;
-
 			// Act
 			IList<string> autoCompletion = command.GetAutoCompletion();
 
@@ -78,8 +76,6 @@ namespace Tests.cli {
 
 			command.method.children.Add(argument1);
 			command.method.children.Add(argument2);
-
-			int expected = 0;
 
 			// Act
 			IList<string> autoCompletion = command.GetAutoCompletion();
@@ -116,13 +112,14 @@ namespace Tests.cli {
 			// The method has two arguments (argument1 and argument2), but
 			// only argument 1 has been registered with the command. So we expect
 			// auto completion to suggest a single argument
-			int expected = 1;
+			const int expected = 1;
 
 			// Act
 			IList<string> autoCompletion = command.GetAutoCompletion();
 
 			// Assert
 			Assert.AreEqual(argument2Name,autoCompletion[0]);	
+			Assert.AreEqual(expected, autoCompletion.Count);
 		}
 	}
 }
