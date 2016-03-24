@@ -20,6 +20,12 @@ namespace CliMate.source.view {
 			CreateActionMap();
 		}
 
+		public void Insert(string s) {
+			foreach(char c in s) {
+				Insert(c);
+			}
+		}
+
 		public void Insert(char c) {
 			var action = actionMap.Get(c, InsertChar);
 			action(c);
