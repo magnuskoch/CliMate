@@ -4,7 +4,7 @@ using SimpleInjector;
 namespace Tests {
 	public static class CliMateTestContainer {
 		public static Container Create() {
-			return CliMateContainer.Create(null);
+			return CliMateContainer.Create(new object());
 		}
 	}	
 }	

@@ -1,19 +1,18 @@
-using CliMate.interfaces.view;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CliMate.enums;
 using CliMate.consts;
+using CliMate.enums;
+using CliMate.interfaces;
+using CliMate.interfaces.view;
 
 namespace CliMate.source.view {
 	public class TerminalView :  IInputView {
 
 		private IInputReader inputReader;
+		private ICliModule cliModule;
 
-		public TerminalView(IInputReader inputReader) {
+		public TerminalView(ICliModule cliModule, IInputReader inputReader) {
 			this.inputReader = inputReader;
+			this.cliModule = cliModule;
 		}
 
 		public event EventHandler autoCompleteRequested;

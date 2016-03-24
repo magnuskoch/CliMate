@@ -18,7 +18,6 @@ namespace Tests.cli {
 
 			// Arrange
 			var factory = CliMateTestContainer.Create().GetInstance<Factory>();
-			var objectProvider = new CliObjectProvider(factory);
 			var app = new TestApp();
 			app._obj = new TestObject();
 			int expectedAppChildren = 1;
@@ -26,7 +25,7 @@ namespace Tests.cli {
 			int intExpectedArgs = 2;
 
 			// Act
-			objectProvider.Analyze(app);
+			var objectProvider = new CliObjectProvider(factory, app);
 			ICliObject rootObject = objectProvider.GetCliObject();
 
 			// Assert

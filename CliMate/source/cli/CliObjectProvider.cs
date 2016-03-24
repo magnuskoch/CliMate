@@ -15,11 +15,12 @@ namespace CliMate.source.cli {
 		private Factory factory;
 		private ICliObject cliObject;
 
-		public CliObjectProvider(Factory factory) {
+		public CliObjectProvider(Factory factory, object application) {
 			this.factory = factory;	
+			Analyze(application);
 		}
 
-		public void Analyze(object application) {
+		private void Analyze(object application) {
 
 			ICliObject root = factory.Create<ICliObject>();
 			root.data = application;

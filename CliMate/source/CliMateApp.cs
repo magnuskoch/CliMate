@@ -22,7 +22,7 @@ namespace CliMate {
 
 		public abstract string GetGoodbyeMessage();
 		public abstract string GetWelcomeMessage();
-		protected object applicationRoot { get; } 
+		protected abstract object applicationRoot { get; } 
 
 
 		public CliMateApp() {

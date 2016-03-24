@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace CliMate.interfaces.cli {
 	public interface ICliObjectProvider {
-		void Analyze(object application);
 		ICliObject GetCliObject();
 	}
 }

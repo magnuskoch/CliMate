@@ -12,7 +12,14 @@ namespace Demo {
 
 		[CliAvailable("skynet")]
 		public Articalntelligence skynet { get; set; }
-		
+	
+
+		protected override object applicationRoot { 
+			get {
+				return skynet;
+			}
+		} 
+
 		public App() {
 			skynet = new Articalntelligence();
 		}

@@ -1,6 +1,7 @@
 using SimpleInjector;
 using CliMate.Factories;
 using CliMate.config;
+using CliMate.interfaces;
 using CliMate.interfaces.cli;
 using CliMate.interfaces.tokens;
 using CliMate.interfaces.view;
@@ -23,6 +24,8 @@ namespace CliMate.context {
 			container.Register<ICliObjectProvider, CliObjectProvider>(Lifestyle.Singleton);
 			container.Register<IInputView, TerminalView>();
 			container.Register<IInputReader, InputReader>();
+			container.Register<ICliModule, CliModule>();
+			container.Register<object>( () => application, Lifestyle.Singleton);
 
 			container.Verify();
 
