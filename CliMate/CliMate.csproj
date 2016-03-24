@@ -84,6 +84,8 @@
     <Compile Include="source\view\TerminalView.cs" />
     <Compile Include="interfaces\model\ICliModule.cs" />
     <Compile Include="source\cli\CliModule.cs" />
+    <Compile Include="interfaces\view\IAutoCompleteSession.cs" />
+    <Compile Include="source\view\TerminalAutoCompleteSession.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lib\" />

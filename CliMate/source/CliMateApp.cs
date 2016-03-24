@@ -24,15 +24,6 @@ namespace CliMate {
 		public abstract string GetWelcomeMessage();
 		protected abstract object applicationRoot { get; } 
 
-
-		public CliMateApp() {
-			// The app is instantiated by the client, so we need to do
-			// injections manually.
-			//commandParser = container.GetInstance<ICommandParser>();
-			//ui = container.GetInstance<IUI>();
-		}
-
-
 		public void Main(string[] args) {
 			var localContainer = CliMateContainer.Create(applicationRoot);
 			IInputView view = localContainer.GetInstance<IInputView>();
