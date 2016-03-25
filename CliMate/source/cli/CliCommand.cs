@@ -39,7 +39,11 @@ namespace CliMate.source.cli {
 		}
 
 		private List<string> ICliObject2AutoCompletionStrings(IList<ICliObject> cliObjects) {
-			return cliObjects.Select( co => co.name ).ToList();
+			var completions = new List<string>();
+			foreach(ICliObject cliObject in cliObjects) {
+				completions.AddRange(cliObject.alias);
+			}
+			return completions;
 		}
 	}
 }

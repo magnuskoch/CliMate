@@ -1,14 +1,11 @@
+using System.Collections.Generic;
 using CliMate.context;
+using CliMate.interfaces;
 using CliMate.interfaces.cli;
 using CliMate.interfaces.tokens;
-using SimpleInjector;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Tests.integration.data;
 using NUnit.Framework;
+using SimpleInjector;
+using Tests.integration.data;
 
 namespace Tests.integration {
 	[TestFixture]
@@ -34,6 +31,29 @@ namespace Tests.integration {
 			// Assert
 			Assert.AreEqual(app._obj, command.object_.data);
 			Assert.AreEqual(expectedReturn, command.Execute());
+		}
+
+		[Test]
+		public void CanOfferAutoCompletionOnEmptyInput() {
+
+			// Arrange
+			var app = new TestApp();
+			app._obj = new TestObject();
+
+			Container container = CliMateContainer.Create(app);
+			ICliModule cliModule = container.GetInstance<ICliModule>();
+
+			int expectedAutoCompletions = 1;
+			string expectedAutoCompletion = "obj";
+				
+			// Act
+			ICliCommand command = cliModule.GetCommand( string.Empty );
+			IList<string> autoCompletions = command.GetAutoCompletion();
+
+			// Assert
+			Assert.AreEqual(expectedAutoCompletions, autoCompletions.Count);
+			Assert.AreEqual(expectedAutoCompletion, autoCompletions[0]);
+
 		}
 	}
 }
