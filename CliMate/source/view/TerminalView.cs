@@ -9,7 +9,7 @@ using CliMate.interfaces.view;
 namespace CliMate.source.view {
 	public class TerminalView :  IInputView {
 
-		private UIStream uiStream;
+		private IUIStream uiStream;
 		private IInputReader inputReader;
 		private ICliModule cliModule;
 		private Factory factory;
@@ -31,7 +31,7 @@ namespace CliMate.source.view {
 				char input = uiStream.ReadKey().KeyChar;
 				if(input == KeyCodes.Return || input == KeyCodes.ReturnOSX) {
 					string line = inputReader.ClearLine();
-					uiStream.UpdateLine("Executing :" + line);
+					uiStream.WriteLine("Executing :" + line);
 				} else if(input == KeyCodes.TabOSX) {
 					IAutoCompleteSession autoCompleteSession = factory.Create<IAutoCompleteSession>(); 
 					ICliCommand command = cliModule.GetCommand( inputReader.GetLine() );

@@ -7,7 +7,7 @@ namespace CliMate.source.view {
 			
 		}
 		public ConsoleKeyInfo ReadKey() {
-			return Console.ReadKey();
+			return Console.ReadKey(intercept:true);
 		}
 
 		public void UpdateLine(string line) {
@@ -15,5 +15,10 @@ namespace CliMate.source.view {
 			Console.Write(line);
 			Console.CursorLeft = line.Length;
 		}	
+
+		public void WriteLine(string line) {
+			Console.Write(Environment.NewLine);
+			Console.WriteLine(line);
+		}
 	}	
 }	

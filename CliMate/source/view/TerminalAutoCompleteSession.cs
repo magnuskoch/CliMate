@@ -27,6 +27,8 @@ namespace CliMate.source.view {
 				uiUpdate(completion);
 				i = l / (i+1); 
 			} while (uiStream.ReadKey().Key == ConsoleKey.Tab);
+			
+			completion += " ";
 		} 
 
 		private string GetMatchedPart(ICliCommand command) {
