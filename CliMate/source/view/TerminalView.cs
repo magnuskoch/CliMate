@@ -3,6 +3,7 @@ using CliMate.Factories;
 using CliMate.consts;
 using CliMate.enums;
 using CliMate.interfaces;
+using CliMate.interfaces.cli;
 using CliMate.interfaces.view;
 
 namespace CliMate.source.view {
@@ -31,7 +32,8 @@ namespace CliMate.source.view {
 					Console.WriteLine("Executing :" + line);
 				} else if(input == KeyCodes.TabOSX) {
 					IAutoCompleteSession autoCompleteSession = factory.Create<IAutoCompleteSession>(); 
-					autoCompleteSession.Enter(null, autoCompletion => {
+					ICliCommand command = cliModule.GetCommand( inputReader.GetLine() );
+					autoCompleteSession.Enter(command, autoCompletion => {
 						Console.CursorLeft = 0;
 						Console.Write(autoCompletion); 
 						Console.CursorLeft = autoCompletion.Length;
