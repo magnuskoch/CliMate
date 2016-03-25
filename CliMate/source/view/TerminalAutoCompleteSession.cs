@@ -8,9 +8,9 @@ namespace CliMate.source.view {
 	public class TerminalAutoCompleteSession : IAutoCompleteSession {
 
 		private string completion;
-		private UIStream uiStream;
+		private IUIStream uiStream;
 
-		public TerminalAutoCompleteSession(UIStream uiStream) {
+		public TerminalAutoCompleteSession(IUIStream uiStream) {
 			this.uiStream = uiStream;
 		}
 
