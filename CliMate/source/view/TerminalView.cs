@@ -9,12 +9,14 @@ using CliMate.interfaces.view;
 namespace CliMate.source.view {
 	public class TerminalView :  IInputView {
 
+		private UIStream uiStream;
 		private IInputReader inputReader;
 		private ICliModule cliModule;
 		private Factory factory;
 
-		public TerminalView(ICliModule cliModule, IInputReader inputReader, Factory factory) {
+		public TerminalView(ICliModule cliModule, UIStream uiStream, IInputReader inputReader, Factory factory) {
 			this.inputReader = inputReader;
+			this.uiStream = uiStream;
 			this.cliModule = cliModule;
 			this.factory = factory;
 		}
@@ -26,30 +28,22 @@ namespace CliMate.source.view {
 			Console.WriteLine("hi");
 			bool quit = false;
 			while(!quit) {
-				char input = Console.ReadKey().KeyChar;
+				char input = uiStream.ReadKey().KeyChar;
 				if(input == KeyCodes.Return || input == KeyCodes.ReturnOSX) {
 					string line = inputReader.ClearLine();
-					Console.WriteLine("Executing :" + line);
+					uiStream.UpdateLine("Executing :" + line);
 				} else if(input == KeyCodes.TabOSX) {
 					IAutoCompleteSession autoCompleteSession = factory.Create<IAutoCompleteSession>(); 
 					ICliCommand command = cliModule.GetCommand( inputReader.GetLine() );
 					autoCompleteSession.Enter(command, autoCompletion => {
-						Console.CursorLeft = 0;
-						Console.Write(autoCompletion); 
-						Console.CursorLeft = autoCompletion.Length + 1;
+						uiStream.UpdateLine(autoCompletion);
 					});
 					inputReader.ClearLine();
 					inputReader.Insert( autoCompleteSession.GetSelectedCompletion() );
-					int position = inputReader.GetPosition();
-					Console.CursorLeft = 0;
-					Console.Write(inputReader.GetLine());
-					Console.CursorLeft = position + 1;
+
 				} else {
 					inputReader.Insert(input);
-					int position = inputReader.GetPosition();
-					Console.CursorLeft = 0;
-					Console.Write(inputReader.GetLine());
-					Console.CursorLeft = position + 1;
+					uiStream.UpdateLine( inputReader.GetLine() );
 				}
 			}
 		}

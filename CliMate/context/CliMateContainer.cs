@@ -25,7 +25,7 @@ namespace CliMate.context {
 			container.Register<IInputView, TerminalView>();
 			container.Register<IAutoCompleteSession, TerminalAutoCompleteSession>();
 			container.Register<IInputReader, InputReader>();
-			container.Register<IInputStream, InputStream>();
+			container.Register<UIStream, UIStream>();
 			container.Register<ICliModule, CliModule>();
 			container.Register<object>( () => application, Lifestyle.Singleton);
 

@@ -8,10 +8,10 @@ namespace CliMate.source.view {
 	public class TerminalAutoCompleteSession : IAutoCompleteSession {
 
 		private string completion;
-		private IInputStream inputStream;
+		private UIStream uiStream;
 
-		public TerminalAutoCompleteSession(IInputStream inputStream) {
-			this.inputStream = inputStream;
+		public TerminalAutoCompleteSession(UIStream uiStream) {
+			this.uiStream = uiStream;
 		}
 
 		public void Enter(ICliCommand command,  Action<string> uiUpdate) {	
@@ -26,7 +26,7 @@ namespace CliMate.source.view {
 				completion = matched + completions[i];
 				uiUpdate(completion);
 				i = l / (i+1); 
-			} while (inputStream.ReadKey().Key == ConsoleKey.Tab);
+			} while (uiStream.ReadKey().Key == ConsoleKey.Tab);
 		} 
 
 		private string GetMatchedPart(ICliCommand command) {

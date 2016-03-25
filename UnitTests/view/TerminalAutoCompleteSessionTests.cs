@@ -4,6 +4,7 @@ using CliMate.interfaces.cli;
 using CliMate.source.view;
 using Moq;
 using NUnit.Framework;
+using CliMate.interfaces.view;
 
 namespace Tests.view {
 	[TestFixture]
@@ -12,6 +13,7 @@ namespace Tests.view {
 		[Test]
 		public void CanRunSession() {
 			// Arrange
+			var uiStream = new Mock<IUIStream>();
 			var autoCompleter = new TerminalAutoCompleteSession(null);
 			var command = new Mock<ICliCommand>();
 			var completion = new List<string>{ "suggestion1", "suggestion2" };

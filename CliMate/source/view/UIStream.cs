@@ -2,8 +2,8 @@ using System;
 using CliMate.interfaces.view;
 
 namespace CliMate.source.view {
-	public class InputStream : IInputStream {
-		public InputStream() {
+	public class UIStream : IUIStream {
+		public UIStream() {
 			
 		}
 		public ConsoleKeyInfo ReadKey() {
