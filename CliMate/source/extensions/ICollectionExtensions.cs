@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CliMate.source.extensions {
 	public static class ICollectionExtensions {
-		public static bool IsNullOrEmpty(this ICollection collection) {
+		public static bool IsNullOrEmpty<T>(this ICollection<T> collection) {
 			return collection == null || collection.Count == 0; 
 		}
 	}

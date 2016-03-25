@@ -36,9 +36,14 @@ namespace CliMate.source.view {
 					autoCompleteSession.Enter(command, autoCompletion => {
 						Console.CursorLeft = 0;
 						Console.Write(autoCompletion); 
-						Console.CursorLeft = autoCompletion.Length;
+						Console.CursorLeft = autoCompletion.Length + 1;
 					});
+					inputReader.ClearLine();
 					inputReader.Insert( autoCompleteSession.GetSelectedCompletion() );
+					int position = inputReader.GetPosition();
+					Console.CursorLeft = 0;
+					Console.Write(inputReader.GetLine());
+					Console.CursorLeft = position + 1;
 				} else {
 					inputReader.Insert(input);
 					int position = inputReader.GetPosition();
