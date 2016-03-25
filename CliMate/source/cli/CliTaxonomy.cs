@@ -66,6 +66,7 @@ namespace CliMate.source.cli {
 				}
 			}
 
+			command.matched = tokens.Take(i).ToList();
 			command.trailing = tokens.Skip(i).ToList();
 
 			return command;

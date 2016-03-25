@@ -23,6 +23,10 @@ namespace CliMate.source.cli {
 			get; set;
 		}
 
+		public IList<IToken> matched {
+			get; set;
+		}
+		
 		public object Execute() {
 			object obj = object_.data;
 			MethodInfo methodInfo = method.data as MethodInfo;

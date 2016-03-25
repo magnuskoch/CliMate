@@ -22,10 +22,9 @@ namespace CliMate {
 
 		public abstract string GetGoodbyeMessage();
 		public abstract string GetWelcomeMessage();
-		protected abstract object applicationRoot { get; } 
 
 		public void Main(string[] args) {
-			var localContainer = CliMateContainer.Create(applicationRoot);
+			var localContainer = CliMateContainer.Create(this);
 			IInputView view = localContainer.GetInstance<IInputView>();
 			view.Enter();
 		}
