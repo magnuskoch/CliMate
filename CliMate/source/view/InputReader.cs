@@ -13,7 +13,7 @@ namespace CliMate.source.view {
 
 		private LinkedList<char> buffer = new LinkedList<char>();
 		private LinkedListNode<char> position;
-		private Dictionary<char, Action<char>> actionMap;
+		private Dictionary<int, Action<int>> actionMap;
 
 		public InputReader() {
 			Purge();
@@ -27,8 +27,12 @@ namespace CliMate.source.view {
 		}
 
 		public void Insert(char c) {
-			var action = actionMap.Get(c, InsertChar);
-			action(c);
+			Insert((int) c);
+		}
+
+		public void Insert(int i) {
+			var action = actionMap.Get(i, InsertChar);
+			action(i);
 		}
 
 		public int GetPosition() {
@@ -47,20 +51,23 @@ namespace CliMate.source.view {
 		}
 
 		private void CreateActionMap() {
-			actionMap = new Dictionary<char, Action<char>>();
-			actionMap[KeyCodes.Backspace] = DeleteChar;
-			actionMap[KeyCodes.BackspaceOSX] = DeleteChar;
-			actionMap[KeyCodes.ArrowLeft] = c => ChangePosition(-1);
-			actionMap[KeyCodes.ArrowRight] = c => ChangePosition(1);
+			actionMap = new Dictionary<int, Action<int>>();
+
+			actionMap[KeyCodes.Backspace] = i => DeleteChar();
+			actionMap[KeyCodes.ArrowLeft] = i => ChangePosition(-1);
+			actionMap[KeyCodes.ArrowRight] = i => ChangePosition(1);
 		}
 
-		private void InsertChar(char c) {
+		private void InsertChar(int i) {
+			Debug.Assert( i < 256, string.Format("Trying to insert integer {0} that would overflow the char cast !", i));
+			char c = (char) i;
+
 			position = buffer.IsNullOrEmpty() || position == null  
 				? buffer.AddFirst(c) 
 				: buffer.AddAfter(position, c);
 		}
 
-		private void DeleteChar(char c) {
+		private void DeleteChar() {
 			if (buffer.Count == 1) {
 				return;
 			}

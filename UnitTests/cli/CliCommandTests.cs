@@ -37,9 +37,11 @@ namespace Tests.cli {
 
 			var method1 = new CliObject();
 			method1.name = method1Name; 
+			method1.alias = new List<string> { method1Name };
 
 			var method2 = new CliObject();
 			method2.name = method2Name; 
+			method2.alias = new List<string> { method2Name };
 
 			command.object_.children.Add(method1);
 			command.object_.children.Add(method2);
@@ -70,9 +72,11 @@ namespace Tests.cli {
 
 			var argument1 = new CliObject();
 			argument1.name = argument1Name; 
+			argument1.alias = new List<string> { argument1Name };
 
 			var argument2 = new CliObject();
 			argument2.name = argument2Name; 
+			argument2.alias = new List<string> { argument2Name };
 
 			command.method.children.Add(argument1);
 			command.method.children.Add(argument2);
@@ -99,9 +103,11 @@ namespace Tests.cli {
 
 			var argument1 = new CliObject();
 			argument1.name = argument1Name; 
+			argument1.alias = new List<string> { argument1Name };
 
 			var argument2 = new CliObject();
-			argument2.name = argument2Name; 
+			argument2.name = argument2Name;
+			argument2.alias = new List<string> { argument2Name };
 
 			command.method.children.Add(argument1);
 			command.method.children.Add(argument2);

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CliMate.consts;
 using CliMate.interfaces.cli;
 using CliMate.interfaces.view;
 using CliMate.source.extensions;
@@ -14,7 +15,7 @@ namespace CliMate.source.view {
 			this.uiStream = uiStream;
 		}
 
-		public void Enter(ICliCommand command,  Action<string> uiUpdate) {	
+		public void Enter(ICliCommand command, Action<string> uiUpdate) {	
 
 			IList<string> completions = command.GetAutoCompletion();
 			string matched = GetMatchedPart(command);
@@ -26,7 +27,7 @@ namespace CliMate.source.view {
 				completion = matched + completions[i];
 				uiUpdate(completion);
 				i = l / (i+1); 
-			} while (uiStream.ReadKey().Key == ConsoleKey.Tab);
+			} while (uiStream.ReadKey() == KeyCodes.Tab);
 			
 			completion += " ";
 		} 

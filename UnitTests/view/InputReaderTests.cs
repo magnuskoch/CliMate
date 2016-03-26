@@ -39,7 +39,7 @@ namespace Tests.view {
 		public void CanReadInputWithArrowKeys() {
 			
 			// arrange
-			char[] chars = {
+			int[] input = {
 				'e',
 				's',
 				KeyCodes.ArrowLeft,
@@ -65,8 +65,8 @@ namespace Tests.view {
 			string expected = "test";
 				
 			// act
-			for(int i=0; i < chars.Length; i++) {
-				reader.Insert(chars[i]);
+			for(int i=0; i < input.Length; i++) {
+				reader.Insert(input[i]);
 			}
 
 			string actual = reader.GetLine();
@@ -79,15 +79,15 @@ namespace Tests.view {
 		public void CanReadInputWithBackSpace() {
 			
 			// arrange
-			char[] chars = {
+			int[] input = {
 				't','e','s','t', KeyCodes.Backspace, 't'
 			};
 			var reader = new InputReader();
 			string expected = "test";
 				
 			// act
-			for(int i=0; i < chars.Length; i++) {
-				reader.Insert(chars[i]);
+			for(int i=0; i < input.Length; i++) {
+				reader.Insert(input[i]);
 			}
 
 			string actual = reader.GetLine();
@@ -119,15 +119,15 @@ namespace Tests.view {
 		[Test ()]
 		public void CarReadSpecialCharacterInput() {
 			// arrange
-			char[] chars = {
+			int[] input = {
 				't','e','s','t', KeyCodes.Backspace
 			};
 			var reader = new InputReader();
 			string expected = "tes";
 				
 			// act
-			for(int i=0; i < chars.Length; i++) {
-				reader.Insert(chars[i]);
+			for(int i=0; i < input.Length; i++) {
+				reader.Insert(input[i]);
 			}
 			string actual = reader.GetLine();
 

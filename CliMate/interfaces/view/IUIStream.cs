@@ -2,7 +2,7 @@ using System;
 
 namespace CliMate.interfaces.view {
 	public interface IUIStream {
-		ConsoleKeyInfo ReadKey();
+		int ReadKey();
 		void UpdateLine(string line);	
 		void WriteLine(string line);	
 	}	

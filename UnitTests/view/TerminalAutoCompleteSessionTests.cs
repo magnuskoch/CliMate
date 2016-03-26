@@ -16,14 +16,14 @@ namespace Tests.view {
 			// Arrange
 
 			var uiStream = new Mock<IUIStream>();
-			var uiInput = new Queue<ConsoleKeyInfo>();
-		  	
-			uiInput.Enqueue( new ConsoleKeyInfo( KeyCodes.TabOSX, ConsoleKey.Tab, false, false, false ));
-			uiInput.Enqueue( new ConsoleKeyInfo( KeyCodes.TabOSX, ConsoleKey.Tab, false, false, false ));
+			var uiInput = new Queue<int>();
+		  
+			uiInput.Enqueue(KeyCodes.Tab);
+			uiInput.Enqueue(KeyCodes.Tab);
 			// We expect the tab session to end on this input
-			uiInput.Enqueue( new ConsoleKeyInfo( ' ', ConsoleKey.Spacebar, false, false, false ));
+			uiInput.Enqueue(KeyCodes.Space);
 			// So this last elemennt should remain in the queue
-			uiInput.Enqueue( new ConsoleKeyInfo( 'e', ConsoleKey.E, false, false, false ));
+			uiInput.Enqueue('t');
 			
 			int expectedElementsInQueueAfterSession = 1;
 

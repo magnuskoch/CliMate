@@ -28,11 +28,11 @@ namespace CliMate.source.view {
 			Console.WriteLine("hi");
 			bool quit = false;
 			while(!quit) {
-				char input = uiStream.ReadKey().KeyChar;
-				if(input == KeyCodes.Return || input == KeyCodes.ReturnOSX) {
+				int input = uiStream.ReadKey();
+				if(input == KeyCodes.Return) {
 					string line = inputReader.ClearLine();
 					uiStream.WriteLine("Executing :" + line);
-				} else if(input == KeyCodes.TabOSX) {
+				} else if(input == KeyCodes.Tab) {
 					IAutoCompleteSession autoCompleteSession = factory.Create<IAutoCompleteSession>(); 
 					ICliCommand command = cliModule.GetCommand( inputReader.GetLine() );
 					autoCompleteSession.Enter(command, autoCompletion => {

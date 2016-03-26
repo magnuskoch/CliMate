@@ -22,7 +22,6 @@ namespace Tests.integration {
 			Container container = CliMateContainer.Create(app);
 			var tokenizer = container.GetInstance<ITokenizer>();
 			var taxonomy = container.GetInstance<ICliTaxonomy>();
-			var cliObjectProvider = container.GetInstance<ICliObjectProvider>();
 
 			// Act
 			List<IToken> tokens = tokenizer.GetTokens(input);
