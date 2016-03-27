@@ -43,7 +43,7 @@ namespace CliMate.source.view {
 
 				} else {
 					inputReader.Insert(input);
-					uiStream.UpdateLine( inputReader.GetLine() );
+					uiStream.UpdateLine( inputReader.GetLine(), inputReader.GetPosition() + 1 );
 				}
 			}
 		}

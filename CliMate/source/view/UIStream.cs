@@ -25,12 +25,17 @@ namespace CliMate.source.view {
 			return action();	
 		}
 
-		public void UpdateLine(string line) {
+		public void UpdateLine(string line, int caret) {
 			Console.CursorLeft = 0;
 			Console.Write( new String(' ', Console.WindowWidth));
 			Console.CursorLeft = 0;
 			Console.Write(line);
-			Console.CursorLeft = line.Length;
+			Console.CursorLeft = caret;
+		}
+
+		public void UpdateLine(string line) {
+			int caret = line.Length;
+			UpdateLine(line, caret);
 		}	
 
 		public void WriteLine(string line) {
