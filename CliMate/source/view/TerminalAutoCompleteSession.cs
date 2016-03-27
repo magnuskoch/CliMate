@@ -4,6 +4,7 @@ using CliMate.consts;
 using CliMate.interfaces.cli;
 using CliMate.interfaces.view;
 using CliMate.source.extensions;
+using System.Linq;
 
 namespace CliMate.source.view {
 	public class TerminalAutoCompleteSession : IAutoCompleteSession {
@@ -36,7 +37,11 @@ namespace CliMate.source.view {
 			if(command.matched.IsNullOrEmpty()) {
 				return string.Empty;
 			}
-			return string.Join(" ", command.matched);
+			string matched = string.Join(" ", command.matched.Select( m => m.value) );
+			if (matched.Length > 0) {
+				matched += " ";
+			}
+			return matched;
 		}
 
 		public string GetSelectedCompletion() {

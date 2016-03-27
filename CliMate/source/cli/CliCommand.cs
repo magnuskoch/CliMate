@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 using CliMate.interfaces.cli;
 using CliMate.interfaces.tokens;
+using CliMate.source.extensions;
 
 namespace CliMate.source.cli {
 	public class CliCommand : ICliCommand {
@@ -36,7 +37,7 @@ namespace CliMate.source.cli {
 		}
 
 		public IList<string> GetAutoCompletion() {
-			if(args != null) return ICliObject2AutoCompletionStrings(method.children.Except( args ).ToList() );
+			if(!args.IsNullOrEmpty()) return ICliObject2AutoCompletionStrings(method.children.Except( args ).ToList() );
 			if(method != null) return ICliObject2AutoCompletionStrings(method.children);
 			if(object_ != null) return ICliObject2AutoCompletionStrings(object_.children);
 			else return new List<string>();
