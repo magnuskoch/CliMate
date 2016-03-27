@@ -116,7 +116,7 @@ namespace Tests.view {
 			Assert.AreEqual(expected, actual);
 		}
 
-		[Test ()]
+		[Test]
 		public void CarReadSpecialCharacterInput() {
 			// arrange
 			int[] input = {
@@ -135,5 +135,27 @@ namespace Tests.view {
 			Assert.AreEqual(expected, actual);
 		}
 
+		[Test]
+		public void CanDeleteAllCharactersWithBackspace() {
+			// arrange
+			int[] input = {
+				't','e','s','t', 
+				KeyCodes.Backspace,
+				KeyCodes.Backspace,
+				KeyCodes.Backspace, 
+				KeyCodes.Backspace,
+			};
+			var reader = new InputReader();
+			string expected = string.Empty;
+				
+			// act
+			for(int i=0; i < input.Length; i++) {
+				reader.Insert(input[i]);
+			}
+			string actual = reader.GetLine();
+
+			// assert
+			Assert.AreEqual(expected, actual);
+		}
 	}
 }

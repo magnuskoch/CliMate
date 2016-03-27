@@ -68,7 +68,7 @@ namespace CliMate.source.view {
 		}
 
 		private void DeleteChar() {
-			if (buffer.Count == 1) {
+			if (buffer.Count == 0) {
 				return;
 			}
 			LinkedListNode<char> prev = position.Previous;

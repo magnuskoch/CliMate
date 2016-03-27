@@ -18,8 +18,7 @@ namespace CliMate.source.tokens {
 
 		public void Split(string input, out string[] methodStack, out string[] argValuePairs) {
 			int firstArgument = input.IndexOf(config.ARGUMENT_DELIMITER);
-
-			string objectMethodPart = input.Substring(0, firstArgument);
+					string objectMethodPart = input.Substring(0, firstArgument);
 			string argumentPart = input.Substring(firstArgument);
 
 			methodStack = GetObjectMethodSplit(objectMethodPart);
