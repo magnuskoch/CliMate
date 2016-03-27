@@ -4,6 +4,7 @@ using System.Reflection;
 using CliMate.interfaces.cli;
 using CliMate.interfaces.tokens;
 using CliMate.source.extensions;
+using CliMate.enums;
 
 namespace CliMate.source.cli {
 	public class CliCommand : ICliCommand {
@@ -46,7 +47,9 @@ namespace CliMate.source.cli {
 		private List<string> ICliObject2AutoCompletionStrings(IList<ICliObject> cliObjects) {
 			var completions = new List<string>();
 			foreach(ICliObject cliObject in cliObjects) {
-				completions.AddRange(cliObject.alias);
+				string prefix = 
+					cliObject.type == CliObjectType.Value ? "-" : string.Empty;
+				completions.Add(prefix + cliObject.alias[0]);
 			}
 			return completions;
 		}

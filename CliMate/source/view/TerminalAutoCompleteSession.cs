@@ -19,13 +19,16 @@ namespace CliMate.source.view {
 		public void Enter(ICliCommand command, Action<string> uiUpdate) {	
 
 			IList<string> completions = command.GetAutoCompletion();
+			if (completions.Count == 0) {
+				return;
+			}
 			string matched = GetMatchedPart(command);
 
 			int i = 0;
 			int l = completions.Count - 1;
 
 			do {
-				completion = matched + completions[i];
+ 				completion = matched + completions[i];
 				uiUpdate(completion);
 				i = l / (i+1); 
 			} while (uiStream.ReadKey() == KeyCodes.Tab);

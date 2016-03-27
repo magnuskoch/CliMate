@@ -31,17 +31,18 @@ namespace CliMate.source.view {
 				int input = uiStream.ReadKey();
 				if(input == KeyCodes.Return) {
 					string line = inputReader.ClearLine();
-					ICliCommand command = cliModule.GetCommand( inputReader.GetLine() );
+					ICliCommand command = cliModule.GetCommand( line );
 					uiStream.WriteLine("Executing :" + line);
-					command.Execute();
+					uiStream.WriteLine( command.Execute().ToString() );
 				} else if(input == KeyCodes.Tab) {
-					IAutoCompleteSession autoCompleteSession = factory.Create<IAutoCompleteSession>(); 
+ 					IAutoCompleteSession autoCompleteSession = factory.Create<IAutoCompleteSession>(); 
 					ICliCommand command = cliModule.GetCommand( inputReader.GetLine() );
 					autoCompleteSession.Enter(command, autoCompletion => {
 						uiStream.UpdateLine(autoCompletion);
+						inputReader.ClearLine();
+						inputReader.Insert( autoCompleteSession.GetSelectedCompletion() );
 					});
-					inputReader.ClearLine();
-					inputReader.Insert( autoCompleteSession.GetSelectedCompletion() );
+
 
 				} else {
 					inputReader.Insert(input);

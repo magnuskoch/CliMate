@@ -27,7 +27,7 @@ namespace CliMate.source.view {
 
 		public void UpdateLine(string line, int caret) {
 			Console.CursorLeft = 0;
-			Console.Write( new String(' ', Console.WindowWidth));
+			Console.Write( new String(' ', Console.WindowWidth-1));
 			Console.CursorLeft = 0;
 			Console.Write(line);
 			Console.CursorLeft = caret;
