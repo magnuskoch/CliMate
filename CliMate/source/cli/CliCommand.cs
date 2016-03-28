@@ -33,6 +33,7 @@ namespace CliMate.source.cli {
 			object obj = object_.data;
 			MethodInfo methodInfo = method.data as MethodInfo;
 			object[] arguments = args.Select(arg => arg.data).ToArray();
+
 			return methodInfo.Invoke(obj, arguments);
 
 		}

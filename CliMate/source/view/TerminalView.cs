@@ -21,9 +21,6 @@ namespace CliMate.source.view {
 			this.factory = factory;
 		}
 
-		public event EventHandler autoCompleteRequested;
-		public event EventHandler executionRequested;
-
 		public void Enter() {
 			Console.WriteLine("hi");
 			bool quit = false;
