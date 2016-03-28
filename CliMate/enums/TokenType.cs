@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CliMate.interfaces {
-	internal interface IAutoCompletion {
+namespace CliMate.enums {
+	public enum TokenType {
+		Object, Method, Argument, Value
 	}
 }

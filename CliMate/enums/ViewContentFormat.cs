@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CliMate.interfaces {
-	internal interface ICommandDelegator {
+namespace CliMate.enums {
+	public enum ViewContentFormat {
+		Message, Warning, Error
 	}
 }

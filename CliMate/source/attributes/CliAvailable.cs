@@ -7,12 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CliMate {
-	public class CliMateExposed : Attribute, ICliMateObject {
+	public class CliAvailable : Attribute, ICliMateObject {
 		
 		public string name { get; set; }
 		private string manual;
 	
-		public CliMateExposed(string name, string manual = Text.NO_MANUAL) {
+		public CliAvailable(string name, string manual = Text.NO_MANUAL) {
 			this.name = name;
 			this.manual = manual;
 		}
