@@ -6,7 +6,7 @@ CliMate suports out-of-the-box auto completion, man-pages, and string feedback w
 
 	public void MyApp {
 
-		[CliExposed(alias:"MyCommand", manual:"Simply stuff")]
+		[CliExposed(alias:"MyCommand", manual:"Simple stuff")]
 		public void MyMethod() {
 		}
 	} 
