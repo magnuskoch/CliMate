@@ -17,8 +17,11 @@ namespace CliMate.source.tokens {
 		}
 
 		public List<IToken> GetTokens(string input) {
-			if(string.IsNullOrEmpty(input)) {
-				throw new ArgumentException("GetTokens recieved null or empty input !");
+			if(input == null) {
+				throw new ArgumentException("GetTokens recieved null input !");
+			}
+			if(input.Trim() == string.Empty) {
+				return new List<IToken>();
 			}
 			string[] methodStack;
 			string[] argValuePairs; 

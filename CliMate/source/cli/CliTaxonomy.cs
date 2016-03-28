@@ -21,8 +21,18 @@ namespace CliMate.source.cli {
 		}
 
 		public ICliCommand GetCommand(IList<IToken> tokens) {
+			if(tokens == null) {
+				throw new ArgumentException("Tried to get command form NULL tokens !");
+			}
+
 			ICliCommand command = factory.Create<ICliCommand>();
 			ICliObject level = objectProvider.GetCliObject();
+
+			if(tokens.Count == 0) {
+				command.object_ = level; 
+				return command;
+			}
+
 
 			int l = tokens.Count;
 			int i = 0;
@@ -56,9 +66,8 @@ namespace CliMate.source.cli {
 				}
 			}
 
+			command.matched = tokens.Take(i).ToList();
 			command.trailing = tokens.Skip(i).ToList();
-
-			// TODO : Generate a list of autocompletion suggestions
 
 			return command;
 		}

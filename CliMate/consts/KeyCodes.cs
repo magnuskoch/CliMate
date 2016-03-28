@@ -5,14 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CliMate.consts {
-	public class KeyCodes {
-		// TODO : refactor for cross platform
-		public const char Backspace = (char)8;		
-		public const char BackspaceOSX = (char)0;		
-		public const char TabOSX = (char)9;		
-		public const char ArrowLeft = (char)37;		
-		public const char ArrowRight = (char)39;		
-		public const char Return = (char)13;		
-		public const char ReturnOSX = (char)10;		
+	public static class KeyCodes {
+		public const int Backspace = 256;		
+		public const int Tab = 257;		
+		public const int ArrowLeft = 258;		
+		public const int ArrowRight = 259;		
+		public const int Return = 260;		
+		public const int Space = 261;		
 	}
 }

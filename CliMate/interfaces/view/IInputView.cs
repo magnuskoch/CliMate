@@ -10,8 +10,5 @@ namespace CliMate.interfaces.view {
 		void Update(string content, ViewContentFormat format );
 		string GetInput();
 		void Enter();
-		event EventHandler autoCompleteRequested;
-		event EventHandler executionRequested;
-
 	}
 }

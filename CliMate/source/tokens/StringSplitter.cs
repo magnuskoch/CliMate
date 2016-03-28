@@ -18,9 +18,10 @@ namespace CliMate.source.tokens {
 
 		public void Split(string input, out string[] methodStack, out string[] argValuePairs) {
 			int firstArgument = input.IndexOf(config.ARGUMENT_DELIMITER);
-
-			string objectMethodPart = input.Substring(0, firstArgument);
-			string argumentPart = input.Substring(firstArgument);
+			string objectMethodPart = firstArgument == -1 ? 
+				input : input.Substring(0, firstArgument);
+			string argumentPart = firstArgument == -1 ?
+				string.Empty : input.Substring(firstArgument);
 
 			methodStack = GetObjectMethodSplit(objectMethodPart);
 			argValuePairs = GetArgumentSplit(argumentPart);
@@ -28,8 +29,13 @@ namespace CliMate.source.tokens {
 		}
 
 		private string[] GetArgumentSplit(string input) {
+			if(input == null) {
+				throw new ArgumentException ("Tried to get argument split on null input !");
+			}
+			if (input.Length == 0) {
+				return new string[0];
+			}
 
-			var collapsed = new List<string>();
 			string[] argValuePairs = input.Split(
 				new string[] { config.ARGUMENT_DELIMITER },
 				StringSplitOptions.RemoveEmptyEntries
@@ -42,11 +48,17 @@ namespace CliMate.source.tokens {
 			for(int i=0; i<l; i++) {
 				string pair = argValuePairs[i];
 				int argEnd = pair.IndexOf(' ');
-				string arg = pair.Substring(0, argEnd);
-				string value = pair.Substring(argEnd).Trim();
 				int i_result = i * 2;
-				result[i_result + 0] = arg;
-				result[i_result + 1] = value;
+				if (argEnd == -1) {
+					// No value is present. Assign entire pair as argument name
+					result [i_result + 0] = pair;
+				} else {
+					string arg = pair.Substring(0, argEnd);
+					string value = pair.Substring(argEnd).Trim();
+
+					result[i_result + 0] = arg;
+					result[i_result + 1] = value;
+				}
 			}
 				
 			return result;

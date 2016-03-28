@@ -52,6 +52,7 @@
     <Compile Include="view\InputReaderTests.cs" />
     <Compile Include="cli\CliCommandTests.cs" />
     <Compile Include="context\CliMateTestContainer.cs" />
+    <Compile Include="view\TerminalAutoCompleteSessionTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

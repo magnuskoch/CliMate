@@ -15,7 +15,28 @@ namespace Tests.tokens {
 		
 		private static Container container = CliMateTestContainer.Create();
 
-		[Test ()]
+		[Test]
+		public void CanSplitWithNoArgumentDelimiter() {
+
+			// Arrange
+			string input = "test with no argument delimiter";
+			var splitter = new StringSplitter(container.GetInstance<Config>());
+
+			string[] methodStack;
+			string[] argValuePairs;
+
+			int expectedMethods = 5;
+			int expectedArgValuePairs = 0;
+
+			// Act
+			splitter.Split(input, out methodStack, out argValuePairs);
+
+			// Assert
+			Assert.AreEqual(expectedMethods, methodStack.Count());		
+			Assert.AreEqual(expectedArgValuePairs, argValuePairs.Count());		
+		}
+
+		[Test]
 		public void CanSplitComplexInput() {
 			// Arrange
 			string objectStandard = "object";
