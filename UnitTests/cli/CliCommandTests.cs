@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using CliMate.interfaces.cli;
 using CliMate.source.cli;
 using NUnit.Framework;
+using Tests.cli.data;
 
 namespace Tests.cli {
 
@@ -126,6 +127,43 @@ namespace Tests.cli {
 			// Assert
 			Assert.AreEqual(argument2Name,autoCompletion[0]);	
 			Assert.AreEqual(expected, autoCompletion.Count);
+		}
+
+		[Test]
+		public void CanPrintManualOnMissingMethod() {
+			// Arrange
+			var command = new CliCommand();	
+			command.object_ = new CliObject();
+			string expected = "manual";
+			command.object_.manual = expected; 
+
+			// Act
+			string actual = command.Execute() as string;
+				
+			// Assert
+			Assert.AreEqual(expected, actual);	
+		}
+
+		[Test]
+		public void CanPrintManualOnInvalidArguments() {
+			// Arrange
+			var command = new CliCommand();	
+
+			command.object_ = new CliObject();
+			command.object_.data = new TestObject();
+
+			string expected = "manual";
+			command.method = new CliObject();
+			command.method.data = typeof(TestObject).GetMethod("_method");			
+			command.method.manual = expected; 
+
+			command.args = new List<ICliObject>();
+
+			// Act
+			string actual = command.Execute() as string;
+				
+			// Assert
+			Assert.AreEqual(expected, actual);	
 		}
 	}
 }
