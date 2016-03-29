@@ -1,10 +1,12 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using CliMate.enums;
 using CliMate.interfaces.cli;
 using CliMate.interfaces.tokens;
 using CliMate.source.extensions;
-using CliMate.enums;
 
 namespace CliMate.source.cli {
 	public class CliCommand : ICliCommand {
@@ -26,16 +28,27 @@ namespace CliMate.source.cli {
 		}
 
 		public IList<IToken> matched {
-			get; set;
+			get; set;	
 		}
 		
 		public object Execute() {
+			Debug.Assert(object_ != null, "Expected command to at least have an object.");
+
+			if(method == null) {
+				return object_.manual;
+			}
+			Debug.Assert(args != null, "Expected args list to be initialized.");
+
 			object obj = object_.data;
 			MethodInfo methodInfo = method.data as MethodInfo;
 			object[] arguments = args.Select(arg => arg.data).ToArray();
-
-			return methodInfo.Invoke(obj, arguments);
-
+			try {
+				return methodInfo.Invoke(obj, arguments);
+			} catch(Exception) {
+				// We never want to show the user the content of an exception. Something went
+				// irrevocably wrong and was not handled. Let's print the manual.
+				return method.manual; 
+			}
 		}
 
 		public IList<string> GetAutoCompletion() {
