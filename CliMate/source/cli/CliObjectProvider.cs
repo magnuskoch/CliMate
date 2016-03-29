@@ -26,6 +26,7 @@ namespace CliMate.source.cli {
 			root.data = application;
 			root.type = CliObjectType.Object;
 			root.name = "root";
+			root.manual = "No manual implemented for root object";
 			root.children = GetChildren(root);
 			this.cliObject = root;
 		}
