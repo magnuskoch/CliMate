@@ -27,9 +27,11 @@ namespace CliMate.source.cli {
 
 			ICliCommand command = factory.Create<ICliCommand>();
 			ICliObject level = objectProvider.GetCliObject();
+			// If we cannot matched any tokens, we want the command to be able to at least
+			// provide information at the root level of the application. 
+			command.object_ = level; 
 
 			if(tokens.Count == 0) {
-				command.object_ = level; 
 				return command;
 			}
 
@@ -41,12 +43,14 @@ namespace CliMate.source.cli {
 			for(; i<l; i++) {
 				IToken token = tokens[i];
 				ICliObject child;
-				if(TryGetCliObject(token, level, out child) ) {
-					if(child.type == CliObjectType.Value) {
+				if (TryGetCliObject (token, level, out child)) {
+					if (child.type == CliObjectType.Value) {
 						break;
 					}
-					AssignObjectToCommand(command, child);
+					AssignObjectToCommand (command, child);
 					level = child;
+				} else {
+					break;
 				}
 			}
 

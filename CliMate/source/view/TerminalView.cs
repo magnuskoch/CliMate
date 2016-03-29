@@ -29,7 +29,6 @@ namespace CliMate.source.view {
 				if(input == KeyCodes.Return) {
 					string line = inputReader.ClearLine();
 					ICliCommand command = cliModule.GetCommand( line );
-					uiStream.WriteLine("Executing :" + line);
 					uiStream.WriteLine( command.Execute().ToString() );
 				} else if(input == KeyCodes.Tab) {
  					IAutoCompleteSession autoCompleteSession = factory.Create<IAutoCompleteSession>(); 
