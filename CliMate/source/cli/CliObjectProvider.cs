@@ -30,7 +30,15 @@ namespace CliMate.source.cli {
 
 		public ICliObject GetCliObject() {
 			Debug.Assert(cliObject != null, "Tried to get cliObject, but no analysis has been done yet !");
+			Reset(cliObject);
 			return cliObject; 	
+		}
+
+		private void Reset(ICliObject cliObject) {
+			foreach(ICliObject child in cliObject.children) {
+				Reset(child);
+			}
+			cliObject.Reset();
 		}
 
 		private List<ICliObject> GetChildren(ICliObject cliObject) {

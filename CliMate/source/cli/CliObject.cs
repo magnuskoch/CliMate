@@ -42,5 +42,13 @@ namespace CliMate.source.cli {
 		public CliObjectType type {
 			get; set;
 		}
+
+		public void Reset() {
+			// Value type are given data by the user through the command line in each session.
+			// We want to reset this data.
+			if (type == CliObjectType.Value) {
+				data = null;
+			}
+		}
 	}
 }
