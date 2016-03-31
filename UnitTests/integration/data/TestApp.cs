@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Tests.integration.data {
 	class TestApp {
-		[CliAvailable("obj")]
+		[CLI("obj")]
 		public TestObject _obj = new TestObject(); 
 	}
 }

@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Tests.integration.data {
 	class TestObject {
-		[CliAvailable("method")]
+		[CLI("method")]
 		public string _method(
-				[CliAvailable("arg1")] string _arg1,
-				[CliAvailable("arg2")] string _arg2
+				[CLI("arg1")] string _arg1,
+				[CLI("arg2")] string _arg2
 			) {
 			return _arg1 + _arg2;
 		}

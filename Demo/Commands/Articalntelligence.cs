@@ -15,9 +15,9 @@ namespace Demo.Commands {
 			throw new NotImplementedException();
 		}
 
-		[CliAvailable("bringToLife")]
+		[CLI("bringToLife")]
 		public string BringToLife(
-            [CliAvailable("archEnemy")]
+            [CLI("archEnemy")]
 			string archEnemy) {
 			return string.Format( "Let's find {0} !", archEnemy);
 		}
