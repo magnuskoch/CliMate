@@ -28,6 +28,10 @@ namespace CliMate.source.view {
 				int input = uiStream.ReadKey();
 				if(input == KeyCodes.Return) {
 					string line = inputReader.ClearLine();
+					if (line == "q") {
+						quit = true;
+						continue;
+					}
 					ICliCommand command = cliModule.GetCommand( line );
 					uiStream.WriteLine( command.Execute().ToString() );
 				} else if(input == KeyCodes.Tab) {
@@ -43,6 +47,7 @@ namespace CliMate.source.view {
 					uiStream.UpdateLine( inputReader.GetLine(), inputReader.GetPosition() + 1 );
 				}
 			}
+			uiStream.WriteLine("Quiting");
 		}
 
 		public string GetInput() {

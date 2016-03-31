@@ -67,7 +67,6 @@
     <Compile Include="interfaces\view\IInputReader.cs" />
     <Compile Include="interfaces\view\IInputView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="source\attributes\CliAvailable.cs" />
     <Compile Include="source\base\ContextObject.cs" />
     <Compile Include="source\cli\CliCommand.cs" />
     <Compile Include="source\cli\CliObject.cs" />
@@ -89,6 +88,7 @@
     <Compile Include="source\view\TerminalAutoCompleteSession.cs" />
     <Compile Include="source\view\UIStream.cs" />
     <Compile Include="interfaces\view\IUIStream.cs" />
+    <Compile Include="source\attributes\CLI.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lib\" />
