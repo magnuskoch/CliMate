@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Reflection;
+using CliMate.Factories;
 using CliMate.interfaces.cli;
 using CliMate.source.cli;
+using Moq;
 using NUnit.Framework;
 
 namespace Tests.cli {
@@ -21,10 +23,40 @@ namespace Tests.cli {
 			return co;
 		}
 
+		private ArgsMethodSynchronizer GetSyncher() {
+			var factory = new Factory(CliMateTestContainer.Create());
+			var syncher = new ArgsMethodSynchronizer(factory);
+			return syncher;
+		}
+
+		[Test]
+		public void CanMatchOptionalArgs() {
+
+			// Arrange
+			var syncher = GetSyncher();
+			MethodInfo methodInfo = typeof(ArgsMethodSynchronizerTests).GetMethod("ArgAndOptionalArg");
+
+			object valueA = new object();
+			
+			var args = new List<ICliObject> { GetArgument("a", valueA) };
+			object[] synchedArgs;
+			int exptectedArgs = 2;
+
+			// Act
+			syncher.TrySync(methodInfo, args, out synchedArgs);
+
+			// Assert
+			Assert.AreEqual(exptectedArgs, synchedArgs.Length);
+			Assert.AreSame(valueA, synchedArgs[0]);	
+			Assert.AreEqual(null, synchedArgs[1]);
+			
+		}
+
 		[Test]
 		public void CanMatchWhenAllArgsArePresentButIncorrectlyOrdered() {
+
 			// Arrange
-			var syncher = new ArgsMethodSynchronizer();
+			var syncher = GetSyncher();
 			MethodInfo methodInfo = typeof(ArgsMethodSynchronizerTests).GetMethod("MultipleArgs");
 
 			object valueA = new object();
@@ -44,7 +76,7 @@ namespace Tests.cli {
 		[Test]
 		public void CanNotMatchWhenArgsAreMissing() {
 			// Arrange
-			var syncher = new ArgsMethodSynchronizer();
+			var syncher = GetSyncher();
 			MethodInfo methodInfo = typeof(ArgsMethodSynchronizerTests).GetMethod("MultipleArgs");
 
 			object valueA = new object();
@@ -57,16 +89,6 @@ namespace Tests.cli {
 
 			// Assert
 			Assert.That(!canSync);	
-		}
-
-		[Test]
-		public void CanMatchOptionalArgs() {
-			// Arrange
-		
-			// Act
-		
-			// Assert
-		
 		}
 	}	
 }	

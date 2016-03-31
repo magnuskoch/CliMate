@@ -1,17 +1,44 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using CliMate.Factories;
 using CliMate.interfaces.cli;
 using CliMate.source.cli;
 
 namespace CliMate.source.cli {
 	public class ArgsMethodSynchronizer : IArgsMethodSynchronizer {
 		
+		private Factory factory;
+
+		public ArgsMethodSynchronizer(Factory factory) {
+			this.factory = factory;
+		}
+
 		public bool TrySync(MethodInfo methodInfo, IList<ICliObject> args, out object[] argsSynced) {
-			Dictionary<string,int> parameterNameOrderMap = GetParameterNameOrderMap( methodInfo.GetParameters() );
+			ParameterInfo[] parameters = methodInfo.GetParameters();
+			Dictionary<string,int> parameterNameOrderMap = GetParameterNameOrderMap(parameters);
+			args = AddOptionalParameters(args, parameters);
 			return Sync(args, parameterNameOrderMap, out argsSynced);
 		}	
-		
+	
+		private IList<ICliObject> AddOptionalParameters(IList<ICliObject> original, ParameterInfo[] parameters) {
+			var appended = new List<ICliObject>(original);
+
+			foreach(ParameterInfo param in parameters) {
+				if(param.IsOptional && appended.Count( a => a.name == param.Name ) == 0) {
+					appended.Add( GetDummyObjectForOptionalParameter( param.Name ) );
+				}
+			}
+			return appended;
+		}
+
+		private ICliObject GetDummyObjectForOptionalParameter(string name) {
+			ICliObject dummy = factory.Create<ICliObject>();
+			dummy.name = name;
+			dummy.data = null;
+			return dummy;
+		}
+
 		private bool Sync(IList<ICliObject> args, Dictionary<string,int> parameterOrderMap, out object[] argsSynced) {
 			argsSynced = null;
 
