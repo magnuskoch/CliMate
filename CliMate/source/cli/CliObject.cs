@@ -42,5 +42,9 @@ namespace CliMate.source.cli {
 		public CliObjectType type {
 			get; set;
 		}
+
+		public void Reset() {
+			data = null;
+		}
 	}
 }

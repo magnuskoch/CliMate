@@ -1,13 +1,10 @@
-using CliMate.enums;
-using CliMate.Factories;
-using CliMate.interfaces.cli;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using CliMate.Factories;
+using CliMate.enums;
+using CliMate.interfaces.cli;
 
 namespace CliMate.source.cli {
 	public class CliObjectProvider : ICliObjectProvider {
@@ -33,7 +30,15 @@ namespace CliMate.source.cli {
 
 		public ICliObject GetCliObject() {
 			Debug.Assert(cliObject != null, "Tried to get cliObject, but no analysis has been done yet !");
+			Reset(cliObject);
 			return cliObject; 	
+		}
+
+		private void Reset(ICliObject cliObject) {
+			foreach(ICliObject child in cliObject.children) {
+				Reset(child);
+			}
+			cliObject.Reset();
 		}
 
 		private List<ICliObject> GetChildren(ICliObject cliObject) {
