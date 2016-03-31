@@ -28,6 +28,7 @@ namespace CliMate.context {
 			container.Register<IUIStream, UIStream>();
 			container.Register<ICliModule, CliModule>();
 			container.Register<object>( () => application, Lifestyle.Singleton);
+			container.Register<IArgsMethodSynchronizer,ArgsMethodSynchronizer>();
 
 			container.Verify();
 

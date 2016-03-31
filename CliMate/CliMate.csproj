@@ -89,6 +89,8 @@
     <Compile Include="source\view\UIStream.cs" />
     <Compile Include="interfaces\view\IUIStream.cs" />
     <Compile Include="source\attributes\CLI.cs" />
+    <Compile Include="interfaces\model\cli\IArgsMethodSynchronizer.cs" />
+    <Compile Include="source\cli\ArgsMethodSynchronizer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lib\" />
