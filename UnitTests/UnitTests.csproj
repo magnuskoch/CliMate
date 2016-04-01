@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5AFF2275-1724-4C7B-88CD-84BFFD325E1E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>UnitTests</RootNamespace>
+    <AssemblyName>UnitTests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="SimpleInjector">
+      <HintPath>..\packages\SimpleInjector.3.1.2\lib\net45\SimpleInjector.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="cli\CliObjectProviderTests.cs" />
+    <Compile Include="cli\CliTaxonomyTests.cs" />
+    <Compile Include="cli\data\TestApp.cs" />
+    <Compile Include="cli\data\TestObject.cs" />
+    <Compile Include="integration\data\TestApp.cs" />
+    <Compile Include="integration\data\TestObject.cs" />
+    <Compile Include="integration\SystemTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="tokens\StringSplitterTests.cs" />
+    <Compile Include="tokens\TokenizerTests.cs" />
+    <Compile Include="view\InputReaderTests.cs" />
+    <Compile Include="cli\CliCommandTests.cs" />
+    <Compile Include="context\CliMateTestContainer.cs" />
+    <Compile Include="view\TerminalAutoCompleteSessionTests.cs" />
+    <Compile Include="cli\ArgsMethodSynchronizerTests.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="cli\" />
+    <Folder Include="integration\" />
+    <Folder Include="Properties\" />
+    <Folder Include="tokens\" />
+    <Folder Include="view\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CliMate\CliMate.csproj">
+      <Project>{61F557C8-625F-41BF-841C-4F2F3264F1CC}</Project>
+      <Name>CliMate</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>
