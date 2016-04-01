@@ -14,5 +14,6 @@ namespace CliMate.interfaces.cli {
 		ICliObject parent { get; set; }
 		List<ICliObject> children { get; set; }
 		object data { get; set; }
+		void Reset();
 	}
 }

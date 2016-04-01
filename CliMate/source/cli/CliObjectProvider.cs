@@ -1,13 +1,10 @@
-using CliMate.enums;
-using CliMate.Factories;
-using CliMate.interfaces.cli;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using CliMate.Factories;
+using CliMate.enums;
+using CliMate.interfaces.cli;
 
 namespace CliMate.source.cli {
 	public class CliObjectProvider : ICliObjectProvider {
@@ -33,7 +30,15 @@ namespace CliMate.source.cli {
 
 		public ICliObject GetCliObject() {
 			Debug.Assert(cliObject != null, "Tried to get cliObject, but no analysis has been done yet !");
+			Reset(cliObject);
 			return cliObject; 	
+		}
+
+		private void Reset(ICliObject cliObject) {
+			foreach(ICliObject child in cliObject.children) {
+				Reset(child);
+			}
+			cliObject.Reset();
 		}
 
 		private List<ICliObject> GetChildren(ICliObject cliObject) {
@@ -59,8 +64,8 @@ namespace CliMate.source.cli {
 
 			FieldInfo[] fieldInfos = cliObject.data.GetType().GetFields();
 			foreach(FieldInfo fieldInfo in fieldInfos) {
-				List<CliAvailable> cliAvailables = fieldInfo.GetCustomAttributes<CliAvailable>().ToList();
-				foreach (CliAvailable cliAvailable in cliAvailables) {
+				List<CLI> cliAvailables = fieldInfo.GetCustomAttributes<CLI>().ToList();
+				foreach (CLI cliAvailable in cliAvailables) {
 					ICliObject child = GetCliObject(
 						CliObjectType.Object, 
 						fieldInfo.Name, 
@@ -71,8 +76,8 @@ namespace CliMate.source.cli {
 
 			PropertyInfo[] propertyInfos = cliObject.data.GetType().GetProperties();
 			foreach(PropertyInfo propertyInfo in propertyInfos) {
-				List<CliAvailable> cliAvailables = propertyInfo.GetCustomAttributes<CliAvailable>().ToList();
-				foreach (CliAvailable cliAvailable in cliAvailables) {
+				List<CLI> cliAvailables = propertyInfo.GetCustomAttributes<CLI>().ToList();
+				foreach (CLI cliAvailable in cliAvailables) {
 					ICliObject child = GetCliObject(
 						CliObjectType.Object, 
 						propertyInfo.Name, 
@@ -91,8 +96,8 @@ namespace CliMate.source.cli {
 			MethodInfo[] methodInfos = cliObject.data.GetType().GetMethods();
 
 			foreach (MethodInfo methodInfo in methodInfos) {
-				List<CliAvailable> cliAvailables = methodInfo.GetCustomAttributes<CliAvailable>().ToList();
-				foreach (CliAvailable cliAvailable in cliAvailables) {
+				List<CLI> cliAvailables = methodInfo.GetCustomAttributes<CLI>().ToList();
+				foreach (CLI cliAvailable in cliAvailables) {
 					ICliObject child = GetCliObject(
 						CliObjectType.Method, 
 						methodInfo.Name, 
@@ -111,8 +116,8 @@ namespace CliMate.source.cli {
 			ParameterInfo[] parameters = (cliObject.data as MethodInfo).GetParameters();
 			foreach(ParameterInfo parameter in parameters) {
 				
-				List<CliAvailable> cliAvailables = parameter.GetCustomAttributes<CliAvailable>().ToList();
-				foreach (CliAvailable cliAvailable in cliAvailables) {
+				List<CLI> cliAvailables = parameter.GetCustomAttributes<CLI>().ToList();
+				foreach (CLI cliAvailable in cliAvailables) {
 					ICliObject child = GetCliObject(
 						CliObjectType.Value, 
 						parameter.Name, 
@@ -125,7 +130,7 @@ namespace CliMate.source.cli {
 			return children;
 		}
 
-		private ICliObject GetCliObject(CliObjectType type, string name, CliAvailable attribute, object data) {
+		private ICliObject GetCliObject(CliObjectType type, string name, CLI attribute, object data) {
 
 			ICliObject cliObject = factory.Create<ICliObject>();
 			cliObject.type = type;

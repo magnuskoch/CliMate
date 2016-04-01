@@ -3,17 +3,23 @@ using CliMate.interfaces.cli;
 using CliMate.source.cli;
 using NUnit.Framework;
 using Tests.cli.data;
+using Moq;
 
 namespace Tests.cli {
 
 	[TestFixture]
 	public class CliCommandTests {
 
+		private CliCommand GetCommand() {
+			var argsMethodSynchronizer = new Mock<IArgsMethodSynchronizer>();
+			return new CliCommand(argsMethodSynchronizer.Object);
+		}
+
 		[Test]
 		public void CanGenerateAutoCompletionOnNoData() {
 
 			// Arrange
-			var command = new CliCommand();
+			var command = GetCommand();
 			int expected = 0;
 
 			// Act
@@ -29,7 +35,7 @@ namespace Tests.cli {
 		public void CanGenerateAutoCompletionOnObject() {
 
 			// Arrange
-			var command = new CliCommand();
+			var command = GetCommand();
 			command.object_ = new CliObject();
 			command.object_.children = new List<ICliObject>();
 
@@ -59,7 +65,7 @@ namespace Tests.cli {
 		public void CanGenerateAutoCompletionOnMethod() {
 
 			// Arrange
-			var command = new CliCommand();
+			var command = GetCommand();
 
 			command.method = new CliObject();
 			command.method.children = new List<ICliObject>();
@@ -94,7 +100,7 @@ namespace Tests.cli {
 		public void CanGenerateAutoCompletionOnArgs() {
 
 			// Arrange
-			var command = new CliCommand();
+			var command = GetCommand();
 
 			command.method = new CliObject();
 			command.method.children = new List<ICliObject>();
@@ -132,7 +138,7 @@ namespace Tests.cli {
 		[Test]
 		public void CanPrintManualOnMissingMethod() {
 			// Arrange
-			var command = new CliCommand();	
+			var command = GetCommand();	
 			command.object_ = new CliObject();
 			string expected = "manual";
 			command.object_.manual = expected; 
@@ -147,7 +153,7 @@ namespace Tests.cli {
 		[Test]
 		public void CanPrintManualOnInvalidArguments() {
 			// Arrange
-			var command = new CliCommand();	
+			var command = GetCommand();	
 
 			command.object_ = new CliObject();
 			command.object_.data = new TestObject();

@@ -25,12 +25,12 @@ namespace CliMate.source.view {
 			string matched = GetMatchedPart(command);
 
 			int i = 0;
-			int l = completions.Count - 1;
+			int l = completions.Count;
 
 			do {
  				completion = matched + completions[i];
 				uiUpdate(completion);
-				i = l / (i+1); 
+				i = (i+1) % l; 
 			} while (uiStream.ReadKey() == KeyCodes.Tab);
 			
 			completion += " ";
