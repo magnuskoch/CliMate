@@ -12,7 +12,7 @@ namespace CliMate {
 		public string name { get; set; }
 		private string manual;
 	
-		public CLI(string name, string manual = Text.NO_MANUAL) {
+		public CLI(string name, string manual = null) {
 			this.name = name;
 			this.manual = manual;
 		}

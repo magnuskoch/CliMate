@@ -1,10 +1,9 @@
-using CliMate.interfaces.cli;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CliMate.assets;
 using CliMate.enums;
+using CliMate.interfaces.cli;
+using CliMate.source.extensions;
 
 namespace CliMate.source.cli {
 	public class CliObject : ICliObject {
@@ -27,8 +26,14 @@ namespace CliMate.source.cli {
 			get; set;
 		}
 
+		private string _manual;
+
 		public string manual {
-			get; set;
+			get {
+				return _manual ?? GetDefaultManual();  
+			} set {
+				_manual = value;
+			}
 		}
 
 		public string name {
@@ -50,5 +55,14 @@ namespace CliMate.source.cli {
 				data = null;
 			}
 		}
+
+		private string GetDefaultManual() {
+			if( children.IsNullOrEmpty()) {
+				return Text.NO_MANUAL;
+			}
+			string[] availableChildren = children.Select( child => child.alias[0] ).ToArray();
+			return string.Join(",", availableChildren); 
+		}
+
 	}
 }
