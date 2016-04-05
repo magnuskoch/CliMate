@@ -17,9 +17,9 @@ namespace Demo.Commands {
 
 		[CLI("bringToLife")]
 		public string BringToLife(
-            [CLI("archEnemy")]
-			string archEnemy) {
-			return string.Format( "Let's find {0} !", archEnemy);
+            [CLI("archEnemy")] string archEnemy,
+            [CLI("treatment")] string treatment) {
+			return string.Format( "Let's find {0} and give him {1} !", archEnemy, treatment);
 		}
 
 		public string GetManual() {

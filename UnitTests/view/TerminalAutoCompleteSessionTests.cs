@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CliMate.config;
 using CliMate.consts;
 using CliMate.interfaces.cli;
 using CliMate.interfaces.view;
@@ -15,6 +16,7 @@ namespace Tests.view {
 		public void CanRunSession() {
 			// Arrange
 
+			var config = new Config();
 			var uiStream = new Mock<IUIStream>();
 			var uiInput = new Queue<int>();
 		  
@@ -29,7 +31,7 @@ namespace Tests.view {
 
 			uiStream.Setup( u => u.ReadKey() ).Returns( () => uiInput.Dequeue() );
 
-			var autoCompleter = new TerminalAutoCompleteSession(uiStream.Object);
+			var autoCompleter = new TerminalAutoCompleteSession(uiStream.Object, config);
 			var command = new Mock<ICliCommand>();
 			var completion = new List<string>{ "suggestion1", "suggestion2" };
 			command.Setup( c => c.GetAutoCompletion() ).Returns( completion ); 
