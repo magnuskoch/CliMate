@@ -12,5 +12,6 @@ namespace CliMate.consts {
 		public const int ArrowRight = 259;		
 		public const int Return = 260;		
 		public const int Space = 261;		
+		public const int TabShift = 262;		
 	}
 }

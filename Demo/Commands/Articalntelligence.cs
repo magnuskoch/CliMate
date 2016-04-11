@@ -26,7 +26,12 @@ namespace Demo.Commands {
 		public string Kill() {
 			return "The world is saved !";
 		}
-	
+
+		[CLI("inspectHardware")]
+		public string InspectHardware() {
+			return "It is a beautiful machinery !";
+		}
+
 		public string GetManual() {
 			return "available commands: bringToLife";
 		}
