@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using CliMate.interfaces.cli;
+using CliMate.interfaces.tokens;
 using CliMate.source.cli;
+using CliMate.source.tokenizer;
+using Moq;
 using NUnit.Framework;
 using Tests.cli.data;
-using Moq;
 
 namespace Tests.cli {
 
@@ -61,6 +63,42 @@ namespace Tests.cli {
 			Assert.AreEqual(method2Name,autoCompletion[1]);	
 		}
 
+		[Test]
+		public void CanPruneAutoCompletionOnPartialInput() {
+
+			// Arrange
+			var command = GetCommand();
+			command.object_ = new CliObject();
+			command.object_.children = new List<ICliObject>();
+
+			var trailing = new Token();
+			trailing.value = "matched";
+			command.trailing = new List<IToken>{ trailing };
+			
+
+			string matchedMethod = "matchedMethod";
+			string nonMatchedMethod = "nonMatchedMethod";
+
+			var method1 = new CliObject();
+			method1.name = matchedMethod; 
+			method1.alias = new List<string> { matchedMethod };
+
+			var method2 = new CliObject();
+			method2.name = nonMatchedMethod; 
+			method2.alias = new List<string> { nonMatchedMethod };
+
+			command.object_.children.Add(method1);
+			command.object_.children.Add(method2);
+
+			int expectedMatches = 1;
+	
+			// Act
+			IList<string> autoCompletion = command.GetAutoCompletion();
+
+			// Assert
+			Assert.AreEqual(expectedMatches, autoCompletion.Count);
+			Assert.AreEqual(matchedMethod,autoCompletion[0]);	
+		}
 		[Test]
 		public void CanGenerateAutoCompletionOnMethod() {
 
