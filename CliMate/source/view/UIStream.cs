@@ -17,7 +17,9 @@ namespace CliMate.source.view {
 			actionMap[ConsoleKey.Backspace] = () => KeyCodes.Backspace;
 			actionMap[ConsoleKey.Tab] = () => KeyCodes.Tab;
 			actionMap[ConsoleKey.LeftArrow] = () => KeyCodes.ArrowLeft;
-			actionMap[ConsoleKey.RightArrow] = () => KeyCodes.ArrowRight;
+			actionMap[ConsoleKey.LeftArrow] = () => KeyCodes.ArrowLeft;
+			actionMap[ConsoleKey.UpArrow] = () => KeyCodes.ArrowUp;
+			actionMap[ConsoleKey.DownArrow] = () => KeyCodes.ArrowDown;
 			actionMap[ConsoleKey.Enter] = () => KeyCodes.Return;
 
 			actionMapShift[ConsoleKey.Tab] = () => KeyCodes.TabShift;;

@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CliMate.consts {
 	public static class KeyCodes {
@@ -13,5 +8,7 @@ namespace CliMate.consts {
 		public const int Return = 260;		
 		public const int Space = 261;		
 		public const int TabShift = 262;		
+		public const int ArrowUp = 263;		
+		public const int ArrowDown = 264;		
 	}
 }

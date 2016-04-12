@@ -29,6 +29,7 @@ namespace CliMate.context {
 			container.Register<ICliModule, CliModule>();
 			container.Register<object>( () => application, Lifestyle.Singleton);
 			container.Register<IArgsMethodSynchronizer,ArgsMethodSynchronizer>();
+			container.Register<IHistory,History>();
 
 			container.Verify();
 
