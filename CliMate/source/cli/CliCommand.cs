@@ -71,10 +71,18 @@ namespace CliMate.source.cli {
 
 		private List<string> ICliObject2AutoCompletionStrings(IList<ICliObject> cliObjects) {
 			var completions = new List<string>();
-			foreach(ICliObject cliObject in cliObjects) {
-				string prefix = 
-					cliObject.type == CliObjectType.Value ? "-" : string.Empty;
-				completions.Add(prefix + cliObject.alias[0]);
+			// If we have more than one trailing token, it makes little sense to attempt autocompletion
+			// and we just default to returning the empty list.
+			if(trailing == null || trailing.Count <= 1) {
+				string trailingValue = trailing.IsNullOrEmpty() ? null : trailing[0].value;
+				foreach(ICliObject cliObject in cliObjects) {
+					string prefix = 
+						cliObject.type == CliObjectType.Value ? "-" : string.Empty;
+					string completion = prefix + cliObject.alias[0];
+					if(trailingValue == null || completion.Contains(trailingValue)) {
+						completions.Add(completion);
+					}
+				}
 			}
 			return completions;
 		}

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using CliMate.config;
 using CliMate.consts;
@@ -30,12 +31,22 @@ namespace CliMate.source.view {
 
 			int i = 0;
 			int l = completions.Count;
+			int currentKey = KeyCodes.Tab;
+			int shift = 0;
+			bool done = false;
 
 			do {
+				Debug.Assert( 0 >= i && i < l, String.Format("i must be in range [0.{0}], but was {1}", i,l));
  				completion = matched + completions[i];
 				uiUpdate(completion);
-				i = (i+1) % l; 
-			} while (uiStream.ReadKey() == KeyCodes.Tab);
+				// "+l" to ammend the case where i becomes negative because shift=-1
+				currentKey = uiStream.ReadKey();
+				if(currentKey == KeyCodes.Tab) shift = 1;
+				else if(currentKey == KeyCodes.TabShift) shift = -1;
+				else done = true;
+				i = (i+shift+l) % l; 
+
+			} while (!done);
 			
 			completion += " ";
 		} 

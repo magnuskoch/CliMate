@@ -22,6 +22,16 @@ namespace Demo.Commands {
 			return string.Format( "Let's find {0} and give him {1} !", archEnemy, treatment);
 		}
 
+		[CLI("deathByMagnet")]
+		public string Kill() {
+			return "The world is saved !";
+		}
+
+		[CLI("inspectHardware")]
+		public string InspectHardware() {
+			return "It is a beautiful machinery !";
+		}
+
 		public string GetManual() {
 			return "available commands: bringToLife";
 		}

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -91,6 +90,8 @@
     <Compile Include="source\attributes\CLI.cs" />
     <Compile Include="interfaces\model\cli\IArgsMethodSynchronizer.cs" />
     <Compile Include="source\cli\ArgsMethodSynchronizer.cs" />
+    <Compile Include="interfaces\model\cli\IHistory.cs" />
+    <Compile Include="source\cli\History.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lib\" />
