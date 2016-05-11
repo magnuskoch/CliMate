@@ -50,6 +50,12 @@ namespace CliMate.source.view {
 			return line;
 		}
 
+		public string ClearAndReplaceLine(string s) {
+			string line = ClearLine();
+			Insert(s);
+			return line;
+		}
+
 		private void CreateActionMap() {
 			actionMap = new Dictionary<int, Action<int>>();
 
