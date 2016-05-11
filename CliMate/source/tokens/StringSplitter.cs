@@ -40,13 +40,12 @@ namespace CliMate.source.tokens {
 				new string[] { config.ARGUMENT_DELIMITER },
 				StringSplitOptions.RemoveEmptyEntries
 			);
-			Debug.Assert(argValuePairs.Length % 2 == 0, "Only arg value sequences are support");
 
 			var result = new string[argValuePairs.Length * 2];
 
 			int l = argValuePairs.Length;
 			for(int i=0; i<l; i++) {
-				string pair = argValuePairs[i];
+				string pair = argValuePairs[i].Trim();
 				int argEnd = pair.IndexOf(' ');
 				int i_result = i * 2;
 				if (argEnd == -1) {

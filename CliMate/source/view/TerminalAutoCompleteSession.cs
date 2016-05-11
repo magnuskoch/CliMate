@@ -36,14 +36,14 @@ namespace CliMate.source.view {
 			bool done = false;
 
 			do {
-				Debug.Assert( 0 >= i && i < l, String.Format("i must be in range [0.{0}], but was {1}", i,l));
+				Debug.Assert( 0 <= i && i < l, String.Format("i must be in range [0.{0}], but was {1}", l-1,i));
  				completion = matched + completions[i];
 				uiUpdate(completion);
-				// "+l" to ammend the case where i becomes negative because shift=-1
 				currentKey = uiStream.ReadKey();
 				if(currentKey == KeyCodes.Tab) shift = 1;
 				else if(currentKey == KeyCodes.TabShift) shift = -1;
 				else done = true;
+				// "+l" to ammend the case where i becomes negative because shift=-1
 				i = (i+shift+l) % l; 
 
 			} while (!done);

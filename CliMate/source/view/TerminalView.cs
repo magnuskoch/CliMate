@@ -47,9 +47,13 @@ namespace CliMate.source.view {
 						inputReader.Insert( autoCompleteSession.GetSelectedCompletion() );
 					});
 				} else if(input == KeyCodes.ArrowUp) {
-					uiStream.UpdateLine(history.GetPrevious());
+					string previous = history.GetPrevious();
+					uiStream.UpdateLine(previous);
+					inputReader.ClearAndReplaceLine(previous);
 				} else if(input == KeyCodes.ArrowDown) {
-					uiStream.UpdateLine(history.GetNext());
+					string next = history.GetNext();
+					uiStream.UpdateLine(next);
+					inputReader.ClearAndReplaceLine(next);
 				} else {
 					inputReader.Insert(input);
 					uiStream.UpdateLine( inputReader.GetLine(), inputReader.GetPosition() + 1 );

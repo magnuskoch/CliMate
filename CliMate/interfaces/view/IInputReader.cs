@@ -13,6 +13,7 @@ namespace CliMate.interfaces.view {
 		void Insert(string s);
 		int GetPosition();
 		string ClearLine();
+		string ClearAndReplaceLine(string s);
 		string GetLine();
 	}
 }
