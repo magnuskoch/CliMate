@@ -92,6 +92,9 @@
     <Compile Include="source\cli\ArgsMethodSynchronizer.cs" />
     <Compile Include="interfaces\model\cli\IHistory.cs" />
     <Compile Include="source\cli\History.cs" />
+    <Compile Include="interfaces\model\autoComplete\IAutoCompletionProvider.cs" />
+    <Compile Include="source\autoComplete\FileNameAutoCompleter.cs" />
+    <Compile Include="source\autoComplete\FileSystemAutoCompleter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lib\" />
