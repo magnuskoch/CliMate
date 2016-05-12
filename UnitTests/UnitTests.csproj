@@ -54,7 +54,6 @@
     <Compile Include="context\CliMateTestContainer.cs" />
     <Compile Include="view\TerminalAutoCompleteSessionTests.cs" />
     <Compile Include="cli\ArgsMethodSynchronizerTests.cs" />
-    <Compile Include="autoComplete\FileNameAutoCompleterTests.cs" />
     <Compile Include="autoComplete\FileSystemAutoCompleterTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

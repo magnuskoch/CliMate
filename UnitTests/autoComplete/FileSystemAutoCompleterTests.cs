@@ -11,7 +11,7 @@ namespace Tests.autoComplete {
 		private const string TEST_DATA_PATH = "../../test-data/directory-structure";
 
 		[Test]
-		public void MyClass() {
+		public void CanAutoCompleteOnNoInput() {
 			// Arrange
 			string input = string.Empty;	
 			string expected = "root";

@@ -4,6 +4,7 @@ namespace CliMate.source {
 	public class FileSystemAutoCompleter {
 
 		public IList<string> GetAutoCompletions(string input) {
+			return null;
 		}	
 	}	
 }	
