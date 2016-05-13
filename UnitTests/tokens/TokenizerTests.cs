@@ -1,14 +1,10 @@
-using CliMate.context;
+using System.Collections.Generic;
+using CliMate.config;
 using CliMate.enums;
 using CliMate.interfaces.tokens;
 using CliMate.source.tokens;
-using SimpleInjector;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
+using SimpleInjector;
 
 namespace Tests.tokens {
 	[TestFixture]
@@ -26,8 +22,9 @@ namespace Tests.tokens {
 
 			string input = string.Format("{0} {1} {2} -{3} {4} -{5} {6}", 
 				_object, _object, method, argument, value, argument, value);
-
-			var tokenizer = new Tokenizer(container.GetInstance<IStringSplitter>());
+			
+			var config = new Config();
+			var tokenizer = new Tokenizer(container.GetInstance<IStringSplitter>(), config);
 			const int expectedTokens = 7;
 
 			// Act

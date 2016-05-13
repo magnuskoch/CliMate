@@ -3,16 +3,19 @@ using System.Linq;
 using CliMate.enums;
 using CliMate.interfaces;
 using CliMate.interfaces.cli;
+using CliMate.interfaces.tokens;
 using CliMate.source.extensions;
 
 namespace CliMate.source {
 
 	public class CliCommandAutoCompleter : IAutoCompletionProvider<ICliCommand> {
 
-		public IAutoCompletionProvider<string> fileSystemAutoCompletionProvider;
+		private IAutoCompletionProvider<string> fileSystemAutoCompletionProvider;
+		private ITokenizer tokenizer;
 
-		public CliCommandAutoCompleter(IAutoCompletionProvider<string> fileSystemAutoCompletionProvider) {
+		public CliCommandAutoCompleter(IAutoCompletionProvider<string> fileSystemAutoCompletionProvider, ITokenizer tokenizer) {
 			this.fileSystemAutoCompletionProvider = fileSystemAutoCompletionProvider;
+			this.tokenizer = tokenizer;
 		}
 
 
@@ -28,7 +31,8 @@ namespace CliMate.source {
 			}
 
 			if(autoCompletions.IsNullOrEmpty()) {
-				autoCompletions = fileSystemAutoCompletionProvider.GetAutoCompletions( "DEBUG INSERT REAL DATA");//cliCommand.trailing[0].value);		
+				string trailing = tokenizer.RebuildTokens(cliCommand.trailing);
+				autoCompletions = fileSystemAutoCompletionProvider.GetAutoCompletions(trailing);		
 			}
 			return autoCompletions;
 		}

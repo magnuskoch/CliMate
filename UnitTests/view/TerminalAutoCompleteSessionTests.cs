@@ -4,6 +4,7 @@ using CliMate.config;
 using CliMate.consts;
 using CliMate.interfaces;
 using CliMate.interfaces.cli;
+using CliMate.interfaces.tokens;
 using CliMate.interfaces.view;
 using CliMate.source.view;
 using Moq;
@@ -32,10 +33,11 @@ namespace Tests.view {
 
 			uiStream.Setup( u => u.ReadKey() ).Returns( () => uiInput.Dequeue() );
 
+			var tokenizer = new Mock<ITokenizer>();
 			var completion = new List<string>{ "suggestion1", "suggestion2" };
 			var autoCompleter = new Mock<IAutoCompletionProvider<ICliCommand>>();
 			autoCompleter.Setup( ac => ac.GetAutoCompletions(It.IsAny<ICliCommand>())).Returns( completion );
-			var autoCompleteSession = new TerminalAutoCompleteSession(uiStream.Object, autoCompleter.Object, config);
+			var autoCompleteSession = new TerminalAutoCompleteSession(uiStream.Object, autoCompleter.Object, config, tokenizer.Object);
 			var command = new Mock<ICliCommand>();
 
 			var actual = new List<string>();

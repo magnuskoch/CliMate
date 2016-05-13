@@ -1,19 +1,21 @@
-using CliMate.enums;
-using CliMate.interfaces.tokens;
-using CliMate.source.tokenizer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CliMate.config;
+using CliMate.enums;
+using CliMate.interfaces.tokens;
+using CliMate.source.extensions;
+using CliMate.source.tokenizer;
 
 namespace CliMate.source.tokens {
 	public class Tokenizer : ITokenizer {
 
 		private IStringSplitter splitter;	
+		private Config config;
 
-		public Tokenizer(IStringSplitter splitter) {
+		public Tokenizer(IStringSplitter splitter, Config config) {
 			this.splitter = splitter;
+			this.config = config;
 		}
 
 		public List<IToken> GetTokens(string input) {
@@ -33,6 +35,22 @@ namespace CliMate.source.tokens {
 			CreateArgValuePairTokens(argValuePairs, result);
 
 			return result;
+		}
+		public string RebuildTokens(IList<IToken> tokens) {
+			if(tokens.IsNullOrEmpty()) {
+				return string.Empty;
+			}
+			string[] originalValues = tokens.Select( token => {
+						string prefix = token.type == TokenType.Argument ? 
+							config.ARGUMENT_DELIMITER.Trim() 
+							: string.Empty;
+						return prefix + token.value;
+					}).ToArray();
+			string matched = string.Join(" ", originalValues);
+			if (matched.Length > 0) {
+				matched += " ";
+			}
+			return matched;
 		}
 
 		private void CreateMethodStackTokens(string[] methodStack, List<IToken> target) {

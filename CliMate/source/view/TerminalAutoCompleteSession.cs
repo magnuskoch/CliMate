@@ -7,6 +7,7 @@ using CliMate.consts;
 using CliMate.enums;
 using CliMate.interfaces;
 using CliMate.interfaces.cli;
+using CliMate.interfaces.tokens;
 using CliMate.interfaces.view;
 using CliMate.source.extensions;
 
@@ -17,11 +18,13 @@ namespace CliMate.source.view {
 		private IUIStream uiStream;
 		private Config config;
 		private IAutoCompletionProvider<ICliCommand> autoCompletionProvider;
+		private ITokenizer tokenizer;
 
-		public TerminalAutoCompleteSession(IUIStream uiStream, IAutoCompletionProvider<ICliCommand> autoCompletionProvider, Config config) {
+		public TerminalAutoCompleteSession(IUIStream uiStream, IAutoCompletionProvider<ICliCommand> autoCompletionProvider, Config config, ITokenizer tokenizer) {
 			this.uiStream = uiStream;
 			this.config = config;
 			this.autoCompletionProvider = autoCompletionProvider;
+			this.tokenizer = tokenizer;
 		}
 
 		public void Enter(ICliCommand command, Action<string> uiUpdate) {	
@@ -30,7 +33,7 @@ namespace CliMate.source.view {
 			if (completions.Count == 0) {
 				return;
 			}
-			string matched = GetMatchedPart(command);
+			string matched = tokenizer.RebuildTokens(command.matched);
 
 			int i = 0;
 			int l = completions.Count;
