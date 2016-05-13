@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using CliMate.config;
 using CliMate.consts;
+using CliMate.interfaces;
 using CliMate.interfaces.cli;
 using CliMate.interfaces.view;
 using CliMate.source.view;
@@ -31,10 +32,11 @@ namespace Tests.view {
 
 			uiStream.Setup( u => u.ReadKey() ).Returns( () => uiInput.Dequeue() );
 
-			var autoCompleter = new TerminalAutoCompleteSession(uiStream.Object, config);
-			var command = new Mock<ICliCommand>();
 			var completion = new List<string>{ "suggestion1", "suggestion2" };
-			command.Setup( c => c.GetAutoCompletion() ).Returns( completion ); 
+			var autoCompleter = new Mock<IAutoCompletionProvider<ICliCommand>>();
+			autoCompleter.Setup( ac => ac.GetAutoCompletions(It.IsAny<ICliCommand>())).Returns( completion );
+			var autoCompleteSession = new TerminalAutoCompleteSession(uiStream.Object, autoCompleter.Object, config);
+			var command = new Mock<ICliCommand>();
 
 			var actual = new List<string>();
 			Action<string> updater = (s) => {
@@ -44,7 +46,7 @@ namespace Tests.view {
 			int expectedSuggestions = 3;	
 
 			// Act
-			autoCompleter.Enter(command.Object, updater);
+			autoCompleteSession.Enter(command.Object, updater);
 
 			// Assert
 			Assert.AreEqual(expectedElementsInQueueAfterSession, uiInput.Count);

@@ -2,9 +2,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using CliMate.interfaces;
 
 namespace CliMate.source {
-	public class FileSystemAutoCompleter {
+	public class FileSystemAutoCompleter : IAutoCompletionProvider<string> {
 
 		public IList<string> GetAutoCompletions(string input) {
 			input = input.Trim();

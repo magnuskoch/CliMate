@@ -62,29 +62,5 @@ namespace CliMate.source.cli {
 			}
 		}
 
-		public IList<string> GetAutoCompletion() {
-			if(!args.IsNullOrEmpty()) return ICliObject2AutoCompletionStrings(method.children.Except( args ).ToList() );
-			if(method != null) return ICliObject2AutoCompletionStrings(method.children);
-			if(object_ != null) return ICliObject2AutoCompletionStrings(object_.children);
-			else return new List<string>();
-		}
-
-		private List<string> ICliObject2AutoCompletionStrings(IList<ICliObject> cliObjects) {
-			var completions = new List<string>();
-			// If we have more than one trailing token, it makes little sense to attempt autocompletion
-			// and we just default to returning the empty list.
-			if(trailing == null || trailing.Count <= 1) {
-				string trailingValue = trailing.IsNullOrEmpty() ? null : trailing[0].value;
-				foreach(ICliObject cliObject in cliObjects) {
-					string prefix = 
-						cliObject.type == CliObjectType.Value ? "-" : string.Empty;
-					string completion = prefix + cliObject.alias[0];
-					if(trailingValue == null || completion.Contains(trailingValue)) {
-						completions.Add(completion);
-					}
-				}
-			}
-			return completions;
-		}
 	}
 }

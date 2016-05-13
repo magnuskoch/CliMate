@@ -11,6 +11,5 @@ namespace CliMate.interfaces.cli {
 		IList<IToken> matched { get; set; }
 		IList<IToken> trailing { get; set; }
 		object Execute();
-		IList<string> GetAutoCompletion();
 	}
 }

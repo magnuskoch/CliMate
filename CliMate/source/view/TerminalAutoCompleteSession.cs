@@ -5,6 +5,7 @@ using System.Linq;
 using CliMate.config;
 using CliMate.consts;
 using CliMate.enums;
+using CliMate.interfaces;
 using CliMate.interfaces.cli;
 using CliMate.interfaces.view;
 using CliMate.source.extensions;
@@ -15,15 +16,17 @@ namespace CliMate.source.view {
 		private string completion;
 		private IUIStream uiStream;
 		private Config config;
+		private IAutoCompletionProvider<ICliCommand> autoCompletionProvider;
 
-		public TerminalAutoCompleteSession(IUIStream uiStream, Config config) {
+		public TerminalAutoCompleteSession(IUIStream uiStream, IAutoCompletionProvider<ICliCommand> autoCompletionProvider, Config config) {
 			this.uiStream = uiStream;
 			this.config = config;
+			this.autoCompletionProvider = autoCompletionProvider;
 		}
 
 		public void Enter(ICliCommand command, Action<string> uiUpdate) {	
 
-			IList<string> completions = command.GetAutoCompletion();
+			IList<string> completions = autoCompletionProvider.GetAutoCompletions(command); 
 			if (completions.Count == 0) {
 				return;
 			}

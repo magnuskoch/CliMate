@@ -94,6 +94,7 @@
     <Compile Include="source\cli\History.cs" />
     <Compile Include="interfaces\model\autoComplete\IAutoCompletionProvider.cs" />
     <Compile Include="source\autoComplete\FileSystemAutoCompleter.cs" />
+    <Compile Include="source\autoComplete\CliCommandAutoCompleter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lib\" />

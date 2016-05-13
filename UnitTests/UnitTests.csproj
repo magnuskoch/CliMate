@@ -55,6 +55,7 @@
     <Compile Include="view\TerminalAutoCompleteSessionTests.cs" />
     <Compile Include="cli\ArgsMethodSynchronizerTests.cs" />
     <Compile Include="autoComplete\FileSystemAutoCompleterTests.cs" />
+    <Compile Include="autoComplete\CliCommandAutoCompleterTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
