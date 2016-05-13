@@ -28,7 +28,7 @@ namespace CliMate.source {
 			}
 
 			if(autoCompletions.IsNullOrEmpty()) {
-				autoCompletions = fileSystemAutoCompletionProvider.GetAutoCompletions( cliCommand.trailing[0].value);		
+				autoCompletions = fileSystemAutoCompletionProvider.GetAutoCompletions( "DEBUG INSERT REAL DATA");//cliCommand.trailing[0].value);		
 			}
 			return autoCompletions;
 		}

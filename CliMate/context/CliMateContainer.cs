@@ -5,6 +5,7 @@ using CliMate.interfaces;
 using CliMate.interfaces.cli;
 using CliMate.interfaces.tokens;
 using CliMate.interfaces.view;
+using CliMate.source;
 using CliMate.source.cli;
 using CliMate.source.tokens;
 using CliMate.source.view;
@@ -30,6 +31,8 @@ namespace CliMate.context {
 			container.Register<object>( () => application, Lifestyle.Singleton);
 			container.Register<IArgsMethodSynchronizer,ArgsMethodSynchronizer>();
 			container.Register<IHistory,History>();
+			container.Register<IAutoCompletionProvider<ICliCommand>, CliCommandAutoCompleter>();
+			container.Register<IAutoCompletionProvider<string>, FileSystemAutoCompleter>();
 
 			container.Verify();
 
