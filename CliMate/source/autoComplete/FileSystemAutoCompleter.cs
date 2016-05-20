@@ -8,6 +8,7 @@ namespace CliMate.source {
 	public class FileSystemAutoCompleter : IAutoCompletionProvider<string> {
 
 		public IList<string> GetAutoCompletions(string input) {
+			input = input ?? string.Empty;
 			input = input.Trim();
 
 			string[] split = input.Split( Path.DirectorySeparatorChar);

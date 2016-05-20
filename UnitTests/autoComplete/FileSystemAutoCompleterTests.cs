@@ -44,5 +44,20 @@ namespace Tests.autoComplete {
 			Assert.AreEqual(expctedNumberOfCompletions, completions.Count);
 			Assert.AreEqual(expected, completions[0]);	
 		}
+
+		[Test]
+		public void CanAutoCompleteOnNoInput() {
+			// Arrange
+			string input = string.Empty;
+			const int expectedMinimumNumberOfCompletions = 1;
+
+			var autoCompleter = new FileSystemAutoCompleter();
+
+			// Act
+			IList<string> completions = autoCompleter.GetAutoCompletions(input);
+
+			// Assert
+			Assert.That( completions.Count >= expectedMinimumNumberOfCompletions );
+		}
 	}
 }

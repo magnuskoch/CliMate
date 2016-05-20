@@ -31,7 +31,7 @@ namespace CliMate.source {
 			}
 
 			if(autoCompletions.IsNullOrEmpty()) {
-				string trailing = tokenizer.RebuildTokens(cliCommand.trailing);
+				string trailing = cliCommand.matched.Last().value;
 				autoCompletions = fileSystemAutoCompletionProvider.GetAutoCompletions(trailing);		
 			}
 			return autoCompletions;
