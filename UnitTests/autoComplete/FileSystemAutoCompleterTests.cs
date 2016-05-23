@@ -15,7 +15,7 @@ namespace Tests.autoComplete {
 		public void CanAutoCompleteOnRootInput() {
 			// Arrange
 			string input = TEST_DATA_PATH;	
-			const string expected = "root";
+			string expected = Path.Combine(TEST_DATA_PATH,"root");
 			const int expctedNumberOfCompletions = 1;
 
 			var autoCompleter = new FileSystemAutoCompleter();
@@ -32,7 +32,7 @@ namespace Tests.autoComplete {
 		public void CanAutoCompleteOnPartialInput() {
 			// Arrange
 			string input = Path.Combine(TEST_DATA_PATH, "RO");
-			const string expected = "root";
+			string expected = Path.Combine(TEST_DATA_PATH, "root");
 			const int expctedNumberOfCompletions = 1;
 
 			var autoCompleter = new FileSystemAutoCompleter();
@@ -45,6 +45,23 @@ namespace Tests.autoComplete {
 			Assert.AreEqual(expected, completions[0]);	
 		}
 
+		[Test]
+		public void CanAutoCompleteOnDirectoryTree() {
+			// Arrange
+			string input = Path.Combine( TEST_DATA_PATH, "root/" );	
+			string expected = Path.Combine(TEST_DATA_PATH, "root/child");
+			const int expctedNumberOfCompletions = 1;
+
+			var autoCompleter = new FileSystemAutoCompleter();
+
+			// Act
+			IList<string> completions = autoCompleter.GetAutoCompletions(input);
+		
+			// Assert
+			Assert.AreEqual(expctedNumberOfCompletions, completions.Count);
+			Assert.AreEqual(expected, completions[0]);	
+		
+		}
 		[Test]
 		public void CanAutoCompleteOnNoInput() {
 			// Arrange

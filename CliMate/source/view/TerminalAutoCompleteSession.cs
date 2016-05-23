@@ -35,17 +35,14 @@ namespace CliMate.source.view {
 			}
 			IList<IToken> matchedTokens = command.matched;
 
-			// It is bit tricky do determine when a value-type argument is complete, since we cannot know what constitutes a valied value. 
-			// To remedy this situation we have a ratcher complicated check.
-
+			// It is bit tricky do determine when a value-type argument is complete, since we cannot know what constitutes a valid value,
+			// which depending on the concrete use can be anything. To remedy this situation we have a ratcher complicated check.
+			// First we get past the edge case where no input at all is recognised.
 			if(!matchedTokens.IsNullOrEmpty()) {
-				//Console.WriteLine("type" + matchedTokens.Last().type);
-				// Then if the last matched token is a value, we would like to replace this entire value. We need to manually remove this value,
-				// since we cannot know beforehand whether a value is invalid (might be a partial file name).
-				if (!command.trailing.IsNullOrEmpty() && command.trailing[0].type != TokenType.Delimiter) {
-					if(matchedTokens.Last().type == TokenType.Value) {
-						matchedTokens = matchedTokens.Take( matchedTokens.Count - 1 ).ToList();
-					}
+				bool delimiterEncountered = !command.trailing.IsNullOrEmpty() && command.trailing[0].type == TokenType.Delimiter;
+
+				if(matchedTokens.Last().type == TokenType.Value && !delimiterEncountered) {
+					matchedTokens = matchedTokens.Take( matchedTokens.Count - 1 ).ToList();
 				}
 
 			}
