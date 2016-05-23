@@ -33,7 +33,16 @@ namespace CliMate.source.view {
 			if (completions.Count == 0) {
 				return;
 			}
-			string matched = tokenizer.RebuildTokens(command.matched);
+			IList<IToken> matchedTokens = command.matched;
+			// If there are matched tokens, but no trailing tokens
+			if(!matchedTokens.IsNullOrEmpty() && command.trailing.IsNullOrEmpty()) {
+				// Then if the last matched token is a value, we would like to replace this entire value. We need to manually remove this value,
+				// since we cannot know beforehand whether a value is invalid (might be a partial file name).
+				if(matchedTokens.Last().type == TokenType.Value) {
+					matchedTokens = matchedTokens.Take( matchedTokens.Count - 1 ).ToList();
+				}
+			}
+			string matched = tokenizer.RebuildTokens(matchedTokens);
 
 			int i = 0;
 			int l = completions.Count;

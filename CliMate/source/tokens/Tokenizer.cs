@@ -27,8 +27,9 @@ namespace CliMate.source.tokens {
 			}
 			string[] methodStack;
 			string[] argValuePairs; 
+			bool hasEndDelimiter;
 			
-            splitter.Split(input, out methodStack, out argValuePairs);
+            splitter.Split(input, out methodStack, out argValuePairs, out hasEndDelimiter);
 
 			var result = new List<IToken>();
 			CreateMethodStackTokens(methodStack, result);
@@ -36,6 +37,7 @@ namespace CliMate.source.tokens {
 
 			return result;
 		}
+
 		public string RebuildTokens(IList<IToken> tokens) {
 			if(tokens.IsNullOrEmpty()) {
 				return string.Empty;
@@ -51,6 +53,15 @@ namespace CliMate.source.tokens {
 				matched += " ";
 			}
 			return matched;
+		}
+
+		private void CreateEndDelimiterTokens(bool hasEndDelimiter, List<IToken> target) {
+			if(hasEndDelimiter) {
+				var token = new Token();
+				token.type = TokenType.Delimiter;
+				token.value = null;
+				target.Add(token);
+			}
 		}
 
 		private void CreateMethodStackTokens(string[] methodStack, List<IToken> target) {

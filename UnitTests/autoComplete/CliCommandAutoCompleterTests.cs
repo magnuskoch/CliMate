@@ -23,8 +23,7 @@ namespace Tests.autoComplete {
 		private CliCommandAutoCompleter GetCliCommandAutoCompleter() {
 			var stringCompleterMock = new Mock<IAutoCompletionProvider<string>>();
 			stringCompleterMock.Setup( s => s.GetAutoCompletions( It.IsAny<string>())).Returns( new List<string>() );
-			var tokenizer = new Mock<ITokenizer>();
-			var cliCommandAutoCompleter = new CliCommandAutoCompleter(stringCompleterMock.Object, tokenizer.Object);
+			var cliCommandAutoCompleter = new CliCommandAutoCompleter(stringCompleterMock.Object);
 			return cliCommandAutoCompleter;
 		}
 

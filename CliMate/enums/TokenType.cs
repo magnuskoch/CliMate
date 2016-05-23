@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace CliMate.enums {
 	public enum TokenType {
-		Object, Method, Argument, Value
+		Object, Method, Argument, Value, Delimiter
 	}
 }

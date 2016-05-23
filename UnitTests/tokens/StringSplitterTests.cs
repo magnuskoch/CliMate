@@ -27,9 +27,10 @@ namespace Tests.tokens {
 
 			int expectedMethods = 5;
 			int expectedArgValuePairs = 0;
+			bool hasEndDelimiter;
 
 			// Act
-			splitter.Split(input, out methodStack, out argValuePairs);
+			splitter.Split(input, out methodStack, out argValuePairs, out hasEndDelimiter);
 
 			// Assert
 			Assert.AreEqual(expectedMethods, methodStack.Count());		
@@ -50,9 +51,10 @@ namespace Tests.tokens {
 
 			string[] methodStack;
 			string[] argValuePairs;
+			bool hasEndDelimiter;
 
 			// Act
-			splitter.Split(input, out methodStack, out argValuePairs);
+			splitter.Split(input, out methodStack, out argValuePairs, out hasEndDelimiter);
 
 			// Assert 
 			Assert.AreEqual(objectStandard, methodStack[0]);

@@ -11,11 +11,9 @@ namespace CliMate.source {
 	public class CliCommandAutoCompleter : IAutoCompletionProvider<ICliCommand> {
 
 		private IAutoCompletionProvider<string> fileSystemAutoCompletionProvider;
-		private ITokenizer tokenizer;
 
-		public CliCommandAutoCompleter(IAutoCompletionProvider<string> fileSystemAutoCompletionProvider, ITokenizer tokenizer) {
+		public CliCommandAutoCompleter(IAutoCompletionProvider<string> fileSystemAutoCompletionProvider) {
 			this.fileSystemAutoCompletionProvider = fileSystemAutoCompletionProvider;
-			this.tokenizer = tokenizer;
 		}
 
 
@@ -31,7 +29,7 @@ namespace CliMate.source {
 			}
 
 			if(autoCompletions.IsNullOrEmpty()) {
-				string trailing = cliCommand.matched.Last().value;
+				string trailing = cliCommand.matched.IsNullOrEmpty() ? null : cliCommand.matched.Last().value;
 				autoCompletions = fileSystemAutoCompletionProvider.GetAutoCompletions(trailing);		
 			}
 			return autoCompletions;
