@@ -10,7 +10,8 @@ using Tests.integration.data;
 namespace Tests.integration {
 	[TestFixture]
 	public class SystemTests {
-		[Test ()]
+
+		[Test]
 		public void CanMatchCommandToObject() {
 			// Arrange
 			var app = new TestApp();

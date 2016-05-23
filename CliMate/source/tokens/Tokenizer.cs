@@ -43,7 +43,7 @@ namespace CliMate.source.tokens {
 			if(tokens.IsNullOrEmpty()) {
 				return string.Empty;
 			}
-			string[] originalValues = tokens.Select( token => {
+			string[] originalValues = tokens.Where( token => token.value != null).Select( token => {
 						string prefix = token.type == TokenType.Argument ? 
 							config.ARGUMENT_DELIMITER.Trim() 
 							: string.Empty;
