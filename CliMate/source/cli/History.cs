@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CliMate.interfaces;
+using CliMate.source.extensions;
 
 namespace CliMate.source.cli {
 	public class History : IHistory {
@@ -21,11 +22,17 @@ namespace CliMate.source.cli {
 		}
 
 		public string GetPrevious() {
+			if(history.IsNullOrEmpty()) {
+				return string.Empty;
+			}
 			sessionIndex--;
 			return GetCurrent();
 		}
 
 		public string GetNext() {
+			if(history.IsNullOrEmpty()) {
+				return string.Empty;
+			}
 			sessionIndex++;
 			return GetCurrent();
 		}

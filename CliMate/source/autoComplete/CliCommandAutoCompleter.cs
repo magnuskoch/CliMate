@@ -18,7 +18,7 @@ namespace CliMate.source {
 
 
 		public IList<string> GetAutoCompletions(ICliCommand cliCommand) {
-			IList<string> autoCompletions = null;
+ 			IList<string> autoCompletions = null;
 
 			if(!cliCommand.args.IsNullOrEmpty()) {
 				autoCompletions = ICliObject2AutoCompletionStrings(cliCommand, cliCommand.method.children.Except( cliCommand.args ).ToList() );
@@ -37,6 +37,16 @@ namespace CliMate.source {
 
 		private IList<string> ICliObject2AutoCompletionStrings(ICliCommand cliCommand, IList<ICliObject> cliObjects) {
 			var completions = new List<string>();
+
+			// If nothing is trailing, we have nothing to autocomplete on. This can be the case when autocompleting in
+			// the middle of a "value" type token.
+			if (cliCommand.trailing.IsNullOrEmpty()) {
+				// However there is an edge case. If there are also no matched tokens, the input is empty, and in this
+				// case we do want to auto complete on the command objects.
+				if (!cliCommand.matched.IsNullOrEmpty()) {
+					return completions;
+				}
+			}
 			// If we have more than one trailing token, it makes little sense to attempt autocompletion
 			// and we just default to returning the empty list.
 			if(cliCommand.trailing == null || cliCommand.trailing.Count <= 1) {
