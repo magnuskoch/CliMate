@@ -37,6 +37,7 @@ namespace CliMate.source {
 
 		private IList<string> ICliObject2AutoCompletionStrings(ICliCommand cliCommand, IList<ICliObject> cliObjects) {
 			var completions = new List<string>();
+			string trailingValue = null;
 
 			// If nothing is trailing, we have nothing to autocomplete on. This can be the case when autocompleting in
 			// the middle of a "value" type token.
@@ -47,10 +48,13 @@ namespace CliMate.source {
 					return completions;
 				}
 			}
+			else {
+				trailingValue = cliCommand.trailing[0].value;
+			}
+
 			// If we have more than one trailing token, it makes little sense to attempt autocompletion
 			// and we just default to returning the empty list.
 			if(cliCommand.trailing == null || cliCommand.trailing.Count <= 1) {
-				string trailingValue = cliCommand.trailing.IsNullOrEmpty() ? null : cliCommand.trailing[0].value;
 				foreach(ICliObject cliObject in cliObjects) {
 					string prefix = 
 						cliObject.type == CliObjectType.Value ? "-" : string.Empty;
