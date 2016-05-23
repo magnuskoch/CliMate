@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace CliMate.interfaces.tokens {
 	public interface IStringSplitter {
-		void Split(string input, out string[] methodStack, out string[] argValuePairs);
+		void Split(string input, out string[] methodStack, out string[] argValuePairs, out bool hasEndDelimiter);
 	}
 }

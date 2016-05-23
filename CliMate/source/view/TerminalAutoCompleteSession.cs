@@ -5,7 +5,9 @@ using System.Linq;
 using CliMate.config;
 using CliMate.consts;
 using CliMate.enums;
+using CliMate.interfaces;
 using CliMate.interfaces.cli;
+using CliMate.interfaces.tokens;
 using CliMate.interfaces.view;
 using CliMate.source.extensions;
 
@@ -15,19 +17,36 @@ namespace CliMate.source.view {
 		private string completion;
 		private IUIStream uiStream;
 		private Config config;
+		private IAutoCompletionProvider<ICliCommand> autoCompletionProvider;
+		private ITokenizer tokenizer;
 
-		public TerminalAutoCompleteSession(IUIStream uiStream, Config config) {
+		public TerminalAutoCompleteSession(IUIStream uiStream, IAutoCompletionProvider<ICliCommand> autoCompletionProvider, Config config, ITokenizer tokenizer) {
 			this.uiStream = uiStream;
 			this.config = config;
+			this.autoCompletionProvider = autoCompletionProvider;
+			this.tokenizer = tokenizer;
 		}
 
 		public void Enter(ICliCommand command, Action<string> uiUpdate) {	
 
-			IList<string> completions = command.GetAutoCompletion();
+			IList<string> completions = autoCompletionProvider.GetAutoCompletions(command); 
 			if (completions.Count == 0) {
 				return;
 			}
-			string matched = GetMatchedPart(command);
+			IList<IToken> matchedTokens = command.matched;
+
+			// It is bit tricky do determine when a value-type argument is complete, since we cannot know what constitutes a valid value,
+			// which depending on the concrete use can be anything. To remedy this situation we have a ratcher complicated check.
+			// First we get past the edge case where no input at all is recognised.
+			if(!matchedTokens.IsNullOrEmpty()) {
+				bool delimiterEncountered = !command.trailing.IsNullOrEmpty() && command.trailing[0].type == TokenType.Delimiter;
+
+				if(matchedTokens.Last().type == TokenType.Value && !delimiterEncountered) {
+					matchedTokens = matchedTokens.Take( matchedTokens.Count - 1 ).ToList();
+				}
+
+			}
+			string matched = tokenizer.RebuildTokens(matchedTokens);
 
 			int i = 0;
 			int l = completions.Count;
@@ -48,7 +67,7 @@ namespace CliMate.source.view {
 
 			} while (!done);
 			
-			completion += " ";
+			//completion += " ";
 		} 
 
 		private string GetMatchedPart(ICliCommand command) {

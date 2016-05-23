@@ -10,7 +10,8 @@ using Tests.integration.data;
 namespace Tests.integration {
 	[TestFixture]
 	public class SystemTests {
-		[Test ()]
+
+		[Test]
 		public void CanMatchCommandToObject() {
 			// Arrange
 			var app = new TestApp();
@@ -41,13 +42,14 @@ namespace Tests.integration {
 
 			Container container = CliMateContainer.Create(app);
 			ICliModule cliModule = container.GetInstance<ICliModule>();
+			IAutoCompletionProvider<ICliCommand> autoCompletionProvider = container.GetInstance<IAutoCompletionProvider<ICliCommand>>();
 
 			int expectedAutoCompletions = 1;
 			string expectedAutoCompletion = "obj";
 				
 			// Act
 			ICliCommand command = cliModule.GetCommand( string.Empty );
-			IList<string> autoCompletions = command.GetAutoCompletion();
+			IList<string> autoCompletions = autoCompletionProvider.GetAutoCompletions( command );
 
 			// Assert
 			Assert.AreEqual(expectedAutoCompletions, autoCompletions.Count);

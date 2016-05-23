@@ -16,7 +16,7 @@ namespace CliMate.source.tokens {
 			this.config = config;
 		}
 
-		public void Split(string input, out string[] methodStack, out string[] argValuePairs) {
+		public void Split(string input, out string[] methodStack, out string[] argValuePairs, out bool hasEndDelimiter) {
 			int firstArgument = input.IndexOf(config.ARGUMENT_DELIMITER);
 			string objectMethodPart = firstArgument == -1 ? 
 				input : input.Substring(0, firstArgument);
@@ -25,7 +25,7 @@ namespace CliMate.source.tokens {
 
 			methodStack = GetObjectMethodSplit(objectMethodPart);
 			argValuePairs = GetArgumentSplit(argumentPart);
-
+			hasEndDelimiter = input.Last().ToString() == config.END_DELIMITER;
 		}
 
 		private string[] GetArgumentSplit(string input) {

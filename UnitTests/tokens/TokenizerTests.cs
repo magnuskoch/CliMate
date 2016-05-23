@@ -1,14 +1,11 @@
-using CliMate.context;
+using System.Collections.Generic;
+using System.Linq;
+using CliMate.config;
 using CliMate.enums;
 using CliMate.interfaces.tokens;
 using CliMate.source.tokens;
-using SimpleInjector;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
+using SimpleInjector;
 
 namespace Tests.tokens {
 	[TestFixture]
@@ -16,7 +13,39 @@ namespace Tests.tokens {
 
 		private static Container container = CliMateTestContainer.Create();
 
-		[Test ()]
+		[Test]
+		public void CanParseEndDelimiter() {
+			// Arrange
+			var config = container.GetInstance<Config>();
+			string input = "Test" + config.END_DELIMITER;
+			var tokenizer = new Tokenizer(container.GetInstance<IStringSplitter>(), config);
+			var expectedTypeOfLastToken = TokenType.Delimiter;
+
+
+			// Act
+			List<IToken> tokens = tokenizer.GetTokens(input);	
+
+			// Assert
+			Assert.AreEqual(expectedTypeOfLastToken, tokens.Last().type);	
+		}
+	
+		[Test]
+		public void CanParseNoEndDelimiter() {
+			// Arrange
+			string input = "Test";
+			var config = container.GetInstance<Config>();
+			var tokenizer = new Tokenizer(container.GetInstance<IStringSplitter>(), config);
+			var disallowedEndToken = TokenType.Delimiter;
+
+
+			// Act
+			List<IToken> tokens = tokenizer.GetTokens(input);	
+
+			// Assert
+			Assert.AreNotEqual(disallowedEndToken, tokens.Last().type);	
+		}
+
+		[Test]
 		public void CanParseAllTypes() {
 			// Arrange
 			string _object = "object";
@@ -26,8 +55,9 @@ namespace Tests.tokens {
 
 			string input = string.Format("{0} {1} {2} -{3} {4} -{5} {6}", 
 				_object, _object, method, argument, value, argument, value);
-
-			var tokenizer = new Tokenizer(container.GetInstance<IStringSplitter>());
+			
+			var config = new Config();
+			var tokenizer = new Tokenizer(container.GetInstance<IStringSplitter>(), config);
 			const int expectedTokens = 7;
 
 			// Act
