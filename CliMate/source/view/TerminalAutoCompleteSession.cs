@@ -36,6 +36,7 @@ namespace CliMate.source.view {
 			IList<IToken> matchedTokens = command.matched;
 			// If there are matched tokens, but no trailing tokens
 			if(!matchedTokens.IsNullOrEmpty() && command.trailing.IsNullOrEmpty()) {
+				Console.WriteLine(matchedTokens.Last().type);
 				// Then if the last matched token is a value, we would like to replace this entire value. We need to manually remove this value,
 				// since we cannot know beforehand whether a value is invalid (might be a partial file name).
 				if(matchedTokens.Last().type == TokenType.Value) {

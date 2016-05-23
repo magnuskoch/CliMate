@@ -34,6 +34,7 @@ namespace CliMate.source.tokens {
 			var result = new List<IToken>();
 			CreateMethodStackTokens(methodStack, result);
 			CreateArgValuePairTokens(argValuePairs, result);
+			CreateEndDelimiterTokens(hasEndDelimiter, result);
 
 			return result;
 		}
